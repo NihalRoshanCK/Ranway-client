@@ -7,6 +7,7 @@ import HomeAdmin from './modules/admin/pages/Home';
 import HubAdmin from './modules/hub_admin/pages/Home'
 import HubAdminLogin from './modules/hub_admin/pages/Login'
 import Profile from './modules/user/pages/profile';
+import Loader from './modules/user/components/Loader';
 export default function App() {
   
   return (
@@ -19,7 +20,9 @@ export default function App() {
       <Route path='hubadminlogin/' element={<HubAdminLogin/>}></Route>
       <Route path='admin/*' index element={<HomeAdmin/>}></Route>
       <Route path='login/' element={<AdminLogin/>}></Route>
-      <Route path='profile' element={<Profile/>}></Route>
+      <Route path='profile/' element={<Profile/>}></Route>
+      <Route path='loader/' element={<Loader/>}></Route>
+
       
 
     </Routes>

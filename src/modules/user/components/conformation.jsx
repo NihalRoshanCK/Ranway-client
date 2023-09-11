@@ -27,7 +27,7 @@ function Conformation({is_active,price,booking,handleOpen }) {
           currency: "INR",
           name: "Runway",
           description: "",
-          order_id:String.valueOf(booking.id),
+          // order_id:String.valueOf(booking.id),
           image: "https://imgs.search.brave.com/fcVsu9h8HCc69MKAaqIoIky_NOpehUh9b_HGLUkFtLg/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA3/MzI0Mjg5MC9waG90/by9wcml2YXRlLWpl/dC1vbi1haXJwb3J0/LXJ1bndheS5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9aHJV/Rm55azBITVd5N1Fo/dzhDb3Y3TXQ5OWtl/ODJQdGZDMGp2Q296/QW9UMD0",
         //   order_id: "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
           handler: async function  (response) {

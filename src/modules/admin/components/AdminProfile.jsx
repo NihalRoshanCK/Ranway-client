@@ -18,8 +18,8 @@ import {
 function AdminProfile() {
   return (
         <>
-    <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url(https://instagram.fcok6-2.fna.fbcdn.net/v/t51.2885-19/277546360_3108737912697658_4973979873422620599_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.fcok6-2.fna.fbcdn.net&_nc_cat=110&_nc_ohc=naNuIQxA5xgAX_x_MZ6&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfCSaNZkzq6e4TTZjXNR7PEfOLojTq3dIKV9eldgJM0HWQ&oe=64D09C88&_nc_sid=8b3546)] bg-cover	bg-center">
-        <div className="absolute inset-0 h-full w-full bg-blue-500/50" />
+    <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url(https://imgs.search.brave.com/Mm1uoXquVhpY1L8mxinbbjaR8n2oWkfAje6OCxlMqbQ/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/MDM2MTQ0NzItOGM5/M2Q1NmU5MmNlP2l4/bGliPXJiLTQuMC4z/Jml4aWQ9TTN3eE1q/QTNmREI4TUh4bGVI/QnNiM0psTFdabFpX/UjhNVGg4Zkh4bGJu/d3dmSHg4Zkh3PSZ3/PTEwMDAmcT04MA)] bg-cover	bg-center">
+        <div className="absolute inset-0 h-full w-full  bg-blue-500/50" />
     </div>
       <Card className="mx-3 -mt-16 mb-6 lg:mx-4">
         <CardBody className="p-4">

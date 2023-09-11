@@ -53,7 +53,7 @@ function Profile() {
   return (
     <>
     <NavbarUser/>
-     <div className="relative h-72 w-full overflow-hidden rounded-xl bg-[url(https://instagram.fcok6-2.fna.fbcdn.net/v/t51.2885-19/277546360_3108737912697658_4973979873422620599_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.fcok6-2.fna.fbcdn.net&_nc_cat=110&_nc_ohc=naNuIQxA5xgAX_x_MZ6&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfCSaNZkzq6e4TTZjXNR7PEfOLojTq3dIKV9eldgJM0HWQ&oe=64D09C88&_nc_sid=8b3546)] bg-cover	bg-center">
+    <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url(https://imgs.search.brave.com/b5ZRS813z6S51yTEKSjolrf5sH_VCAvSH6X-sW8ThWU/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE0/NjUwNTY4MzYwNDEt/N2Y0M2FjMjdkY2I1/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/bGVIQnNiM0psTFda/bFpXUjhPSHg4ZkdW/dWZEQjhmSHg4ZkE9/PSZ3PTEwMDAmcT04/MA.jpeg)] bg-cover	bg-center">
         <div className="absolute inset-0 h-full w-full bg-blue-500/50" />
     </div>
       <Card className="mx-3 -mt-16 mb-6 lg:mx-4">

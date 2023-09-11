@@ -1,0 +1,8 @@
+.no-spin-button {
+    appearance: textfield; /* Reset the appearance to the default */
+  }
+  
+  .no-spin-button::-webkit-inner-spin-button,
+  .no-spin-button::-webkit-outer-spin-button {
+    display: none; /* Hide the spin buttons in WebKit browsers (e.g., Chrome, Safari) */
+  }
