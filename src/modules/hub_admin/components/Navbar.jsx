@@ -5,6 +5,8 @@ import { UserCircleIcon, BellIcon, Bars3Icon, Bars3CenterLeftIcon } from '@heroi
 import { useDispatch, useSelector } from 'react-redux';
 import { open,close ,toggle } from '../../../Redux/StateReducer';
 import Notifications from './Notifications';
+import Test from './test';
+import Test2 from './test2';
 function Navbar({ onSidebarToggle }) {
   // const openSideBar=useSelector((state)=>{
   //   return
@@ -33,6 +35,8 @@ function Navbar({ onSidebarToggle }) {
           
         <UserCircleIcon className='m-2 h-6 w-6 ' />
         <Notifications/>
+        {/* <Test/> */}
+        {/* <Test2/> */}
         </div>
       </div>
     </div>

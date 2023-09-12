@@ -1,4 +1,5 @@
 import React,{ useEffect,useState } from 'react'
+import axios from 'axios';
 import {
     Menu,
     MenuHandler,
@@ -11,82 +12,112 @@ import {
   } from "@material-tailwind/react";
   import ReconnectingWebSocket from 'reconnecting-websocket';
 function Notifications() {
-    const [count, setCount] = useState(0);
-    const [action,setAction]=useState({ "action": "see_notification_count" })
-    useEffect(() => {
-        // Your access token
-        const accessToken = localStorage.getItem('access');
-        console.log(accessToken,"accessTokenaccessToken")
-        // Construct the WebSocket URL with the token as a query parameter
-        const wsUrl = `ws://127.0.0.1:8001/ws/notifications/?token=${accessToken}`;
-    
-    
-        // Create a ReconnectingWebSocket connection
-    const ws = new ReconnectingWebSocket(wsUrl);
+  const [socket, setSocket] = useState(null);
+  const [count, setCount] = useState(0);
+  const [notification, setNotification] = useState([]);
 
-    // Function to send the action message
-    const sendActionMessage = () => {
-      const actionMessage = JSON.stringify(action);
-      ws.send(actionMessage);
-    };
+  // Define your initial access and refresh tokens (or retrieve from local storage)
+  const [accessToken, setAccessToken] = useState(localStorage.getItem("access"));
+  const [refreshToken, setRefreshToken] = useState(localStorage.getItem("refresh"));
 
-    // WebSocket event handlers
-    ws.addEventListener('open', () => {
-      console.log('WebSocket connected');
-      
-      // Send the action message immediately when the WebSocket connection is open
-      sendActionMessage();
+  useEffect(() => {
+    let ws;
 
-      // Set up an interval to send the action message every second
-      const intervalId = setInterval(sendActionMessage, 50000);
-      
-      // Clean up the interval when the WebSocket is closed
-      ws.addEventListener('close', () => {
-        console.log('WebSocket closed');
-        clearInterval(intervalId);
+    const connectWebSocket = () => {
+      ws = new WebSocket(`ws://127.0.0.1:8001/ws/notifications/?token=${accessToken}`);
+
+      ws.addEventListener('open', () => {
+        console.log('WebSocket connection established');
+        ws.send(JSON.stringify({ action: "see_notification_count" }));
+        ws.send(JSON.stringify({ action: 'see_notification' }));
       });
-    });
-    ws.addEventListener('message', (event) => {
-      console.log('Received message:', event.data);
-      const parsedData = JSON.parse(event.data);
-      setCount(parsedData.notification_count)
-    //   console.log("count",count)
-      // Handle incoming messages here
-    });
 
-    // Clean up the WebSocket when the component unmounts
-    return () => {
-      ws.close();
+      ws.addEventListener('message', (event) => {
+        const message = JSON.parse(event.data);
+        // console.log('Received message from server:', message);
+        console.log(message.notification_count ,"logggggg");
+        if (message.action === 'notification_count') {
+          // const parsedData = JSON.parse(event.data);
+          setCount(message.notification_count)
+        } else if (message.action === 'new_notification') {
+          setNotification(message.notification);
+        }
+      });
+
+      ws.addEventListener('close', async (event) => {
+        console.log('WebSocket connection closed:', event);
+
+        // if (event.code === 401) {
+          // Unauthorized status (customize the code based on your server's response)
+          try {
+            // Call your token refresh API with Axios
+            const response = await axios.post('http://127.0.0.1:8000/auths/token/refresh/', {
+              refresh: refreshToken,
+            }, {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+
+            if (response.status === 200) {
+              const data = response.data;
+              // Update the access token and refresh token in state and local storage
+              setAccessToken(data.access);
+              setRefreshToken(data.refresh);
+              localStorage.setItem('access', data.access);
+              localStorage.setItem('refresh', data.refresh);
+
+              // Reconnect the WebSocket with the new access token
+              connectWebSocket();
+            } else {
+              console.error('Failed to refresh tokens:', response);
+            }
+          } catch (error) {
+            console.error('Error refreshing tokens:', error);
+          // }
+        // } else {
+          // Attempt to reconnect after a delay (e.g., 3 seconds)
+        }
+        setTimeout(connectWebSocket, 30000);
+      });
     };
 
-      }, []);
-    console.log(count);
-    console.log(action);
-    function handleAction(){
-        console.log("enteredddddddddddddddd");
-        setAction({"action":"see_notification"})
-    }
-  return (
+    connectWebSocket();
+
+    setSocket(ws);
+
+    return () => {
+      if (ws) {
+        ws.close();
+      }
+    };
+  }, []);
+console.log(count,"couinmt");
+  return (  
     <>
     <Menu>
-      <Badge content={count} withBorder>
-      <MenuHandler onClick={handleAction}>
-        <IconButton  onClick={handleAction} variant="text">
+      <Badge content={count}  >
+        
+      <div className=' m-2 h-6 w-6  '>
+
+      <MenuHandler   >
+        <div     >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
             className="h-6 w-6"
             color='black'
-          >
+            >
             <path
               fillRule="evenodd"
               d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
               clipRule="evenodd"
-            />
+              />
           </svg>
-        </IconButton>
+        </div>
       </MenuHandler>
+              </div>
         </Badge>
       <MenuList className="flex flex-col gap-2">
       <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2">
@@ -122,6 +153,7 @@ export default Notifications
 
 function ClockIcon() {
     return (
+
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
