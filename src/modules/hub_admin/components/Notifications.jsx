@@ -1,17 +1,36 @@
 import React,{ useEffect,useState } from 'react'
 import axios from 'axios';
 import {
+    Button ,
     Menu,
     MenuHandler,
     MenuList,
     MenuItem,
-    IconButton,
     Avatar,
     Typography,
     Badge,
   } from "@material-tailwind/react";
-  import ReconnectingWebSocket from 'reconnecting-websocket';
+import { Link } from 'react-router-dom';
 function Notifications() {
+  function calculateTimeDifference(createdDate) {
+    const currentDate = new Date();
+    const timeDifference = currentDate - new Date(createdDate);
+    const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+    
+    if (minutesDifference < 1) {
+      return "Just now";
+    } else if (minutesDifference === 1) {
+      return "1 minute ago";
+    } else if (minutesDifference < 60) {
+      return `${minutesDifference} minutes ago`;
+    } else if (minutesDifference < 1440) {
+      const hoursDifference = Math.floor(minutesDifference / 60);
+      return `${hoursDifference} hour${hoursDifference > 1 ? 's' : ''} ago`;
+    } else {
+      const daysDifference = Math.floor(minutesDifference / 1440);
+      return `${daysDifference} day${daysDifference > 1 ? 's' : ''} ago`;
+    }
+  }
   const [socket, setSocket] = useState(null);
   const [count, setCount] = useState(0);
   const [notification, setNotification] = useState([]);
@@ -40,14 +59,16 @@ function Notifications() {
           // const parsedData = JSON.parse(event.data);
           setCount(message.notification_count)
         } else if (message.action === 'new_notification') {
-          setNotification(message.notification);
+          // console.log(message.notifications.slice(message.notifications.lenght-3,message.notifications.lenght));
+          // let new_Notification=message.notifications.slice(message.notifications.length-3,message.notifications.length);
+          setNotification(message.notifications);
         }
       });
 
       ws.addEventListener('close', async (event) => {
         console.log('WebSocket connection closed:', event);
 
-        // if (event.code === 401) {
+        if (event.code === 1006) {
           // Unauthorized status (customize the code based on your server's response)
           try {
             // Call your token refresh API with Axios
@@ -74,11 +95,14 @@ function Notifications() {
             }
           } catch (error) {
             console.error('Error refreshing tokens:', error);
-          // }
-        // } else {
-          // Attempt to reconnect after a delay (e.g., 3 seconds)
+          
+          // Attempt to reconnect after a delay (e.g., 30 seconds)
         }
-        setTimeout(connectWebSocket, 30000);
+              }else{
+
+                setTimeout(connectWebSocket, 30000);
+
+              }        
       });
     };
 
@@ -92,14 +116,12 @@ function Notifications() {
       }
     };
   }, []);
-console.log(count,"couinmt");
   return (  
     <>
     <Menu>
       <Badge content={count}  >
-        
-      <div className=' m-2 h-6 w-6  '>
-
+        {/* <Link></Link> */}
+      <div  className=' m-2 h-6 w-6  '>
       <MenuHandler   >
         <div     >
           <svg
@@ -119,30 +141,53 @@ console.log(count,"couinmt");
       </MenuHandler>
               </div>
         </Badge>
+<Link to="notifications" >
       <MenuList className="flex flex-col gap-2">
-      <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2">
-      <Avatar
+        {notification.map((item,index)=>(
+        <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2">
+          <>
+          {/* <Avatar
             variant="circular"
             alt="tania andrew"
             src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-          />
+          /> */}
           <div className="flex flex-col gap-1">
-            <Typography variant="small" color="gray" className="font-normal">
-              <span className="font-medium text-blue-gray-900">Tania</span> send
-              you a message
+            <Typography variant="small" color="gray" className="font-medium max-w-xs">
+              {item?.message}
+              {/* <span className="font-medium text-blue-gray-900">Tania</span> send
+              you a message */}
             </Typography>
             <Typography
               variant="small"
               className="flex items-center gap-1 text-xs text-gray-600"
             >
               <ClockIcon />
-              13 minutes ago
+              {calculateTimeDifference(item?.created)}
             </Typography>
           </div>
-
+          </>
       </MenuItem>
+        ))}
+         <Button variant="text" className="flex items-center gap-2">
+        See all{" "}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          className="h-5 w-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+          />
+        </svg>
+      </Button>
       </MenuList>
-      
+      </Link>
+
     </Menu>
     
     </>

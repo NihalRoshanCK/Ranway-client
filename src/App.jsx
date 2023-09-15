@@ -8,6 +8,10 @@ import HubAdmin from './modules/hub_admin/pages/Home'
 import HubAdminLogin from './modules/hub_admin/pages/Login'
 import Profile from './modules/user/pages/profile';
 import Loader from './modules/user/components/Loader';
+import Loginoffice from './modules/office/page/Login';
+import Homeoffice from './modules/office/page/Home';
+import Logindelevery from './modules/delevery/page/Login';
+import Homedelevery from './modules/delevery/page/Home';
 export default function App() {
   
   return (
@@ -22,9 +26,10 @@ export default function App() {
       <Route path='login/' element={<AdminLogin/>}></Route>
       <Route path='profile/' element={<Profile/>}></Route>
       <Route path='loader/' element={<Loader/>}></Route>
-
-      
-
+      <Route path='deleverylogin/' element={<Logindelevery/>}/>
+      <Route path='delevery/*' element={<Homedelevery/>} />
+      <Route path='officelogin/' element={<Loginoffice/>}/>
+      <Route path='office/*' element={<Homeoffice/>} />
     </Routes>
     
     </>

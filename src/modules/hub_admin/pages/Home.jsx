@@ -5,6 +5,8 @@ import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 // import Hub from '../components/Hub';
 import { useSelector, useDispatch } from 'react-redux'
 import Orders from '../components/Orders';
+import SeeAllNotifications from '../components/SeeAllNotifications';
+import Chat from '../components/chat';
 // import { open } from '../../../Redux/StateReducer';
 
 
@@ -27,6 +29,10 @@ if(role &&  refresh && access){
           <Navbar  />
           <Routes>
               <Route path='huborder' index element={<Orders/>}/>
+              <Route path='notifications' index element={<SeeAllNotifications/>}/>
+              <Route path='chat' index element={<Chat/>}/>
+
+
               
           </Routes>
           <Outlet/>
