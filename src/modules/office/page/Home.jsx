@@ -7,6 +7,8 @@ import {
   IconButton,
   Card,
 } from "@material-tailwind/react";
+import Table from './components/table';
+
 
 function Home() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -132,6 +134,10 @@ function Home() {
       <h1>
         hello office
         </h1>
+        <div className='w-11/12 mx-auto'>
+
+        <Table/>
+        </div >
     </>
   )
 }
