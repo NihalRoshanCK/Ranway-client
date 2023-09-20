@@ -4,6 +4,7 @@
 import {
     Card,
   } from "@material-tailwind/react";
+import { classNames } from 'primereact/utils';
 import React, { useState, useEffect } from 'react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
@@ -17,8 +18,8 @@ import { Calendar } from 'primereact/calendar';
 import { MultiSelect } from 'primereact/multiselect';
 import { Slider } from 'primereact/slider';
 import { Tag } from 'primereact/tag';
-import { CustomerService } from './CustomerService';
-
+// import { CustomerService } from './CustomerService';
+import api from "../officeaxiosInterceptor";
 function Table() {
     const [customers, setCustomers] = useState([]);
     const [selectedCustomers, setSelectedCustomers] = useState([]);
@@ -65,10 +66,18 @@ function Table() {
                 return null;
         }
     };
-
+    const CustomerService=[]
     useEffect(() => {
-        CustomerService.getCustomersLarge().then((data) => setCustomers(getCustomers(data)));
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+        (async()=>{
+            
+          
+            api.get(`product/order/`).then((response)=>{
+                console.log(response.data)
+                setCustomers(response.data)
+            })
+            
+        })()
+    }, []);
 
     const getCustomers = (data) => {
         return [...(data || [])].map((d) => {
@@ -197,6 +206,13 @@ function Table() {
     const actionBodyTemplate = () => {
         return <Button type="button" icon="pi pi-cog" rounded></Button>;
     };
+    const verifiedBodyTemplate = (rowData) => {
+        return <i className={classNames('pi', { 'true-icon pi-check-circle': rowData.collected, 'false-icon pi-times-circle': !rowData.collected })}></i>;
+        // return <h1>hi</h1>
+    };
+    const verifiedRowFilterTemplate = (options) => {
+        return <TriStateCheckbox value={options.value} onChange={(e) => options.filterApplyCallback(e.value)} />;
+    };
 
     const header = renderHeader();
 
@@ -206,20 +222,35 @@ function Table() {
       <DataTable value={customers} scrollable scrollHeight="500px" paginator header={header} rows={10}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     rowsPerPageOptions={[10, 25, 50]} dataKey="id" selectionMode="checkbox" selection={selectedCustomers} onSelectionChange={(e) => setSelectedCustomers(e.value)}
-                    filters={filters} filterDisplay="menu" globalFilterFields={['name', 'country.name', 'representative.name', 'balance', 'status']}
+                    filters={filters} filterDisplay="menu" globalFilterFields={['order_id', 'country.name', 'representative.name', 'balance', 'status']}
                     emptyMessage="No customers found." currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
-                <Column field="name" header="Name" sortable frozen  filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
-                <Column field="country.name" header="Country" sortable filterField="country.name" style={{ minWidth: '14rem' }} body={countryBodyTemplate}  filterPlaceholder="Search by country" />
-                <Column header="Agent" sortable sortField="representative.name" filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
-                    style={{ minWidth: '14rem' }} body={representativeBodyTemplate}  filterElement={representativeFilterTemplate} />
+                <Column field="order_id" header="Order" sortable frozen  filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
+                 <Column field="booking.hbd" header="HBD" sortable filterField="country.name" style={{ minWidth: '14rem' }} 
+                //  body={countryBodyTemplate}  
+                 filterPlaceholder="Search by country" />
+                <Column field="booking.cpd" header="CPD" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
+                    style={{ minWidth: '14rem' }} 
+                    // body={representativeBodyTemplate}  
+                    filterElement={representativeFilterTemplate} />
+                <Column field="booking.from_address" header="From Address" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
+                    style={{ minWidth: '14rem' }} 
+                    // body={representativeBodyTemplate}  
+                    filterElement={representativeFilterTemplate} />
+                <Column field="booking.product_name" header="Product Name" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
+                    style={{ minWidth: '14rem' }} 
+                    // body={representativeBodyTemplate}  
+                    filterElement={representativeFilterTemplate} />
+                <Column field="collected" header="Collected" dataType="boolean" style={{ minWidth: '6rem' }} body={verifiedBodyTemplate} filter filterElement={verifiedRowFilterTemplate}  />
+                
+                
+                    {/*
                 <Column field="date" header="Date" sortable filterField="date" dataType="date" style={{ minWidth: '12rem' }} body={dateBodyTemplate}  filterElement={dateFilterTemplate} />
                 <Column field="balance" header="Balance" sortable dataType="numeric" style={{ minWidth: '12rem' }} body={balanceBodyTemplate}  filterElement={balanceFilterTemplate} />
                 <Column field="status" header="Status" sortable filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate}  filterElement={statusFilterTemplate} />
                 <Column field="activity" header="Activity" sortable showFilterMatchModes={false} style={{ minWidth: '12rem' }} body={activityBodyTemplate}  filterElement={activityFilterTemplate} />
-                <Column headerStyle={{ width: '5rem', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} body={actionBodyTemplate} />
+                <Column headerStyle={{ width: '5rem', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} body={actionBodyTemplate} /> */}
             </DataTable>
             </Card>
-
   )
 }
 

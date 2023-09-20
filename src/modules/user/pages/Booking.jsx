@@ -144,7 +144,7 @@ function Booking() {
           </div>
           <div className='mb-2'>
 
-          <Select onChange={handleSelect} className='' name='category' color="indigo" label="Category">
+          <Select   onChange={handleSelect} className='' name='category' color="indigo" label="Category">
             {categories.map((cat) => (
               <Option key={cat.id} value={cat} >{cat.name}</Option>
               ))}
