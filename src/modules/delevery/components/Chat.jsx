@@ -8,7 +8,7 @@ import {
   Avatar,
 } from "@chatscope/chat-ui-kit-react";
 import React,{useState,useEffect} from 'react'
-import api from "../axiosInterceptor";
+import api from "../deleveryaxiosInterceptor";
 import jwt_decode from "jwt-decode";
 function Chat() {
   const [socket, setSocket] = useState(null);

@@ -144,14 +144,14 @@ function Notifications() {
 <Link to="notifications" >
       <MenuList className="flex flex-col gap-2">
         {notification.map((item,index)=>(
-        <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2">
+        <MenuItem className="flex items-center gap-4 py-2 pr-8 pl-2" key={index}>
           <>
           {/* <Avatar
             variant="circular"
             alt="tania andrew"
             src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
           /> */}
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1" >
             <Typography variant="small" color="gray" className="font-medium max-w-xs">
               {item?.message}
               {/* <span className="font-medium text-blue-gray-900">Tania</span> send

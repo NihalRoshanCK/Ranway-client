@@ -41,7 +41,9 @@ function Asignorder() {
             console.log(id.id,"idddddddddddddddddddddd")
 
         })
+        console.log(arr,"arr");
         api.post(`product/worksheet/`,{"orders":arr,"user":select.id}).then((response)=>{
+            console.log(response.data)
             window.location.reload();
         })
     }
@@ -85,7 +87,7 @@ function Asignorder() {
     <div className=' h-screen bg-blue-gray-600'>
         <div className=''>
         <div className='pt-5'>
-        <Select  onChange={handleSelect} name='category' color="indigo" label="Category">
+        <Select  onChange={handleSelect} name='delevery  boy' color="indigo" label="deleveryboy">
             {items.map((cat) => (
               <Option value={cat} >{cat["user"].name}</Option>
               ))}

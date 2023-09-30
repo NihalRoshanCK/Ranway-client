@@ -23,6 +23,10 @@ import {
   DialogBody,
   DialogFooter,
   Textarea,
+  Radio,
+  Select,
+  Option
+
 } from "@material-tailwind/react";
 
 import { useParams } from 'react-router-dom';
@@ -86,6 +90,9 @@ function HubDetails() {
   const [open, setOpen] = useState(false);
   const [staff,setStaff]=useState([])
   const[TABLE_ROWS,setTABLE_ROWS]=useState([])
+  const [openRegister,setOpenRegister]=useState(false)
+  const [hub,setHub]=useState([])
+  const [select,setSelect]=useState([])
   console.log(staff.user,'ooooooooooooooooooooooooooooooooooooooooooooo');
   const [formData, setFormData] = useState({
     name: '', // Default value
@@ -127,7 +134,10 @@ function HubDetails() {
       [name]: value,
     }));
   };
-
+  const handleSelect = (event)=>{
+    console.log('Event:', event);
+    setSelect(event);
+}
   const handleupdate = async (e, staffId) => {
     e.preventDefault();
     const inputObject = Object.fromEntries(Object.entries(formData));
@@ -167,9 +177,59 @@ function HubDetails() {
   }
 
     const {id}=useParams()
+    // useEffect(() => {
+    //   // Example API request using the api instance
+    //   // api.get(`admins/hub/${id}`)
+    //   //   .then((response) => {
+    //   //   console.log("alllllllllllllllllllllll",response.data);
+    //   //   console.log("Staffffffffffffffffffffff",response.data.staffs);
+    //   //   setTABLE_ROWS(response.data.staffs)
+    //   //   })
+    //   //   .catch((error) => {
+    //   //     console.error(error);
+    //   //   });
+    //   api.get(`admins/hub/`).then((response)=>{
+    //     console.log(response.data)
+    //     setHub(response.data)
+    // })
+    // }, []);
+    const handleRegister = async (e) => {
+      e.preventDefault();
+    
+      // Create a new FormData object
+      const formData = new FormData();
+    
+      // Append file input data to the FormData
+      formData.append('profile_picture', e.target.profile_picture.files[0]); // Make sure 'profile_picture' matches the input name
+    
+      // Append other form data fields to formData as needed
+      formData.append('name', e.target.name.value);
+      formData.append('email', e.target.email.value);
+      formData.append('age', e.target.age.value);
+      formData.append('phone', e.target.phone.value);
+      formData.append('address', e.target.address.value);
+      // formData.append('staff', e.target.staff.value);
+      const staffs=e.target.staff.value
+      formData.append(staffs, true);
+      formData.append('password', e.target.password.value);
+      // formData.append('conform_password', e.target.conform_password.value);
+      formData.append('hub', id)
+      console.log(formData);
+      // Check if password and confirm password match
+      if (e.target.password.value === e.target.conform_password.value) {
+        // Send the formData in your API request
+        api.post(`hub/staff/`, formData)
+          .then((response) => {
+            console.log("Response:", response.data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    };
     useEffect(() => {
         // Example API request using the api instance
-        api.get(`admins/hubs/${id}`)
+        api.get(`admins/hub/${id}`)
           .then((response) => {
           console.log("alllllllllllllllllllllll",response.data);
           console.log("Staffffffffffffffffffffff",response.data.staffs);
@@ -181,6 +241,62 @@ function HubDetails() {
       }, []);
   return (
     <Card className="h-full w-full">
+          <Dialog open={openRegister} handler={""}>
+            <form onSubmit={handleRegister} encType="multipart/form-data">
+
+        <DialogHeader>Add Staff</DialogHeader>
+        <DialogBody divider className="h-[40rem] overflow-y-scroll space-y-4">
+          {/* <div className='space-y-3'> */}
+
+          <Input label='Name' name='name' type='text' color='indigo'/>
+          <Input label='E-mail' name='email' type='email' color='indigo'/>
+          <Input type='number' label='Age' name='age' color='indigo' />
+          <Input type='file' color='indigo' name='profile_picture' label="Photo"/>
+          <Input type='number' color='indigo' name='phone' label="Phone"/>
+          <Textarea color='indigo' name='address' label="address"/>
+          <Radio
+        name="staff"
+        ripple={false}
+        // icon={<Icon />}
+        value={"is_deleverystaff"}
+        className="border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0"
+        label={
+          <Typography color="blue-gray" className="font-normal">
+            Delevery Staff
+          </Typography>
+        }
+      />
+      <Radio
+        name="staff"
+        defaultChecked
+        ripple={false}
+        value={"is_officeStaff"}
+        // icon={<Icon />}
+        className="border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0"
+        label={
+          <Typography color="blue-gray" className="font-normal">
+            Office Staff
+          </Typography>
+        }
+      />
+      <Input type='password' color='indigo' name='password' label="Password"/>
+      <Input type='password' color='indigo' name='conform_password' label="Conform Password"/>
+
+          <div className="flex gap-10">
+      
+    </div>
+
+        </DialogBody>
+        <DialogFooter className="space-x-2">
+          <Button variant="outlined" color="red" onClick={""}>
+            close
+          </Button>
+          <Button type='submit' variant="gradient" color="green" onClick={""}>
+            Save changes
+          </Button>
+        </DialogFooter>
+            </form>
+      </Dialog>
        <Dialog open={open} handler={handleOpen}>
     <div className="flex items-center justify-between">
       <DialogHeader>Update </DialogHeader>
@@ -231,19 +347,19 @@ function HubDetails() {
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
           <div>
-            <Typography variant="h5" color="blue-gray">
+            {/* <Typography variant="h5" color="blue-gray">
               Recent Transactions
             </Typography>
             <Typography color="gray" className="mt-1 font-normal">
               These are details about the last transactions
-            </Typography>
+            </Typography> */}
           </div>
           <div className="flex w-full shrink-0 gap-2 md:w-max">
-            <div className="w-full md:w-72">
+            {/* <div className="w-full md:w-72">
               <Input label="Search" icon={<MagnifyingGlassIcon className="h-5 w-5" />} />
-            </div>
+            </div> */}
             <Button className="flex items-center gap-3" color="blue" size="sm">
-              <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" /> Download
+              <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" /> Add staff
             </Button>
           </div>
         </div>

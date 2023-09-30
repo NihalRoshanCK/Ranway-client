@@ -27,12 +27,14 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-qr-code": "^2.0.12",
+    "react-qr-scanner": "^1.0.0-alpha.11",
     "react-razorpay": "^2.0.1",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.14.2",
     "react-to-print": "^2.14.13",
     "react-toastify": "^9.1.3",
     "reconnecting-websocket": "^4.4.0",
+    "socket.io-client": "^4.7.2",
     "ws": "^8.13.0"
   },
   "devDependencies": {

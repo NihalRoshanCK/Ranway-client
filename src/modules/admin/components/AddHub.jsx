@@ -100,9 +100,9 @@ function AddHub() {
               <h1 className='text-center'>Assaingn Hub Head</h1>
               <Input  type="name" id="name" name="name" label="Head Name" size="xl" />
               <Input  type="email" id="email" name="email" label="Head Email" size="xl" />
-              <Input  type="number" id="age" name="age" label="age" size="xl" />
+              <Input  type="number" id="age"  name="age" label="age" size="xl" />
               <Textarea label="Address" name='admin_address' id="address"/>
-              <Input  type="number" id="number" name="phone" label="Number" size="xl" className=""/>
+              <Input  type="number" id="number" name="phone"  label="Number" size="xl" className=""/>
               <Input  type="password" name='password' id="password" label="Password" />
               <Input  type="password" name='conformpassword' id="user[conformpassword]" label="Password" />
               <Typography
