@@ -92,8 +92,6 @@ function HubDetails() {
   const[TABLE_ROWS,setTABLE_ROWS]=useState([])
   const [openRegister,setOpenRegister]=useState(false)
   const [hub,setHub]=useState([])
-  const [select,setSelect]=useState([])
-  console.log(staff.user,'ooooooooooooooooooooooooooooooooooooooooooooo');
   const [formData, setFormData] = useState({
     name: '', // Default value
     email: '', // Default value
@@ -118,11 +116,11 @@ function HubDetails() {
         name: staff.user.name,
         email: staff.user.email,
         age: staff.age,
-        phone:staff.user.phone,
-        address:staff.address,
-        is_active:staff.user.is_active,
-        is_officeStaff:staff.is_officeStaff,
-        is_deleverystaff:staff.is_deleverystaff,
+        phone: staff.user.phone,
+        address: staff.address,
+        is_active: staff.user.is_active,
+        is_officeStaff: staff.is_officeStaff,
+        is_deleverystaff: staff.is_deleverystaff,
       }));
     }
   }, [staff]);
@@ -138,7 +136,7 @@ function HubDetails() {
     console.log('Event:', event);
     setSelect(event);
 }
-  const handleupdate = async (e, staffId) => {
+  const handleupdate = async (e,staffId) => {
     e.preventDefault();
     const inputObject = Object.fromEntries(Object.entries(formData));
     const errors = {};
@@ -147,22 +145,25 @@ function HubDetails() {
         return toast.warning('email is required')
       } else if (!isValidEmail(inputObject.email)) {
         return toast.warning('enter a correct email format')
+      }else if (!inputObject.age) {
+        return toast.warning('age is required')
       }
-  //     api.get(`admins/hubs/${id}`)
-  //         .then((response) => {
-  //         console.log("alllllllllllllllllllllll",response.data);
-  //         console.log("Staffffffffffffffffffffff",response.data.staffs);
-  //         setTABLE_ROWS(response.data.staffs)
-  //         })
-  //         .catch((error) => {
-  //           console.error(error);
-  //         });
+
+      api.patch(`hub/staff/${staffId}/`,inputObject)
+          .then((response) => {
+          // console.log("alllllllllllllllllllllll",response.data);
+          // console.log("Staffffffffffffffffffffff",response.data.staffs);
+          // setTABLE_ROWS(response.data.staffs)
+          console.log("yessssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+          setOpen(!open)
+          })
+          .catch((error) => {
+            console.error(error);
+          });
   }
   const handleOpen = (id) =>{ 
     setOpen(!open);
-    console.log("gggggggggggggggggggggggggggggggggggggggggggggggg",id);
-
-    api.get(`hub/officestaff/${id}`)
+    api.get(`hub/staff/${id}`)
           .then((response) => {
           // console.log("alllllllllllllllllllllll",response.data);
           console.log("SingleStaffffffffffffffffffffff",response.data);
@@ -177,22 +178,7 @@ function HubDetails() {
   }
 
     const {id}=useParams()
-    // useEffect(() => {
-    //   // Example API request using the api instance
-    //   // api.get(`admins/hub/${id}`)
-    //   //   .then((response) => {
-    //   //   console.log("alllllllllllllllllllllll",response.data);
-    //   //   console.log("Staffffffffffffffffffffff",response.data.staffs);
-    //   //   setTABLE_ROWS(response.data.staffs)
-    //   //   })
-    //   //   .catch((error) => {
-    //   //     console.error(error);
-    //   //   });
-    //   api.get(`admins/hub/`).then((response)=>{
-    //     console.log(response.data)
-    //     setHub(response.data)
-    // })
-    // }, []);
+
     const handleRegister = async (e) => {
       e.preventDefault();
     
@@ -231,17 +217,16 @@ function HubDetails() {
         // Example API request using the api instance
         api.get(`admins/hub/${id}`)
           .then((response) => {
-          console.log("alllllllllllllllllllllll",response.data);
-          console.log("Staffffffffffffffffffffff",response.data.staffs);
           setTABLE_ROWS(response.data.staffs)
           })
           .catch((error) => {
             console.error(error);
           });
       }, []);
+
   return (
     <Card className="h-full w-full">
-          <Dialog open={openRegister} handler={""}>
+          <Dialog open={openRegister} handler={()=>setOpenRegister(!openRegister)}>
             <form onSubmit={handleRegister} encType="multipart/form-data">
 
         <DialogHeader>Add Staff</DialogHeader>
@@ -288,7 +273,7 @@ function HubDetails() {
 
         </DialogBody>
         <DialogFooter className="space-x-2">
-          <Button variant="outlined" color="red" onClick={""}>
+          <Button variant="outlined" color="red" onClick={()=>setOpenRegister(!openRegister)}>
             close
           </Button>
           <Button type='submit' variant="gradient" color="green" onClick={""}>
@@ -315,20 +300,20 @@ function HubDetails() {
       </svg>
     </div>
 
-    <form onSubmit={(e) => handleupdate(e, staff.id)}>
+    <form onSubmit={(e) => handleupdate(e,staff.id)}>
     <DialogBody divider>
       <div className="grid gap-6">
         <Input label="Username" name='name' value={formData.name} onChange={handleChange} />
         <Input label="Email" name='email' value={formData.email} onChange={handleChange} />
 
-        <Input label="Age" name='age' value={formData.age} onChange={handleChange} />
+        <Input label="Age" name='age'  value={formData.age} onChange={handleChange} />
         {/* <Input label="age" name='is_officeStaff' value={staff.user.name} /> */}
-        <Input label="Phone" name='Phone' value={formData.phone} />
-        <Textarea label="Address" name='address' value={formData.address} />
+        <Input label="Phone" name='phone'  value={formData.phone} onChange={handleChange} />
+        <Textarea label="Address" name='address' value={formData.address} onChange={handleChange} />
         <div className='flex'>
-        <Checkbox label="Is_officeStaff" name='is_officeStaff' checked={formData.is_officeStaff}/>
-        <Checkbox name='Is_deleverystaff' label="is_deleverystaff" checked={formData.is_deleverystaff} />
-        <Checkbox name='Is_active' label="is_active" checked={formData.is_active} />
+        <Checkbox label="Is_officeStaff" name='is_officeStaff' checked={formData.is_officeStaff} onChange={handleChange}/>
+        <Checkbox name='Is_deleverystaff' label="is_deleverystaff" checked={formData.is_deleverystaff} onChange={handleChange} />
+        <Checkbox name='Is_active' label="is_active" checked={formData.is_active} onChange={handleChange} />
         </div>
 
       </div>
@@ -358,7 +343,7 @@ function HubDetails() {
             {/* <div className="w-full md:w-72">
               <Input label="Search" icon={<MagnifyingGlassIcon className="h-5 w-5" />} />
             </div> */}
-            <Button className="flex items-center gap-3" color="blue" size="sm">
+            <Button onClick={()=>setOpenRegister(!openRegister)} className="flex items-center gap-3" color="blue" size="sm">
               <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" /> Add staff
             </Button>
           </div>
