@@ -226,11 +226,11 @@ function HubDetails() {
 
   return (
     <Card className="h-full w-full">
-          <Dialog open={openRegister} handler={()=>setOpenRegister(!openRegister)}>
+          <Dialog open={openRegister} className='sm:overflow-x-auto' handler={()=>setOpenRegister(!openRegister)}>
             <form onSubmit={handleRegister} encType="multipart/form-data">
 
         <DialogHeader>Add Staff</DialogHeader>
-        <DialogBody divider className="h-[40rem] overflow-y-scroll space-y-4">
+        <DialogBody divider className="p-1 scroll-auto space-y-4">
           {/* <div className='space-y-3'> */}
 
           <Input label='Name' name='name' type='text' color='indigo'/>
@@ -315,6 +315,7 @@ function HubDetails() {
         <Checkbox name='Is_deleverystaff' label="is_deleverystaff" checked={formData.is_deleverystaff} onChange={handleChange} />
         <Checkbox name='Is_active' label="is_active" checked={formData.is_active} onChange={handleChange} />
         </div>
+
 
       </div>
     </DialogBody>
@@ -494,5 +495,6 @@ function HubDetails() {
 
   )
 }
+
 
 export default HubDetails

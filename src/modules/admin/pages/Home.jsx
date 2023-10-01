@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import AdminProfile from '../components/AdminProfile';
 import HubAdminDetailview from '../components/hubadmindetailview';
 import HubDetails from '../components/HubDetails';
+import AdminDash from '../components/AdminDash';
 
 function Home() {
   
@@ -29,7 +30,8 @@ if(role &&  refresh && access){
         <div  className= "w-full lg:ml-0 transition-all ease-in-out p-5">
           <Navbar  />
           <Routes>
-              <Route path='' index element={<Hub/>}/>
+              <Route path='' index element={<AdminDash/>}/>
+              <Route path='hub' index element={<Hub/>}/>
               <Route path='addhub'  element={<AddHub/>} />
               <Route path='hubadmin/:id'  element={<HubAdminDetailview/>} />
               <Route path='hubdetail/:id' element={<HubDetails/>} />
