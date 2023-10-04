@@ -10,6 +10,7 @@ import AdminProfile from '../components/AdminProfile';
 import HubAdminDetailview from '../components/hubadmindetailview';
 import HubDetails from '../components/HubDetails';
 import AdminDash from '../components/AdminDash';
+import UserManagement from '../components/Usermanagement';
 
 function Home() {
   
@@ -27,11 +28,12 @@ if(role &&  refresh && access){
 
         <Sidebar/>
           
-        <div  className= "w-full lg:ml-0 transition-all ease-in-out p-5">
+        <div  className= "w-full lg:ml-0 transition-all ease-in-out">
           <Navbar  />
           <Routes>
-              <Route path='' index element={<AdminDash/>}/>
-              <Route path='hub' index element={<Hub/>}/>
+              <Route path='dash'  element={<AdminDash/>}/>
+              <Route path='/'  element={<UserManagement/>}/>
+              <Route path='hub'  element={<Hub/>}/>
               <Route path='addhub'  element={<AddHub/>} />
               <Route path='hubadmin/:id'  element={<HubAdminDetailview/>} />
               <Route path='hubdetail/:id' element={<HubDetails/>} />

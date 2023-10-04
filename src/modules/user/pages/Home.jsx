@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import { BsSearch } from 'react-icons/Bs';
+// import { BsSearch } from 'react-icons/Bs';
 import { FaRegUserCircle } from 'react-icons/Fa';
 import image from '../images/home.jpg';
 import { ToastContainer, toast } from 'react-toastify';

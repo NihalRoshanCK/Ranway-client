@@ -16,8 +16,8 @@ import { MultiSelect } from 'primereact/multiselect';
 import { Slider } from 'primereact/slider';
 import { Tag } from 'primereact/tag';
 // import { CustomerService } from './CustomerService';
-import api from "../officeaxiosInterceptor";
-function Table() {
+import api from "../../../axiosInterceptor";
+function AllOrder() {
     const [customers, setCustomers] = useState([]);
     const [selectedCustomers, setSelectedCustomers] = useState([]);
     const [filters, setFilters] = useState({
@@ -97,7 +97,7 @@ function Table() {
     const renderHeader = () => {
         return (
             <div className="flex flex-wrap gap-2 justify-content-between align-items-center">
-                <h4 className="m-0">Customers</h4>
+                <h4 className="m-0">Orders</h4>
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
                     <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
@@ -202,30 +202,24 @@ function Table() {
     const header = renderHeader();
 
   return (
-   <Card>
+   <Card >
 
       <DataTable value={customers} scrollable scrollHeight="500px" paginator header={header} rows={10}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     rowsPerPageOptions={[10, 25, 50]} dataKey="id" selectionMode="checkbox" selection={selectedCustomers} onSelectionChange={(e) => setSelectedCustomers(e.value)}
                     filters={filters} filterDisplay="menu" globalFilterFields={['order_id', 'country.name', 'representative.name', 'balance', 'status']}
                     emptyMessage="No customers found." currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
-                <Column field="order_id" header="Order" sortable frozen  filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
-                 <Column field="booking.hbd" header="HBD" sortable filterField="country.name" style={{ minWidth: '14rem' }} 
-                 filterPlaceholder="Search by country" />
-                <Column field="booking.cpd" header="CPD" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
-                    style={{ minWidth: '14rem' }} 
-                    filterElement={representativeFilterTemplate} />
-                <Column field="booking.from_address" header="From Address" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
-                    style={{ minWidth: '14rem' }} 
-                    filterElement={representativeFilterTemplate} />
-                <Column field="booking.product_name" header="Product Name" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
-                    style={{ minWidth: '14rem' }} 
-                    filterElement={representativeFilterTemplate} />
-                <Column field="collected" header="Collected" dataType="boolean" style={{ minWidth: '6rem' }} body={verifiedBodyTemplate} filter filterElement={verifiedRowFilterTemplate}  />
+                <Column field="order_id" header="Order" sortable frozen  filterPlaceholder="Search by name" />
+                 <Column field="booking.hbd" header="HBD" sortable  filterPlaceholder="Search by country" />
+                <Column field="booking.cpd" header="CPD" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}/>
+                <Column field="booking.from_address" header="From Address" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}/>
+                <Column field="booking.product_name" header="Product Name" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}/>
+                <Column field="status" header="Status" sortable    filterField="representative"   />
+                
             </DataTable>
             </Card>
   )
 }
 
-export default Table
+export default AllOrder
 
