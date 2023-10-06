@@ -58,17 +58,21 @@ function Asignpickup() {
         })
     }
   return (
-    <div className='bg-deep-orange-900'>
-      <Select  onChange={handleSelect} name='deleveryboy' color="indigo" label="deleveryboy">
+    <div className='h-screen'>
+      <div className='mb-4 mt-2 w-full p-5 '>
+
+      <Select  onChange={handleSelect} name='deleveryboy'  color="indigo" label="deleveryboy">
             {items.map((cat) => (
               <Option value={cat} >{cat["user"].name}</Option>
               ))}
           </Select>
-        <Card>
-        <List>
+      </div>
+      <Card className='h-3/4 overflow-scroll bg-blue-gray-100 '>
+
+        <List className=''>
           {
         pickup.map((pick)=>(
-            <ListItem className="p-0" key={pick.id}>
+            <ListItem className="space-y-6  bg-white" key={pick.id}>
             <label
             //   htmlFor="vertical-list-react"
             htmlFor={`checkbox-${pick.id}`}
@@ -100,12 +104,12 @@ function Asignpickup() {
             </label>
           </ListItem>
 
-        ))
-        
-    }
+))
+
+}
     </List>
     </Card>
-    <Button onClick={handleSubmit}>Submit</Button>
+    <Button className='float-right m-5  ' onClick={handleSubmit}>Submit</Button>
 
     </div>
   )

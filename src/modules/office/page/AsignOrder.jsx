@@ -84,9 +84,9 @@ function Asignorder() {
     console.log(select,"selectselectselectselectselectselect");
   return (
 
-    <div className=' h-screen bg-blue-gray-600'>
+    <div className=' h-screen'>
         <div className=''>
-        <div className='pt-5'>
+        <div className='mt-5 '>
         <Select  onChange={handleSelect} name='delevery  boy' color="indigo" label="deleveryboy">
             {items.map((cat) => (
               <Option value={cat} >{cat["user"].name}</Option>
@@ -98,20 +98,20 @@ function Asignorder() {
             </div>
         </div>
         {/* <div className='bg-white'> */}
-        <Card className='mt-3'>
+        <Card className='mt-3 overflow-scroll bg-blue-gray-200 h-4/6'>
 
             {orders.map((order)=>(
                 // <Card color='red' className='w-full m-3 h-10 '>
-                <div className='flex'>
-                    <h1 className='m-3 p-2 border-gray-900 border-2 w-11/12'>{order.order_id}</h1>
-                    <h1 onClick={()=>del(order.order_id)} className='text-red-900 flex justify-center items-center'>cancel</h1>
+                <div className='flex justify-between space-y-3 m-2 bg-white'>
+                    <h1 className='m-3 p-2 '>{order.order_id}</h1>
+                    <div onClick={()=>del(order.order_id)} className=' text-white   flex justify-center items-center'><h1 className='bg-red-700 rounded-xl p-2 m-2'>cancel</h1> </div>
                     </div>
                 // </Card>
                 ))
                 
             }
             </Card>
-            <Button onClick={handleSubmit}>Submit</Button>
+            <Button className='float-right m-5 w-40' onClick={handleSubmit}>Submit</Button>
         {/* </div> */}
     </div>
 
