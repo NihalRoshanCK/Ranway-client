@@ -3,7 +3,9 @@ import {
     Button,
   } from "@material-tailwind/react";
 import { Link, useNavigate } from 'react-router-dom';
+import api from '../deleveryaxiosInterceptor';
 function Sheet(item) {
+  console.log(item,"llllllllllllllllllllllllllllll");
     const pickup=item.item.orders.filter(order => order.status === 'pending');
     const pending=item.item.orders.filter(order=> order.status === 'pending' || order.status === 'in_progress');
     const completed=item.item.orders.filter(order => order.status === 'completed');
@@ -11,6 +13,17 @@ function Sheet(item) {
 
 
     console.log(pickup,"itemmmmmmmmmmmmmmmmmmmmm");
+    const handlecloseworksheet=(id)=>{
+      // console.log(id,"tttttttttttttttttttttttttttttttttt");
+      api.patch(`product/worksheet/${id}/`,{'is_closed':true})
+      .then((response) => {
+        console.log(response.data, "orderrrrrrrrrrrrrrrrrrr");
+        // setOrder(response.data); // Update state with the response data
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+    }
   return (
     <>
     <div className='bg-gray-600 border-2 border-deep-orange-900'>
@@ -39,7 +52,7 @@ function Sheet(item) {
         </Link>
         {
         pending.length ===0 ?
-        <Button className='bg-white text-red-900 w-full'>Runsheet close</Button>
+        <Button onClick={()=>handlecloseworksheet(item.item.id)} className='bg-white text-red-900 w-full'>Runsheet close</Button>
         :
         null}
         </div>

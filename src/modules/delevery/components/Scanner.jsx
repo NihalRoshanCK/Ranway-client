@@ -21,7 +21,7 @@ function Test({result,setResult,setScan}) {
 
   useEffect(() => {
     const previewStyle = {
-      height: 240,
+      height: 500,
       width: 320,
     };
 
@@ -34,12 +34,11 @@ function Test({result,setResult,setScan}) {
   console.log(result?.text,"resultresultresultresult");
 
   return (
-    <div>
+    <div className='w-full'>
       <QrReader
         delay={delay}
         style={{
-          height: 240,
-          width: 320,
+          
         }}
         onError={handleError}
         onScan={handleScan}

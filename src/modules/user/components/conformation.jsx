@@ -93,7 +93,8 @@ function Conformation({is_active,price,booking,handleOpen }) {
     <>
     <Dialog
         open={is_active}
-        size={"xxl"}
+        className='h-full '
+        size={'xxl'}
         handler={handleOpen}
         // className='h-full w-full'
       >
@@ -101,7 +102,7 @@ function Conformation({is_active,price,booking,handleOpen }) {
         <DialogBody divider>
           { payed ? 
           
-          <div className='h-screen'>
+          <div className=''>
             {/* <ReactToPrint trigger={() => <button>Print this out!</button>}
             content={() => componentRef.current}/> */}
             <ComponentToPrint paymentDetails={paymentDetails}/>

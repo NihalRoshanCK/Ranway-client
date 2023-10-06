@@ -19,7 +19,7 @@ function Home() {
     })();
     },[]);
   return (
-    <>
+    <div className='bg-blue-gray-100 h-screen'>
     <Navbar/>
     {/* {worksheet.map((item)=>(
       <div className='m-10'>
@@ -36,7 +36,7 @@ function Home() {
       <Route path='/chat' element={<Chat/>}/>
     </Routes>
      
-    </>
+    </div>
   )
 }
 

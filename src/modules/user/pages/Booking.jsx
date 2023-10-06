@@ -125,14 +125,10 @@ function Booking() {
   }
   return (
     <>
-
-{on 
-            && 
-        <Dialog size="xs" open={on} className=" flex bg-transparent shadow-none" >
+      <Dialog size="xs" open={on} className=" flex bg-transparent shadow-none" >
             {auth ? <Register handelChange={handelChange}  /> : <Login handelChange={handelChange} />}
             <ToastContainer/>
-        </Dialog>
-         }
+      </Dialog>
     <Navbar/>
     <Conformation is_active={is_active}  price={price} booking={booking} handleOpen={handleOpen}/>
     <div className='bg-amber-100 h-fit flex w-full justify-center items-center '>

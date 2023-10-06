@@ -44,7 +44,6 @@ function UserManagement() {
     const handleBlockUser= (id)=>{
         api.patch(`/auths/user/${id}/`,{'is_active':false}).then((response)=>{
             console.log(response.data)
-            // setUserData(response.data)
             fetchUsers();
             
         })
@@ -53,7 +52,6 @@ function UserManagement() {
     const handleUnblockUser= (id)=>{
         api.patch(`/auths/user/${id}/`,{'is_active':true}).then((response)=>{
             console.log(response.data)
-            // setUserData(response.data)
             
         })
         fetchUsers();

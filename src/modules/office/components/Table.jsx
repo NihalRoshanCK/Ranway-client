@@ -106,25 +106,7 @@ function Table() {
         );
     };
 
-    const countryBodyTemplate = (rowData) => {
-        return (
-            <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
-                <span>{rowData.country.name}</span>
-            </div>
-        );
-    };
-
-    const representativeBodyTemplate = (rowData) => {
-        const representative = rowData.representative;
-
-        return (
-            <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${representative.image}`} width="32" />
-                <span>{representative.name}</span>
-            </div>
-        );
-    };
+ 
 
     const representativeFilterTemplate = (options) => {
         return (
@@ -214,14 +196,16 @@ function Table() {
                  filterPlaceholder="Search by country" />
                 <Column field="booking.cpd" header="CPD" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
                     style={{ minWidth: '14rem' }} 
-                    filterElement={representativeFilterTemplate} />
+                     />
                 <Column field="booking.from_address" header="From Address" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
                     style={{ minWidth: '14rem' }} 
-                    filterElement={representativeFilterTemplate} />
+                    />
+                <Column field="booking.to_address" header="To   Address" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
+                    style={{ minWidth: '14rem' }} 
+                     />
                 <Column field="booking.product_name" header="Product Name" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}
                     style={{ minWidth: '14rem' }} 
-                    filterElement={representativeFilterTemplate} />
-                <Column field="collected" header="Collected" dataType="boolean" style={{ minWidth: '6rem' }} body={verifiedBodyTemplate} filter filterElement={verifiedRowFilterTemplate}  />
+                     />
             </DataTable>
             </Card>
   )

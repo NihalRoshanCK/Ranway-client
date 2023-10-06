@@ -24,8 +24,7 @@ import {
   DialogFooter,
   Textarea,
   Radio,
-  Select,
-  Option
+
 
 } from "@material-tailwind/react";
 
@@ -34,58 +33,7 @@ import UpdateModel from './UpdateModel';
  
 const TABLE_HEAD = ["Staff", "Address", "joining Date", "Status", "Contact no", "Edit"];
  
-// const TABLE_ROWS = [
-//   {
-//     img: "/img/logos/logo-spotify.svg",
-//     name: "Spotify",
-//     amount: "$2,500",
-//     date: "Wed 3:00pm",
-//     status: "paid",
-//     account: "visa",
-//     accountNumber: "1234",
-//     expiry: "06/2026",
-//   },
-//   {
-//     img: "/img/logos/logo-amazon.svg",
-//     name: "Amazon",
-//     amount: "$5,000",
-//     date: "Wed 1:00pm",
-//     status: "paid",
-//     account: "master-card",
-//     accountNumber: "1234",
-//     expiry: "06/2026",
-//   },
-//   {
-//     img: "/img/logos/logo-pinterest.svg",
-//     name: "Pinterest",
-//     amount: "$3,400",
-//     date: "Mon 7:40pm",
-//     status: "pending",
-//     account: "master-card",
-//     accountNumber: "1234",
-//     expiry: "06/2026",
-//   },
-//   {
-//     img: "/img/logos/logo-google.svg",
-//     name: "Google",
-//     amount: "$1,000",
-//     date: "Wed 5:00pm",
-//     status: "paid",
-//     account: "visa",
-//     accountNumber: "1234",
-//     expiry: "06/2026",
-//   },
-//   {
-//     img: "/img/logos/logo-netflix.svg",
-//     name: "netflix",
-//     amount: "$14,000",
-//     date: "Wed 3:30am",
-//     status: "cancelled",
-//     account: "visa",
-//     accountNumber: "1234",
-//     expiry: "06/2026",
-//   },
-// ];
+
 function HubDetails() {
   const [open, setOpen] = useState(false);
   const [staff,setStaff]=useState([])
@@ -151,9 +99,6 @@ function HubDetails() {
 
       api.patch(`hub/staff/${staffId}/`,inputObject)
           .then((response) => {
-          // console.log("alllllllllllllllllllllll",response.data);
-          // console.log("Staffffffffffffffffffffff",response.data.staffs);
-          // setTABLE_ROWS(response.data.staffs)
           console.log("yessssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
           setOpen(!open)
           })
@@ -165,7 +110,6 @@ function HubDetails() {
     setOpen(!open);
     api.get(`hub/staff/${id}`)
           .then((response) => {
-          // console.log("alllllllllllllllllllllll",response.data);
           console.log("SingleStaffffffffffffffffffffff",response.data);
           // setTABLE_ROWS(response.data.staffs)
           setStaff(response.data)
@@ -207,6 +151,8 @@ function HubDetails() {
         api.post(`hub/staff/`, formData)
           .then((response) => {
             console.log("Response:", response.data);
+            setOpenRegister(!open)
+
           })
           .catch((error) => {
             console.error("Error:", error);

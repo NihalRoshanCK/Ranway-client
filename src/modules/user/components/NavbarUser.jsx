@@ -6,6 +6,7 @@ import {
     IconButton,
     Button,
 } from "@material-tailwind/react";
+import image from '../images/logo.png';
 function NavbarUser() {
     const [openNav, setOpenNav] = React.useState(false);
     const [auth,setAuth]=useState(true)
@@ -71,14 +72,17 @@ function NavbarUser() {
       );
   return (
     <>
-    <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4">
+    <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-2">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
             as="a"
             href="#"
             className="mr-4 cursor-pointer py-1.5 font-medium"
           >
-            Runway
+            
+            {/* {image} */}
+            <img className='w-20 h-20' src={image} alt="" />
+            {/* Runway */}
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
