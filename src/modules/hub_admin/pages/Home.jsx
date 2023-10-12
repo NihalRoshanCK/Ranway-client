@@ -1,12 +1,12 @@
 import React from 'react'
-import Sidebar from '../components/sidebar'
+import Sidebar from '../components/Sidebar'
 import Navbar from '../components/Navbar'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 // import Hub from '../components/Hub';
 // import { useSelector, useDispatch } from 'react-redux'
 import Orders from '../components/Orders';
 import SeeAllNotifications from '../components/SeeAllNotifications';
-import Chat from '../components/chat';
+import Chat from '../components/Chat';
 // import { open } from '../../../Redux/StateReducer';
 
 
