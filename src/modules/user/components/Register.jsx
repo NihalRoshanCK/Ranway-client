@@ -16,7 +16,7 @@ import axios from 'axios';
 import { close } from '../../../Redux/LoginReduser';
 import { useDispatch } from 'react-redux'
 import Otp from './Otp';
-function register({handelChange}) {
+function Register({handelChange}) {
     const[data,setdata]=useState()
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -161,4 +161,4 @@ function register({handelChange}) {
   )
 }
 
-export default register
+export default Register

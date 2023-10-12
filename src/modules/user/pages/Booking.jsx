@@ -17,7 +17,7 @@ import api from '../useraxiosInterceptor';
 import Conformation from '../components/conformation';
 import { useSelector } from 'react-redux'
 import Login from '../components/Login';
-import Register from '../components/register';
+import Register from '../components/Register';
 // import Loader from '../components/Loader';
 import image from '../images/booking.jpg'
 
