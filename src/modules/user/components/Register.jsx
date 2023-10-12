@@ -78,12 +78,12 @@ function register({handelChange}) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
       };
-      const isValidPassword = (password) => {
-        // Password validation using regular expression
-        // Requires at least one uppercase letter, one lowercase letter, and one special character
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return passwordRegex.test(password);
-      };
+      // const isValidPassword = (password) => {
+      //   // Password validation using regular expression
+      //   // Requires at least one uppercase letter, one lowercase letter, and one special character
+      //   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      //   return passwordRegex.test(password);
+      // };
     // const on =useSelector((state) => state.login.value)
     const dispatch = useDispatch()
     const [registerd,setRegisterd]=useState(false)
