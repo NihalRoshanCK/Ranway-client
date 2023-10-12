@@ -12,6 +12,7 @@ import {
 } from "@material-tailwind/react";
 import Select from '../components/Select';
 import Login from '../components/Login';
+// import Register from '../components/register';
 import Register from '../components/register';
 import { useSelector, useDispatch } from 'react-redux'
 import { open } from '../../../Redux/LoginReduser';
