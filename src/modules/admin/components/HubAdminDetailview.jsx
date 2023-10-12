@@ -17,7 +17,7 @@ import {
 //     Cog6ToothIcon,
 //   } from "@heroicons/react/24/solid";
 function HubAdminDetailview() {
-const [admin,Setadmin]=useState([])
+// const [admin,Setadmin]=useState([])
   const {id}=useParams();
   console.log(id)
   useEffect(() => {
@@ -25,7 +25,7 @@ const [admin,Setadmin]=useState([])
     api.get(`admins/hub/${id}`)
       .then((response) => {
         console.log(response.data);
-        Setadmin(response.data)
+        // Setadmin(response.data)
       })
       .catch((error) => {
         console.error(error);

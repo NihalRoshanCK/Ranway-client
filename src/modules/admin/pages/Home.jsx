@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from '../components/sidebar'
+import Sidebar from '../components/Sidebar'
 import Navbar from '../components/Navbar'
 import { Navigate, Route, Routes } from 'react-router-dom';
 import AddHub from '../components/AddHub';
@@ -7,7 +7,7 @@ import Hub from '../components/Hub';
 // import { useSelector, useDispatch } from 'react-redux'
 // import { open } from '../../../Redux/StateReducer';
 import AdminProfile from '../components/AdminProfile';
-import HubAdminDetailview from '../components/hubadmindetailview';
+import HubAdminDetailview from '../components/Hubadmindetailview';
 import HubDetails from '../components/HubDetails';
 import AdminDash from '../components/AdminDash';
 import UserManagement from '../components/Usermanagement';
