@@ -1,19 +1,19 @@
-import React ,{useEffect,useState} from 'react'
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    Typography,
-    Avatar,
-  } from "@material-tailwind/react";
+import React ,{useState} from 'react'
+// import {
+//     Card,
+//     CardHeader,
+//     CardBody,
+//     Typography,
+//     Avatar,
+//   } from "@material-tailwind/react";
 function SeeAllNotifications() {
-  const [socket, setSocket] = useState(null);
-  const [count, setCount] = useState(0);
+  // const [socket, setSocket] = useState(null);
+  // const [count, setCount] = useState(0);
   const [notification, setNotification] = useState([]);
 
   // Define your initial access and refresh tokens (or retrieve from local storage)
-  const [accessToken, setAccessToken] = useState(localStorage.getItem("access"));
-  const [refreshToken, setRefreshToken] = useState(localStorage.getItem("refresh"));
+  // const [accessToken, setAccessToken] = useState(localStorage.getItem("access"));
+  // const [refreshToken, setRefreshToken] = useState(localStorage.getItem("refresh"));
 
   // useEffect(() => {
   //   let ws;

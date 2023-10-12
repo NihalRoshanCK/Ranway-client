@@ -18,12 +18,12 @@ import {
   PresentationChartBarIcon,
   ShoppingBagIcon,
   UserCircleIcon,
-  Cog6ToothIcon,
+  // Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
-  HomeIcon,
-  BellIcon,
-  Bars3Icon,
+  // HomeIcon,
+  // BellIcon,
+  // Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";

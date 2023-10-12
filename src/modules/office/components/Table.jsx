@@ -108,78 +108,79 @@ function Table() {
 
  
 
-    const representativeFilterTemplate = (options) => {
-        return (
-            <React.Fragment>
-                <div className="mb-3 font-bold">Agent Picker</div>
-                <MultiSelect value={options.value} options={representatives} itemTemplate={representativesItemTemplate} onChange={(e) => options.filterCallback(e.value)} optionLabel="name" placeholder="Any" className="p-column-filter" />
-            </React.Fragment>
-        );
-    };
+    // const representativeFilterTemplate = (options) => {
+    //     return (
+    //         <React.Fragment>
+    //             <div className="mb-3 font-bold">Agent Picker</div>
+    //             <MultiSelect value={options.value} options={representatives} itemTemplate={representativesItemTemplate} onChange={(e) => options.filterCallback(e.value)} optionLabel="name" placeholder="Any" className="p-column-filter" />
+    //         </React.Fragment>
+    //     );
+    // };
 
-    const representativesItemTemplate = (option) => {
-        return (
-            <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${option.image}`} width="32" />
-                <span>{option.name}</span>
-            </div>
-        );
-    };
+ 
+    // const representativesItemTemplate = (option) => {
+    //     return (
+    //         <div className="flex align-items-center gap-2">
+    //             <img alt={option.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${option.image}`} width="32" />
+    //             <span>{option.name}</span>
+    //         </div>
+    //     );
+    // };
 
-    const dateBodyTemplate = (rowData) => {
-        return formatDate(rowData.date);
-    };
+    // const dateBodyTemplate = (rowData) => {
+    //     return formatDate(rowData.date);
+    // };
 
-    const dateFilterTemplate = (options) => {
-        return <Calendar value={options.value} onChange={(e) => options.filterCallback(e.value, options.index)} dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" mask="99/99/9999" />;
-    };
+    // const dateFilterTemplate = (options) => {
+    //     return <Calendar value={options.value} onChange={(e) => options.filterCallback(e.value, options.index)} dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" mask="99/99/9999" />;
+    // };
 
-    const balanceBodyTemplate = (rowData) => {
-        return formatCurrency(rowData.balance);
-    };
+    // const balanceBodyTemplate = (rowData) => {
+    //     return formatCurrency(rowData.balance);
+    // };
 
-    const balanceFilterTemplate = (options) => {
-        return <InputNumber value={options.value} onChange={(e) => options.filterCallback(e.value, options.index)} mode="currency" currency="USD" locale="en-US" />;
-    };
+    // const balanceFilterTemplate = (options) => {
+    //     return <InputNumber value={options.value} onChange={(e) => options.filterCallback(e.value, options.index)} mode="currency" currency="USD" locale="en-US" />;
+    // };
 
-    const statusBodyTemplate = (rowData) => {
-        return <Tag value={rowData.status} severity={getSeverity(rowData.status)} />;
-    };
+    // const statusBodyTemplate = (rowData) => {
+    //     return <Tag value={rowData.status} severity={getSeverity(rowData.status)} />;
+    // };
 
-    const statusFilterTemplate = (options) => {
-        return <Dropdown value={options.value} options={statuses} onChange={(e) => options.filterCallback(e.value, options.index)} itemTemplate={statusItemTemplate} placeholder="Select One" className="p-column-filter" showClear />;
-    };
+    // const statusFilterTemplate = (options) => {
+    //     return <Dropdown value={options.value} options={statuses} onChange={(e) => options.filterCallback(e.value, options.index)} itemTemplate={statusItemTemplate} placeholder="Select One" className="p-column-filter" showClear />;
+    // };
 
-    const statusItemTemplate = (option) => {
-        return <Tag value={option} severity={getSeverity(option)} />;
-    };
+    // const statusItemTemplate = (option) => {
+    //     return <Tag value={option} severity={getSeverity(option)} />;
+    // };
 
-    const activityBodyTemplate = (rowData) => {
-        return <ProgressBar value={rowData.activity} showValue={false} style={{ height: '6px' }}></ProgressBar>;
-    };
+    // const activityBodyTemplate = (rowData) => {
+    //     return <ProgressBar value={rowData.activity} showValue={false} style={{ height: '6px' }}></ProgressBar>;
+    // };
 
-    const activityFilterTemplate = (options) => {
-        return (
-            <>
-                <Slider value={options.value} onChange={(e) => options.filterCallback(e.value)} range className="m-3"></Slider>
-                <div className="flex align-items-center justify-content-between px-2">
-                    <span>{options.value ? options.value[0] : 0}</span>
-                    <span>{options.value ? options.value[1] : 100}</span>
-                </div>
-            </>
-        );
-    };
+    // const activityFilterTemplate = (options) => {
+    //     return (
+    //         <>
+    //             <Slider value={options.value} onChange={(e) => options.filterCallback(e.value)} range className="m-3"></Slider>
+    //             <div className="flex align-items-center justify-content-between px-2">
+    //                 <span>{options.value ? options.value[0] : 0}</span>
+    //                 <span>{options.value ? options.value[1] : 100}</span>
+    //             </div>
+    //         </>
+    //     );
+    // };
 
-    const actionBodyTemplate = () => {
-        return <Button type="button" icon="pi pi-cog" rounded></Button>;
-    };
-    const verifiedBodyTemplate = (rowData) => {
-        return <i className={classNames('pi', { 'true-icon pi-check-circle': rowData.collected, 'false-icon pi-times-circle': !rowData.collected })}></i>;
-        // return <h1>hi</h1>
-    };
-    const verifiedRowFilterTemplate = (options) => {
-        return <TriStateCheckbox value={options.value} onChange={(e) => options.filterApplyCallback(e.value)} />;
-    };
+    // const actionBodyTemplate = () => {
+    //     return <Button type="button" icon="pi pi-cog" rounded></Button>;
+    // };
+    // const verifiedBodyTemplate = (rowData) => {
+    //     return <i className={classNames('pi', { 'true-icon pi-check-circle': rowData.collected, 'false-icon pi-times-circle': !rowData.collected })}></i>;
+    //     // return <h1>hi</h1>
+    // };
+    // const verifiedRowFilterTemplate = (options) => {
+    //     return <TriStateCheckbox value={options.value} onChange={(e) => options.filterApplyCallback(e.value)} />;
+    // };
 
     const header = renderHeader();
 

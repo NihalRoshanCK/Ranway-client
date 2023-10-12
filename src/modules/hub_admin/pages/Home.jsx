@@ -1,9 +1,9 @@
 import React from 'react'
 import Sidebar from '../components/sidebar'
 import Navbar from '../components/Navbar'
-import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 // import Hub from '../components/Hub';
-import { useSelector, useDispatch } from 'react-redux'
+// import { useSelector, useDispatch } from 'react-redux'
 import Orders from '../components/Orders';
 import SeeAllNotifications from '../components/SeeAllNotifications';
 import Chat from '../components/chat';
@@ -11,9 +11,9 @@ import Chat from '../components/chat';
 
 
 function Home() {
-  const isOpen=useSelector((state) => state.counter.value)
-  const dispatch = useDispatch();
-  const navigate =useNavigate();
+  // const isOpen=useSelector((state) => state.counter.value)
+  // const dispatch = useDispatch();
+  // const navigate =useNavigate();
   const refresh=localStorage.getItem('refresh')
   const access=localStorage.getItem('access')
   const role=localStorage.getItem('role')

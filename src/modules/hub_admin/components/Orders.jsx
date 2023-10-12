@@ -2,29 +2,23 @@ import React,{useEffect,useState} from 'react'
 import {
     Card,
     CardBody,
-    Avatar,
+    // Avatar,
     Typography,
-    Tabs,
-    TabsHeader,
-    Tab,    
-    Button,
     Chip,
-    CardFooter,
-    IconButton,
     Tooltip,
 
 } from "@material-tailwind/react";
-import {
-    HomeIcon,
-    ChatBubbleLeftEllipsisIcon,
-    Cog6ToothIcon,
-    ChevronUpDownIcon,
-  } from "@heroicons/react/24/solid";
+// import {
+//     HomeIcon,
+//     ChatBubbleLeftEllipsisIcon,
+//     Cog6ToothIcon,
+//     ChevronUpDownIcon,
+//   } from "@heroicons/react/24/solid";
 import api from '../axiosInterceptor';
 // import NavbarUser from '../components/NavbarUser';
 import jwt_decode from "jwt-decode";
 const TABLE_HEAD = ["Product Name", "Order_id",  "from_address","to_address", "status"];
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+// import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import { Link } from 'react-router-dom';
 
 function Orders() {

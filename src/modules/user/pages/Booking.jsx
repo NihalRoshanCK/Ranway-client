@@ -11,14 +11,14 @@ import { Input,
          Typography,
          Dialog,
 } from "@material-tailwind/react";
-import Verification from '../components/Verification';
+// import Verification from '../components/Verification';
 import axios from 'axios';
 import api from '../useraxiosInterceptor';
 import Conformation from '../components/conformation';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Login from '../components/Login';
 import Register from '../components/register';
-import Loader from '../components/Loader';
+// import Loader from '../components/Loader';
 import image from '../images/booking.jpg'
 
 function Booking() {

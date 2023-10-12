@@ -1,12 +1,12 @@
-import React ,{useState} from 'react';
+import React  from 'react';
 import Bread from './Breadcrumbs';
 import SearchInput from './SearchInput';
-import { UserCircleIcon, BellIcon, Bars3Icon, Bars3CenterLeftIcon } from '@heroicons/react/24/solid';
+import { UserCircleIcon, Bars3Icon, Bars3CenterLeftIcon } from '@heroicons/react/24/solid';
 import { useDispatch, useSelector } from 'react-redux';
-import { open,close ,toggle } from '../../../Redux/StateReducer';
+import { toggle } from '../../../Redux/StateReducer';
 import Notifications from './Notifications';
-import Test from './test';
-import Test2 from './test2';
+// import Test from './test';
+// import Test2 from './test2';
 function Navbar({ onSidebarToggle }) {
   // const openSideBar=useSelector((state)=>{
   //   return

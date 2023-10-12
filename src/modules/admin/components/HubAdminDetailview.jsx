@@ -11,11 +11,11 @@ import {
     Tab,    
 } from "@material-tailwind/react";
 
-import {
-    HomeIcon,
-    ChatBubbleLeftEllipsisIcon,
-    Cog6ToothIcon,
-  } from "@heroicons/react/24/solid";
+// import {
+//     HomeIcon,
+//     ChatBubbleLeftEllipsisIcon,
+//     Cog6ToothIcon,
+//   } from "@heroicons/react/24/solid";
 function HubAdminDetailview() {
 const [admin,Setadmin]=useState([])
   const {id}=useParams();

@@ -1,10 +1,10 @@
 import React,{useEffect,useState} from "react";
 import {
   Card,
-  CardBody,
-  CardFooter,
-  Typography,
-  Button,
+  // CardBody,
+  // CardFooter,
+  // Typography,
+  // Button,
   CardHeader,
 } from "@material-tailwind/react";
 import { BsFillBox2Fill } from "react-icons/bs";

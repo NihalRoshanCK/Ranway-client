@@ -2,7 +2,7 @@ import { MapPinIcon } from '@heroicons/react/24/outline'
 import React,{useState} from 'react'
 import { Input } from "@material-tailwind/react";
 import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 function Select() {
     const navigate=useNavigate()

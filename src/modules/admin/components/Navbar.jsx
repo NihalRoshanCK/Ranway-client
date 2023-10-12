@@ -3,8 +3,13 @@ import Bread from './Breadcrumbs';
 import SearchInput from './SearchInput';
 import { UserCircleIcon, BellIcon, Bars3Icon, Bars3CenterLeftIcon } from '@heroicons/react/24/solid';
 import { useDispatch, useSelector } from 'react-redux';
-import { open,close ,toggle } from '../../../Redux/StateReducer';
-function Navbar({ onSidebarToggle }) {
+import { 
+  // open,
+  // close ,
+  toggle } from '../../../Redux/StateReducer';
+function Navbar({ 
+  // onSidebarToggle 
+}) {
   // const openSideBar=useSelector((state)=>{
   //   return
   // });

@@ -1,6 +1,6 @@
 import React, { useState ,useRef} from 'react'
 // import { useCallback } from "react";
-import ReactToPrint from 'react-to-print';
+// import ReactToPrint from 'react-to-print';
 // import { ComponentToPrint } from './ComponentToPrint';
 import  ComponentToPrint  from './Print';
 import useRazorpay from "react-razorpay";
@@ -9,7 +9,7 @@ import api from '../useraxiosInterceptor';
 import { 
     Button,
     Dialog,
-    DialogHeader,
+    // DialogHeader,
     DialogBody,
     DialogFooter,
 } from "@material-tailwind/react";

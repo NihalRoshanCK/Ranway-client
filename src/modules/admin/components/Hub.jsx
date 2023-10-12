@@ -2,34 +2,34 @@ import React, { useEffect, useState } from 'react'
 import {
     Card,
     CardHeader,
-    Input,
+    // Input,
     Typography,
     Button,
     CardBody,
     Chip, 
     CardFooter,
-    Tabs,
-    TabsHeader,
-    Tab,
+    // Tabs,
+    // TabsHeader,
+    // Tab,
     Avatar,
     IconButton,
     Tooltip,
   } from "@material-tailwind/react";
 
-  const TABS = [
-    {
-      label: "All",
-      value: "all",
-    },
-    {
-      label: "Monitored",
-      value: "monitored",
-    },
-    {
-      label: "Unmonitored",
-      value: "unmonitored",
-    },
-  ];
+  // const TABS = [
+  //   {
+  //     label: "All",
+  //     value: "all",
+  //   },
+  //   {
+  //     label: "Monitored",
+  //     value: "monitored",
+  //   },
+  //   {
+  //     label: "Unmonitored",
+  //     value: "unmonitored",
+  //   },
+  // ];
 
   const TABLE_HEAD = ["Head", "HubName",  "is Hotspot","Number", ""];
  
@@ -81,7 +81,9 @@ import {
 //   },
 // ];
 
-import { MagnifyingGlassIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import {
+  //  MagnifyingGlassIcon, 
+   ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import { Link } from 'react-router-dom';
 //   import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";

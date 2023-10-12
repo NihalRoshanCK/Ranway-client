@@ -11,7 +11,7 @@ import {
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import { open,close } from '../../../Redux/LoginReduser';
+import { close } from '../../../Redux/LoginReduser';
 import { useSelector, useDispatch } from 'react-redux'
 import { XMarkIcon } from '@heroicons/react/24/solid';
 function Login({handelChange}) {

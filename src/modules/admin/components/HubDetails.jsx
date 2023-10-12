@@ -29,7 +29,7 @@ import {
 } from "@material-tailwind/react";
 
 import { useParams } from 'react-router-dom';
-import UpdateModel from './UpdateModel';
+// import UpdateModel from './UpdateModel';
  
 const TABLE_HEAD = ["Staff", "Address", "joining Date", "Status", "Contact no", "Edit"];
  
@@ -39,7 +39,7 @@ function HubDetails() {
   const [staff,setStaff]=useState([])
   const[TABLE_ROWS,setTABLE_ROWS]=useState([])
   const [openRegister,setOpenRegister]=useState(false)
-  const [hub,setHub]=useState([])
+  // const [hub,setHub]=useState([])
   const [formData, setFormData] = useState({
     name: '', // Default value
     email: '', // Default value
