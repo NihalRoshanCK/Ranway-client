@@ -8,7 +8,8 @@ import Hub from '../components/Hub';
 // import { open } from '../../../Redux/StateReducer';
 import AdminProfile from '../components/AdminProfile';
 // import HubAdminDetailview from '../components/HubAdminDetailview';
-import HubAdminDetailview from '../components/Hubadmindetailview';
+// import HubAdminDetailview from '../components/Hubadmindetailview';
+import HubAdminDetailview  from  '../components/HubAdminDetailview'
 import HubDetails from '../components/HubDetails';
 import AdminDash from '../components/AdminDash';
 import UserManagement from '../components/UserManagement';
