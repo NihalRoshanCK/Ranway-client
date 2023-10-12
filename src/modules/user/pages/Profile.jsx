@@ -8,33 +8,24 @@ import {
     TabsHeader,
     Tab,    
     Button,
-    Chip,
-    CardFooter,
-    IconButton,
-    Tooltip,
+   
     Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Timeline,
-  TimelineItem,
-  TimelineConnector,
-  TimelineHeader,
-  TimelineIcon,
-  TimelineBody,
+  
 } from "@material-tailwind/react";
 import {
     HomeIcon,
     ChatBubbleLeftEllipsisIcon,
     Cog6ToothIcon,
-    ChevronUpDownIcon,
+  
   } from "@heroicons/react/24/solid";
 import api from '../useraxiosInterceptor';
 import NavbarUser from '../components/NavbarUser';
 import jwt_decode from "jwt-decode";
-const TABLE_HEAD = ["Product Name", "Order_id",  "from_address","to_address", "status"];
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
-import { Link } from 'react-router-dom';
+// const TABLE_HEAD = ["Product Name", "Order_id",  "from_address","to_address", "status"];
+
 import Orderstable from '../components/Orderstable';
 
 function Profile() {
