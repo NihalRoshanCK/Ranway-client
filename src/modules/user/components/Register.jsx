@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { close } from '../../../Redux/LoginReduser';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Otp from './Otp';
 function register({handelChange}) {
     const[data,setdata]=useState()
@@ -84,7 +84,7 @@ function register({handelChange}) {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return passwordRegex.test(password);
       };
-    const on =useSelector((state) => state.login.value)
+    // const on =useSelector((state) => state.login.value)
     const dispatch = useDispatch()
     const [registerd,setRegisterd]=useState(false)
   return (
