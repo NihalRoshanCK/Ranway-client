@@ -11,7 +11,7 @@ import AdminProfile from '../components/AdminProfile';
 import HubAdminDetailview from '../components/hubadmindetailview';
 import HubDetails from '../components/HubDetails';
 import AdminDash from '../components/AdminDash';
-import UserManagement from '../components/Usermanagement';
+import UserManagement from '../components/UserManagement';
 
 function Home() {
   
