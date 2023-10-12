@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import api from '../../../axiosInterceptor';
 import {
@@ -6,9 +6,7 @@ import {
     CardBody,
     Avatar,
     Typography,
-    Tabs,
-    TabsHeader,
-    Tab,    
+       
 } from "@material-tailwind/react";
 
 // import {
