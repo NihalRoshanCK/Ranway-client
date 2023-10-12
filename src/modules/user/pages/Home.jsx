@@ -1,10 +1,10 @@
 import React, { useState,useEffect } from 'react'
 // import { BsSearch } from 'react-icons/Bs';
-import { FaRegUserCircle } from 'react-icons/Fa';
+// import { FaRegUserCircle } from 'react-icons/Fa';
 import image from '../images/home.jpg';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+// import axios from 'axios';
 import {
   
     Button,
@@ -14,8 +14,8 @@ import Select from '../components/Select';
 import Login from '../components/Login';
 import Register from '../components/register';
 import { useSelector, useDispatch } from 'react-redux'
-import { open,close } from '../../../Redux/LoginReduser';
-import { XMarkIcon } from '@heroicons/react/24/solid';
+import { open } from '../../../Redux/LoginReduser';
+// import { XMarkIcon } from '@heroicons/react/24/solid';
 import Navbar from '../components/NavbarUser';
 function Home() {
     const [auth ,setAuth]=useState();
