@@ -12,7 +12,16 @@ import {
     CardFooter,
     IconButton,
     Tooltip,
-
+    Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  Timeline,
+  TimelineItem,
+  TimelineConnector,
+  TimelineHeader,
+  TimelineIcon,
+  TimelineBody,
 } from "@material-tailwind/react";
 import {
     HomeIcon,
@@ -26,11 +35,12 @@ import jwt_decode from "jwt-decode";
 const TABLE_HEAD = ["Product Name", "Order_id",  "from_address","to_address", "status"];
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import { Link } from 'react-router-dom';
+import Orderstable from '../components/Orderstable';
 
 function Profile() {
     const [user,setUser]=useState([])
-    const[TABLE_ROWS,setTABLE_ROWS]=useState([])
-
+    const [open, setOpen] =useState(false);
+    const [order,setorder]=useState([]);
     useEffect(() => {
         var token=localStorage.getItem('access')
         var decoded = jwt_decode(token);
@@ -39,20 +49,171 @@ function Profile() {
         // Example API request using the api instance
         api.get(`auths/user/${decoded.user_id}/`)
           .then((response) => {
-            
+            setUser(response.data)
         //   setTABLE_ROWS(response.data);
           })
           .catch((error) => {
             console.error(error);
           });
-        api.get(`product/order/`).then((response)=>{
-            console.log(response.data)
-            setTABLE_ROWS(response.data);
-        })
+    
       }, []);
+      console.log(user);
+
+      const orderDetail = async (id) => {
+        console.log(id,"ggggggggggggggggggggggggggggggggggggggggggg");
+        const response=await api.get(`product/order/${id}/`)
+        console.log(response.data,"jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+        setorder(response.data)
+        setOpen(!open);
+      }
+      const handleOpen=()=>{
+        setOpen(!open);
+      }
   return (
+
     <>
     <NavbarUser/>
+
+    <Dialog
+        open={open}
+        handler={handleOpen}
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+        size='xl'
+      >
+        <DialogHeader>Product Name:{order?.booking?.product_name}</DialogHeader>
+        <DialogBody divider className=''>
+
+        {/* <Timeline  >
+        <TimelineItem  className='flex'>
+          <TimelineConnector className='flex'/>
+          <TimelineHeader className="h-3">
+            <TimelineIcon color={order.created_at ? 'green' : 'gray'} /> 
+            <Typography variant="h6" color="blue-gray" className="leading-none">
+              Order conformed
+            </Typography>
+          </TimelineHeader>
+          <TimelineBody className="pb-8">
+            <Typography variant="small" color="blue-gray" className="font-normal text-gray-600">
+              {order?.created_at}
+            </Typography>
+          </TimelineBody>
+        </TimelineItem>
+       
+      </Timeline> */}
+      
+          <ol class="items-center  sm:flex w-full">
+    <li class="relative mb-6 sm:mb-0 w-2/12">
+            <h3  color='' class="text-sm mb-1 font-semibold text-green-300 dark:text-white">Order conformed</h3>
+        <div class="flex items-center ">
+            <div class="ml-10 flex items-center justify-center w-4 h-4 bg-green-200 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
+            </div>
+
+            <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block ml-4 mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{order?.created_at}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+
+    <li class="relative mb-6 sm:mb-0 w-2/12">
+            <h3  color='' class="text-sm mb-1 font-semibold text-green-300 dark:text-white">Order Collected</h3>
+        <div class="flex items-center">
+            <div class=" flex items-center justify-center w-4 h-4 bg-green-200 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
+            </div>
+
+            <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{order?.collected_at}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+
+    <li class="relative mb-6 sm:mb-0 w-2/12">
+            <h3  color='' class="text-sm mb-1 font-semibold text-green-300 dark:text-white">Reached nearest hub</h3>
+        <div class="flex items-center">
+            <div class=" flex items-center justify-center w-4 h-4 bg-green-200 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
+            </div>
+
+            <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{order?.out_for_delivery}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+
+    <li class="relative mb-6 sm:mb-0 w-2/12">
+            <h3  color='' class="text-sm mb-1 font-semibold text-green-300 dark:text-white">Out for Delivery</h3>
+        <div class="flex items-center">
+            <div class=" flex items-center justify-center w-4 h-4 bg-green-200 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
+            </div>
+
+            <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{order?.out_for_delivery}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+
+    <li class="relative mb-6 sm:mb-0 w-2/12">
+            <h3  color='' class="text-sm mb-1 font-semibold text-green-300 dark:text-white">Out for Delivery</h3>
+        <div class="flex items-center">
+            <div class=" flex items-center justify-center w-4 h-4 bg-green-200 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
+            </div>
+
+            <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{order?.out_for_delivery}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+    
+</ol>
+
+
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpen}
+            className="mr-1"
+          >
+            <span>Cancel</span>
+          </Button>
+          <Button variant="gradient" color="green" onClick={handleOpen}>
+            <span>Confirm</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
+
     <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url(https://imgs.search.brave.com/b5ZRS813z6S51yTEKSjolrf5sH_VCAvSH6X-sW8ThWU/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE0/NjUwNTY4MzYwNDEt/N2Y0M2FjMjdkY2I1/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/bGVIQnNiM0psTFda/bFpXUjhPSHg4ZkdW/dWZEQjhmSHg4ZkE9/PSZ3PTEwMDAmcT04/MA.jpeg)] bg-cover	bg-center">
         <div className="absolute inset-0 h-full w-full bg-blue-500/50" />
     </div>
@@ -61,20 +222,20 @@ function Profile() {
           <div className="mb-10 flex items-center justify-between gap-6">
             <div className="flex items-center gap-6">
               <Avatar
-                src="/img/bruce-mars.jpeg"
-                alt="bruce-mars"
+                src={user.profile_picture}
+                alt={user.name}
                 size="xl"
                 className="rounded-lg shadow-lg shadow-blue-gray-500/40"
               />
               <div>
                 <Typography variant="h5" color="blue-gray" className="mb-1">
-                  Richard Davis
+                  {user.name}
                 </Typography>
                 <Typography
                   variant="small"
                   className="font-normal text-blue-gray-600"
                 >
-                  CEO / Co-Founder
+                 {user.email}
                 </Typography>
               </div>
             </div>
@@ -97,107 +258,10 @@ function Profile() {
               </Tabs>
             </div>
           </div>
-          <table className="mt-4 w-full min-w-max table-auto text-left">
-          <thead>
-            <tr>
-              {TABLE_HEAD.map((head, index) => (
-                <th
-                  key={head}
-                  className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                >
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                  >
-                    {head}{" "}
-                    {index !== TABLE_ROWS.length - 1 && (
-                      <ChevronUpDownIcon strokeWidth={2} className="h-4 w-4" />
-                    )}
-                  </Typography>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {TABLE_ROWS.map((item, index) => {
-              const isLast = index === TABLE_ROWS.length - 1;
-              const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-              return (
-                <tr key={item.id}>
-                  <td className={classes}>
-                      <Link to={`hubadmin/${item.id}`}>
-                    <div className="flex items-center gap-3">
-                      {/* <Avatar src={item?.hub_head?.user?.profile_picture} alt='name' size="sm" /> */}
-                      <Typography variant="small" color="blue-gray" className="font-normal">
-                        {item?.["booking"].product_name}
-                      </Typography>
-                      <div className="flex flex-col">
-                        <Typography variant="small" color="blue-gray" className="font-normal">
-                        {item?.hub_head?.user?.name}
-                        </Typography>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal opacity-70"
-                          >
-                          {item?.hub_head?.user?.email}
-                        </Typography>
-                      </div>
-                    </div>
-                          </Link>
-                  </td>
-                  <td className={classes}>
-                    <div className="flex flex-col">
-                      <Typography variant="small" color="blue-gray" className="font-normal">
-                        {item?.created_at}
-                      </Typography>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal opacity-70"
-                      >
-                        {item?.address}
-                      </Typography>
-                    </div>
-                  </td>
-                  <td className={classes}>
-                    <div className="w-max">
-                      {/* <Chip
-                        variant="ghost"
-                        size="sm"
-                        value={item?.is_active ? "active" : "inactive"}
-                        color={item?.is_active  ? "green" : "blue-gray"}
-                      /> */}
-                      {item?.["booking"]?.from_address}-{item?.["booking"]?.to_address}
-                        
-                    </div>
-                  </td>
-                  <td className={classes}>
-                    <Typography variant="small" color="blue-gray" className="font-normal">
-                      {item?.number}
-                    </Typography>
-                  </td>
-                  <Link to={`hubdetail/${item.id}`}>
-                  <td className={classes}>
-                    <Tooltip content="Edit User">
-                      {/* <IconButton variant="text" color="blue-gray">
-                        <PencilIcon className="h-4 w-4" />
-                      </IconButton> */}
-                      <Chip
-                        variant="ghost"
-                        size="sm"
-                        value={item?.collected ? "Onproccess" : "Pending"}
-                        color={item?.collected  ? "green" : "red"}
-                      />
-                    </Tooltip>
-                  </td>
-                  </Link>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+          <div className='h-60'>
+
+          <Orderstable orderDetail={orderDetail}/>
+          </div>
           </CardBody>
       </Card>
     </>

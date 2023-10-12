@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Login from '../components/Login';
 import Register from '../components/register';
 import Loader from '../components/Loader';
+import image from '../images/booking.jpg'
 
 function Booking() {
   const currentDate = new Date();
@@ -35,7 +36,7 @@ function Booking() {
   const [auth ,setAuth]=useState(true);
   const [varifications, setVarifications] = useState({});
   const[booking,setBooking]=useState()
-  const [loading,isLoading]=useState(false)
+  const [loading,isLoading]=useState(true)
 
   const handleKeyPress = (e) => {
     // Prevent the up and down arrow keys from changing the value
@@ -50,6 +51,13 @@ function Booking() {
     console.log('Event:', event);
     setSelect(event);
   }
+  const main={
+    // margin:'',
+    backgroundImage: `url(${image})`,
+    // height:"100vh",
+    backgroundSize: 'cover',
+    // backgroundPosition: 'center',
+}
   useEffect(() => {
   (async()=>{
       try {
@@ -67,6 +75,7 @@ function Booking() {
       }catch (error) {
       // Handle any error that occurs during the HTTP request
       console.error('Error:', error);
+      toast.error(error.response.data.message)
       // toast.error(error.response.data.message)
       }
     
@@ -114,6 +123,7 @@ function Booking() {
 
       } catch (error) {
         console.error(error);
+        toast.error(error.response.data.message)
         // Handle error: Display an error message to the user or perform other actions.
       }
       
@@ -131,71 +141,58 @@ function Booking() {
       </Dialog>
     <Navbar/>
     <Conformation is_active={is_active}  price={price} booking={booking} handleOpen={handleOpen}/>
-    <div className='bg-amber-100 h-fit flex w-full justify-center items-center '>
-      <div className='w-4/12 '>
-      <Typography variant="h1" className="text-light-green-700  text-center ">Enter Details</Typography>
-        <form onSubmit={handleSubmit}>
-          <div className='mb-2'>
-          <Input  className='' name='product_name' color="indigo" label="Product Name" />
-          </div>
-          <div className='mb-2'>
-
-          <Select   onChange={handleSelect} className='' name='category' color="indigo" label="Category">
-            {categories.map((cat) => (
-              <Option key={cat.id} value={cat} >{cat.name}</Option>
-              ))}
-          </Select>
-              </div>
+    <div className="h-screen">
+      <div style={main} className="h-fit flex w-full justify-center items-center">
+        <div className="w-6/12 px-16 bg-white bg-opacity-80">
+          <Typography variant="h1" className="text-center">Enter Details</Typography>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-2">
+              <Input className="" name="product_name" color="indigo" label="Product Name" />
+            </div>
+            <div className="mb-2">
+              <Select onChange={handleSelect} className="" name="category" color="indigo" label="Category">
+                {categories.map((cat) => (
+                  <Option key={cat.id} value={cat}>{cat.name}</Option>
+                ))}
+              </Select>
+            </div>
+            <Textarea name="from_address" color="indigo" label="From address" />
+            <div className="mb-2">
               
-
-          <Textarea name='from_address' color="indigo" label="From address" />
-          <div className='mb-2'>
-          <Input className="no-spin-button" type='number' name='from_zipcode' color="indigo" label="from address pincode" />
-
-              </div>
-
-              <div className='mb-2'>
-          <Input className="no-spin-button" type='number' name='from_user_contact' color="indigo" label="from address contact number" />
-
-              </div>
-          <Textarea name='to_address' color="indigo" label="To address" />
-          <div className='mb-2'>
-          <Input className="no-spin-button" type='number' name='to_zipcode' color="indigo" label="to address picode" />
-
-              </div>
-              
-              <div className='mb-2'>
-          <Input className="no-spin-button" type='number' name='to_user_contact' color="indigo" label="to address contact number" />
-
-              </div>
-              <div className='mb-2'>
-
-          <Input  className="no-spin-button" type='number' name='height' color="indigo" label="height" />
-              </div>
-              <div className='mb-2'>
-
-          <Input className="no-spin-button"   type='number' name='width' color="indigo" label="width" />
-              </div>
-              <div className='mb-2'>
-
-<Input className="no-spin-button"   type='number' name='weight' color="indigo" label="weight" />
-    </div>
-              <div className='mb-2'>
-                
-
-<Input className="no-spin-button"  type='number' name='product_price' color="indigo" label="price to be collect" />
-    </div>
-    <div className='mb-2'>
-      
-              <Input onKeyDown={handleKeyPress} color="indigo" name='hbd' label='date for pickup'   type="date" min={currentDateStr}  max={maxDateStr} />
-    </div>
-          <Verification setVarifications={setVarifications} varifications={varifications}/>
-              
-          <div className='flex justify-center'>
-
-          <Button type='submit'>Submit</Button>
-          </div>
-        </form>
+              <Input className="no-spin-button"   pattern="^\d{6}$"   
+          title="Please enter a 6-digit zip code" id='' name="from_zipcode" color="indigo" label="From address pincode" />
+            </div>
+            <div className="mb-2">
+              <Input className="no-spin-button" type="number" name="from_user_contact" color="indigo" label="From address contact number" />
+            </div>
+            <Textarea name="to_address" color="indigo" label="To address" />
+            <div className="mb-2">
+              <Input className="no-spin-button" type="number" name="to_zipcode" color="indigo" label="To address pincode" />
+            </div>
+            <div className="mb-2">
+              <Input className="no-spin-button" type="number" name="to_user_contact" color="indigo" label="To address contact number" />
+            </div>
+            <div className="mb-2">
+              <Input className="no-spin-button" type="number" name="height" color="indigo" label="Height" />
+            </div>
+            <div className="mb-2">
+              <Input className="no-spin-button" type="number" name="width" color="indigo" label="Width" />
+            </div>
+            <div className="mb-2">
+              <Input className="no-spin-button" type="number" name="weight" color="indigo" label="Weight" />
+            </div>
+            <div className="mb-2">
+              <Input className="no-spin-button" type="number" name="product_price" color="indigo" label="Price to be collected" />
+            </div>
+            <div className="mb-2">
+              <Input onKeyDown={handleKeyPress} color="indigo" name="hbd" label="Date for pickup" type="date" min={currentDateStr} max={maxDateStr} />
+            </div>
+            <div className="flex justify-center">
+              <Button type="submit">Submit</Button>
+            </div>
+          </form>
+        </div>
+        <ToastContainer />
       </div>
     </div>
 

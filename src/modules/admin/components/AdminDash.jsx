@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import {
   Card,
   CardBody,
@@ -10,85 +10,29 @@ import {
 import { BsFillBox2Fill } from "react-icons/bs";
 import ChartLine from "./ChartLine";
 import AllOrder from "./AllOrder";
-const orderData = {
-  "2022-11": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  "2022-12": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  "2023-01": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  "2023-02": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  "2023-03": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  "2023-04": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  "2023-05": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  "2023-06": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  "2023-07": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  "2023-08": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  "2023-09": {
-    pending: 12,
-    in_progress: 0,
-    completed: 1,
-    return: 0,
-  },
-  "2023-10": {
-    pending: 0,
-    in_progress: 0,
-    completed: 0,
-    return: 0,
-  },
-  // Add more data for other months as needed
-};
+import api from "../../../axiosInterceptor";
+
+import { BiSolidUser } from "react-icons/bi";
+import { MdPayment } from "react-icons/md";
+import { FaHouse } from "react-icons/fa6";
+
+
+
+
 function AdminDash() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    (async()=>{
+        
+      
+        const response=await api.get(`admins/admindash/`)
+        console.log(response.data,"llllllllllllllllllll");
+        setData(response.data)
+        
+    })()
+}, []);
   return (
     <div className="" >
-     {/* <div className=""> */}
         <div className="my-8 lg:flex justify-evenly gap-2 ">
           <Card className="w-full mt-11 lg:mt-0 ">
             <div className="flex justify-between ">
@@ -101,13 +45,13 @@ function AdminDash() {
               </CardHeader>
               <div className="m-5">
                 <h1 className="text-lg">Orders</h1>
-                <h1 className=" font-black text-xl float-right">281</h1>
+                <h1 className=" font-black text-xl float-right">{data?.orders?.total}</h1>
               </div>
             </div>
             <CardFooter>
               <hr className="from-gray-50 to-gray-900 " />
               <h1 className="text-lg pt-2">
-                <span className="font-black text-green-300">+55% </span>than
+                <span className="font-black text-green-300">+{data?.orders?.difference}% </span>than
                 last month
               </h1>
             </CardFooter>
@@ -119,17 +63,17 @@ function AdminDash() {
                 color="gray"
                 className="mb-4  grid h-16 w-16 justify-center items-center"
               >
-                <BsFillBox2Fill className="h-6 w-6" />
+                <MdPayment className="h-6 w-6" />
               </CardHeader>
               <div className="m-5">
-                <h1 className="text-lg">Orders</h1>
-                <h1 className=" font-black text-xl float-right">281</h1>
+                <h1 className="text-lg">Revenue</h1>
+                <h1 className=" font-black text-xl float-right">{data?.payment?.total}</h1>
               </div>
             </div>
             <CardFooter>
               <hr className="from-gray-50 to-gray-900 " />
               <h1 className="text-lg pt-2">
-                <span className="font-black text-green-300">+55% </span>than
+                <span className="font-black text-green-300">+{data?.payment?.difference}% </span>than
                 last month
               </h1>
             </CardFooter>
@@ -141,17 +85,17 @@ function AdminDash() {
                 color="gray"
                 className="mb-4  grid h-16 w-16 justify-center items-center"
               >
-                <BsFillBox2Fill className="h-6 w-6" />
+                <BiSolidUser className="h-6 w-6" />
               </CardHeader>
               <div className="m-5">
-                <h1 className="text-lg">Orders</h1>
-                <h1 className=" font-black text-xl float-right">281</h1>
+                <h1 className="text-lg">Users</h1>
+                <h1 className=" font-black text-xl float-right">{data?.users?.total}</h1>
               </div>
             </div>
             <CardFooter>
               <hr className="from-gray-50 to-gray-900 " />
               <h1 className="text-lg pt-2">
-                <span className="font-black text-green-300">+55% </span>than
+                <span className="font-black text-green-300">+{data?.users?.difference}% </span>than
                 last month
               </h1>
             </CardFooter>
@@ -163,17 +107,17 @@ function AdminDash() {
                 color="gray"
                 className="mb-4  grid h-16 w-16 justify-center items-center"
               >
-                <BsFillBox2Fill className="h-6 w-6" />
+                <FaHouse className="h-6 w-6" />
               </CardHeader>
               <div className="m-5">
-                <h1 className="text-lg">Orders</h1>
-                <h1 className=" font-black text-xl float-right">281</h1>
+                <h1 className="text-lg">Hubs</h1>
+                <h1 className=" font-black text-xl float-right">{data?.hubs?.total}</h1>
               </div>
             </div>
             <CardFooter>
               <hr className="from-gray-50 to-gray-900 " />
               <h1 className="text-lg pt-2">
-                <span className="font-black text-green-300">+55% </span>than
+                <span className="font-black text-green-300">+{data?.hubs?.difference}% </span>than
                 last month
               </h1>
             </CardFooter>
@@ -189,7 +133,7 @@ function AdminDash() {
                   className="mb-4 grid w-11/12 h-full justify-items-center align-middle   place-items-center"
                 >
                 </CardHeader> */}
-                  <ChartLine data={orderData} />
+                {data?.orders?.order_month_data && <ChartLine data={data?.orders?.order_month_data} />}
               </div>
               <CardFooter></CardFooter>
             </Card>
@@ -203,7 +147,7 @@ function AdminDash() {
                   className="mb-4 grid w-6/12 h-full place-items-center"
                 >
                 </CardHeader> */}
-                  <ChartLine data={orderData} />
+                  {data?.orders?.order_month_data && <ChartLine data={data?.orders?.order_month_data} />}
               </div>
               <CardFooter></CardFooter>
             </Card>

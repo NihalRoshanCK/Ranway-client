@@ -208,7 +208,7 @@ function AllOrder() {
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     rowsPerPageOptions={[10, 25, 50]} dataKey="id" selectionMode="checkbox" selection={selectedCustomers} onSelectionChange={(e) => setSelectedCustomers(e.value)}
                     filters={filters} filterDisplay="menu" globalFilterFields={['order_id', 'country.name', 'representative.name', 'balance', 'status']}
-                    emptyMessage="No customers found." currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+                    emptyMessage="No order found." currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
                 <Column field="order_id" header="Order" sortable frozen  filterPlaceholder="Search by name" />
                  <Column field="booking.hbd" header="HBD" sortable  filterPlaceholder="Search by country" />
                 <Column field="booking.cpd" header="CPD" sortable  filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }}/>

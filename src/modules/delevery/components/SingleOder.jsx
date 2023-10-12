@@ -127,8 +127,8 @@ function SingleOder() {
     {order === null ? (
         <div>Loading...</div>
       ) : (
-        <div >
-          <div className='space-y-5'>
+        <div className='h-screen  bg-white' >
+          <div className='  space-y-5'>
             <div className='font-bold' >Costumer Name: <span className='font-black text-blue-500'>{order.booking.user.name}</span> </div>
             <div className='text-lg'>
             {order.collected ? 
@@ -137,7 +137,7 @@ function SingleOder() {
                 order.booking.from_address
                 }
                 </div>
-                <div className='bg-blue-gray-500 flex justify-between p-3'>
+                <div className='m-2 bg-gray-300 flex justify-between p-3'>
                   <div>{order.order_id}</div>
                   {order.collected ?
                     <div>Rs:{order.booking.product_price}</div>: null
@@ -145,15 +145,15 @@ function SingleOder() {
               {!result.text ? (<div className='space-x-2'><Button color='blue' onClick={()=>setScan(true)}>Verify</Button><Button onClick={handleCancel} color='red'>cancell</Button></div>) : (result.text === order.order_id ? <Button color='green'>Verifed</Button> : <div >Cancelled</div>)}
                         </div>
             {/* <p>{result?.text}</p> */}
-            <QRCode className='m-10' value={order.order_id}/>
+            <QRCode className='m-10  mb-0' value={order.order_id}/>
           </div>
+          
           <div className='fixed bottom-0 left-0 right-0'>
 
           {
             result.text === order.order_id ? <Button className='w-full' onClick={handledelevery}>Conform</Button>: null
           }
           </div>
-          
         </div>
       )}
     </>

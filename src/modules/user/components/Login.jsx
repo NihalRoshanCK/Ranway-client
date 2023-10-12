@@ -8,7 +8,7 @@ import {
     Typography,
     Input,
   } from "@material-tailwind/react";
-  import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { open,close } from '../../../Redux/LoginReduser';
@@ -52,7 +52,6 @@ function Login({handelChange}) {
             localStorage.setItem('refresh', response.data.refresh)
             localStorage.setItem('access', response.data.access)
             localStorage.setItem('role', response.data.access_token_payload.role)
-            console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
             // item=jwt_decode(response.data.access)
             console.log(localStorage.getItem('role'));  
             // console.log("itemsssssssssssssssssssssssssssssssssssssss",item);
@@ -66,7 +65,7 @@ function Login({handelChange}) {
           } else {
             // Handle other scenarios where the response is not successful
             console.error('Login failed:', response);
-            toast.warning(' ')
+            toast.warning('Login failed')
           }
         } catch (error) {
           // Handle any error that occurs during the HTTP request

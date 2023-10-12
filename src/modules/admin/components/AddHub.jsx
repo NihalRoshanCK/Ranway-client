@@ -87,7 +87,7 @@ function AddHub() {
               <Input type="text" id="name_hub" name="hub_name" label="Hub Name" size="xl" />
               <div className="w-98">
                  <Textarea label="Hub Address" name='address' id="address"/>
-              <Input type="number" id="number" name="number" label="Hub number" size="xl" />
+              <Input  id="number" name="number" label="Hub number" size="xl" pattern='[0-9]{10}' title="Please enter a 10-digit phone number" />
 
             </div>
             

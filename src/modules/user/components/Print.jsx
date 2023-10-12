@@ -29,7 +29,7 @@ function Print({paymentDetails,ref}) {
                 </div>
                 <div className='p-2'>
 
-                <QRCode value={paymentDetails?.['order']?.order_id} />
+                <QRCode  value={paymentDetails?.['order']?.order_id} />
                 </div>
         
             </div>

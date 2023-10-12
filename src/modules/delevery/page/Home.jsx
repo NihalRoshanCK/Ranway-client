@@ -19,7 +19,7 @@ function Home() {
     })();
     },[]);
   return (
-    <div className='bg-blue-gray-100 h-screen'>
+    <div className='bg-blue-gray-100 min-h-screen max-h-fit pb-5'>
     <Navbar/>
     {/* {worksheet.map((item)=>(
       <div className='m-10'>

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   // Set the base URL for your API requests
-  baseURL: 'http://127.0.0.1:8000/',
+  baseURL: 'http://3.110.128.2/',
 });
 
 // Add request interceptor

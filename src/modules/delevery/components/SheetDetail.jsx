@@ -79,12 +79,12 @@ order.status==='return' ?
 order.status==='in_progress' ?
         (<> 
         <Link to=''>
-          <Card  className='m-5 p-5 space-y-1 rounded-none'>
+          <Card  className='bg-green-100 m-5 p-5 space-y-1 rounded-none'>
             <div>{order.order_id}</div>
             <div>{order.booking.user.name}</div>
             {order.collected?<div>{order.booking.to_address}</div>:<div>{order.booking.from_address}</div>}
             <hr />
-            {order.collected?<div className='flex'><RiLogoutBoxRFill className='h-6 w-6'/> <div> Delevery</div></div>:<div className='flex'><ArchiveBoxArrowDownIcon className='w-6 h-6' color='orange'/><div>Pickup</div></div>}
+            {order.collected?<div className='flex'><RiLogoutBoxRFill className='h-6 w-6'/> <div> Delevery</div></div>:<div className='flex'><ArchiveBoxArrowDownIcon className='w-6 h-6' color='orange'/><div>Pickup Collected</div></div>}
 
           </Card>
         </Link>

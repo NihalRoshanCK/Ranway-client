@@ -144,7 +144,7 @@ function HubDetails() {
       formData.append('password', e.target.password.value);
       // formData.append('conform_password', e.target.conform_password.value);
       formData.append('hub', id)
-      console.log(formData);
+      console.log(formData,"formmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
       // Check if password and confirm password match
       if (e.target.password.value === e.target.conform_password.value) {
         // Send the formData in your API request
