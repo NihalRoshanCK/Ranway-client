@@ -6,7 +6,8 @@ import AdminLogin from './modules/admin/pages/Login'
 import HomeAdmin from './modules/admin/pages/Home';
 import HubAdmin from './modules/hub_admin/pages/Home'
 import HubAdminLogin from './modules/hub_admin/pages/Login'
-import Profile from './modules/user/pages/profile';
+// import Profile from '../modules/user/pages/profile';
+import Profile from '../src/modules/user/pages/Profile'
 import Loader from './modules/user/components/Loader';
 import Loginoffice from './modules/office/page/Login';
 import Homeoffice from './modules/office/page/Home';
