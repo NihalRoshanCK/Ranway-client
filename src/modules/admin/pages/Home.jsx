@@ -7,7 +7,8 @@ import Hub from '../components/Hub';
 // import { useSelector, useDispatch } from 'react-redux'
 // import { open } from '../../../Redux/StateReducer';
 import AdminProfile from '../components/AdminProfile';
-import HubAdminDetailview from '../components/Hubadmindetailview';
+// import HubAdminDetailview from '../components/HubAdminDetailview';
+import HubAdminDetailview from '../components/hubadmindetailview';
 import HubDetails from '../components/HubDetails';
 import AdminDash from '../components/AdminDash';
 import UserManagement from '../components/Usermanagement';

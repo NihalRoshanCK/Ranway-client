@@ -6,7 +6,6 @@ import {
     CardBody,
     Avatar,
     Typography,
-       
 } from "@material-tailwind/react";
 
 // import {
