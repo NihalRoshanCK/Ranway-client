@@ -72,7 +72,7 @@ function Chat() {
         
         console.log(message.message.message_data["sender"].profile_picture);
         let pic=message.message.message_data["sender"].profile_picture
-        message.message.message_data['sender'].profile_picture="http://127.0.0.1:8000/"+pic
+        message.message.message_data['sender'].profile_picture=import.meta.env.VITE_BASE_URL+pic
 
         setMessages((prevMessages) => [...prevMessages, message.message.message_data])
       
