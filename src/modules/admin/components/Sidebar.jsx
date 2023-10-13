@@ -115,12 +115,14 @@ function Sidebar() {
                 />
               }
             >
+                <Link to="/admin">
               <ListItem className="p-0" selected={open === 1}>
                 <AccordionHeader
                   style={text}
                   onClick={() => handleOpen(1)}
                   className="border-b-0 p-3"
-                >
+                  >
+
                   <ListItemPrefix style={text}>
                     <PresentationChartBarIcon className="h-5 w-5" />
                   </ListItemPrefix>
@@ -128,11 +130,12 @@ function Sidebar() {
                     style={text}
                     color="blue-gray"
                     className="mr-auto font-normal"
-                  >
+                    >
                     Dashboard
                   </Typography>
                 </AccordionHeader>
               </ListItem>
+                      </Link>
               <AccordionBody className="py-1">
                 <List className="p-0">
                   <ListItem style={text}>
@@ -207,8 +210,8 @@ function Sidebar() {
               </AccordionBody>
             </Accordion>
             <hr className="my-2 border-blue-gray-50" />
-            <ListItem style={text}>
               <Link to="/admin/user" >
+            <ListItem style={text}>
               <ListItemPrefix>
 
                 <InboxIcon className="h-5 w-5" />
@@ -224,8 +227,8 @@ function Sidebar() {
                   className="rounded-full"
                   />
               </ListItemSuffix>
-                  </Link>
             </ListItem>
+                  </Link>
             <ListItem style={text}>
               <ListItemPrefix>
                 <UserCircleIcon className="h-5 w-5" />
