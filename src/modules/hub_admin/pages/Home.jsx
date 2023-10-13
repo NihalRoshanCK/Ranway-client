@@ -29,7 +29,7 @@ if(role &&  refresh && access){
         <div  className= "w-full lg:ml-0 transition-all ease-in-out p-5">
           <Navbar  />
           <Routes>
-              <Route path='' e  lement={<HubDash/>}/>
+              <Route path='' element={<HubDash/>}/>
               <Route path='huborder'  element={<Orders/>}/>
               <Route path='notifications'  element={<SeeAllNotifications/>}/>
               <Route path='chat'  element={<Chat/>}/>

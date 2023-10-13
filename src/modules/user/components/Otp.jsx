@@ -53,7 +53,7 @@ function Otp({data}) {
     // console.log(data,"dddddddddddddddddddddddddddddddddddddddddddddddddddd")
     if (data.otp===otpValue){
         try {
-          const response = await axios.post('http://127.0.0.1:8000/user/register/', data);
+          const response = await axios.post(import.meta.env.VITE_BASE_URL+'user/register/', data);
           
           // Check if the response is successful
           if (response && response.status === 200) {

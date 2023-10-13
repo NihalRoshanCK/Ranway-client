@@ -20,7 +20,7 @@ function Select({order,orders,setOrders,setorder}) {
       const inputObject = Object.fromEntries(formData);
       
       try {
-        const response = await axios.post('http://127.0.0.1:8000/hub/oderdistance/', inputObject);
+        const response = await axios.post(import.meta.env.VITE_BASE_URL+'hub/oderdistance/', inputObject);
         if (response && response.status === 200) {
             console.log(response.data);
             if (response.data){
