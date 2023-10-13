@@ -59,7 +59,7 @@ function Chat() {
     let ws;
 
     const connectWebSocket = () => {
-      ws = new WebSocket(import.meta.env.VITE_BASE_WEB_URL`ws/messaging/?token=${accessToken}`);
+      ws = new WebSocket(import.meta.env.VITE_BASE_WEB_URL+`ws/messaging/?token=${accessToken}`);
 
       ws.addEventListener('open', () => {
         console.log('WebSocket connection established');
