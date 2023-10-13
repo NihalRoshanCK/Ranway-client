@@ -76,7 +76,7 @@ function Sidebar() {
     localStorage.removeItem('refresh');
     localStorage.removeItem('access');
     localStorage.removeItem('role');
-    navigate('/login')
+    navigate('/hubadminlogin')
     // navigate(-1)
   }
   return (

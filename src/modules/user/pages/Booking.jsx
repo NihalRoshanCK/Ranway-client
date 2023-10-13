@@ -61,7 +61,7 @@ function Booking() {
   useEffect(() => {
   (async()=>{
       try {
-        const response = await  axios.get('http://127.0.0.1:8000/product/categories/');
+        const response = await  axios.get(import.meta.env.VITE_BASE_URL+'product/categories/');
         if (response && response.status === 200 ) {
             console.log(response.data);
             if (response.data){

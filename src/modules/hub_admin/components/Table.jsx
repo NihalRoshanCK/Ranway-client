@@ -16,7 +16,7 @@ import { MultiSelect } from 'primereact/multiselect';
 import { Slider } from 'primereact/slider';
 import { Tag } from 'primereact/tag';
 // import { CustomerService } from './CustomerService';
-import api from "../officeaxiosInterceptor";
+import api from "../axiosInterceptor";
 function Table() {
     const [customers, setCustomers] = useState([]);
     const [selectedCustomers, setSelectedCustomers] = useState([]);
@@ -97,7 +97,7 @@ function Table() {
     const renderHeader = () => {
         return (
             <div className="flex flex-wrap gap-2 justify-content-between align-items-center">
-                <h4 className="m-0">Order</h4>
+                <h4 className="m-0">Customers</h4>
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
                     <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
@@ -191,7 +191,7 @@ function Table() {
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     rowsPerPageOptions={[10, 25, 50]} dataKey="id" selectionMode="checkbox" selection={selectedCustomers} onSelectionChange={(e) => setSelectedCustomers(e.value)}
                     filters={filters} filterDisplay="menu" globalFilterFields={['order_id', 'country.name', 'representative.name', 'balance', 'status']}
-                    emptyMessage="No order found." currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+                    emptyMessage="No customers found." currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
                 <Column field="order_id" header="Order" sortable frozen  filterPlaceholder="Search by name" style={{ minWidth: '14rem' }} />
                  <Column field="booking.hbd" header="HBD" sortable filterField="country.name" style={{ minWidth: '14rem' }} 
                  filterPlaceholder="Search by country" />

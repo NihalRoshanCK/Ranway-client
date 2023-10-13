@@ -76,7 +76,7 @@ if(role && refresh && access){
 
     
         try {
-          const response = await axios.post('http://127.0.0.1:8000/auths/login/', inputObject);
+          const response = await axios.post(import.meta.env.VITE_BASE_URL+'auths/login/', inputObject);
           
           // Check if the response is successful
           if (response && response.status === 200) {
@@ -84,6 +84,8 @@ if(role && refresh && access){
             localStorage.setItem('refresh', response.data.refresh)
             localStorage.setItem('access', response.data.access)
             localStorage.setItem('role', response.data.access_token_payload.role)
+            localStorage.setItem('user',response.data.user)
+
             console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
             // item=jwt_decode(response.data.access)
             console.log(localStorage.getItem('role'));  

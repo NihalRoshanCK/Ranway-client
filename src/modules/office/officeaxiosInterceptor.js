@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   // Set the base URL for your API requests
-  baseURL: 'http://127.0.0.1:8000/',
+  baseURL: import.meta.env.VITE_BASE_URL,
 });
 
 // Add request interceptor
@@ -34,7 +34,7 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401 && localStorage.getItem('refresh')) {
       try {
         // Send a request to the refresh token endpoint to get a new access token
-        const refreshResponse = await axios.post('http://127.0.0.1:8000/auths/token/refresh/', {
+        const refreshResponse = await axios.post(import.meta.env.VITE_BASE_URL+'auths/token/refresh/', {
           refresh: localStorage.getItem('refresh'),
         });
 

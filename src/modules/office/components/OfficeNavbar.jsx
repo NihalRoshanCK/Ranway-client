@@ -7,6 +7,7 @@ import {
     IconButton,
     Card,
   } from "@material-tailwind/react";
+  import { Link, useNavigate } from 'react-router-dom';
 function OfficeNavbar() {
     const [openNav, setOpenNav] = React.useState(false);
  
@@ -16,49 +17,68 @@ function OfficeNavbar() {
         () => window.innerWidth >= 960 && setOpenNav(false)
       );
     }, []);
+    
+    const handleLogout=()=>{
+      localStorage.removeItem('refresh');
+      localStorage.removeItem('access');
+      localStorage.removeItem('role');
+      navigate('/office')
+    }
    
     const navList = (
       <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+        <Link to="/office/pickup" >
+
         <Typography
           as="li"
           variant="small"
           color="blue-gray"
           className="p-1 font-normal"
-        >
+          >
           <a href="#" className="flex items-center">
-            Pages
+            Pick up
           </a>
         </Typography>
+          </Link>
+          <Link to="/office/delevery" >
+
         <Typography
           as="li"
           variant="small"
           color="blue-gray"
           className="p-1 font-normal"
-        >
+          >
           <a href="#" className="flex items-center">
-            Account
+            Delevery
           </a>
         </Typography>
+          </Link>
+          <Link to="/office/chat" >
+            
         <Typography
           as="li"
           variant="small"
           color="blue-gray"
           className="p-1 font-normal"
-        >
+          >
           <a href="#" className="flex items-center">
-            Blocks
+            Chat
           </a>
         </Typography>
+          </Link>
+          <Link to="/office/collecting" >
+
         <Typography
           as="li"
           variant="small"
           color="blue-gray"
           className="p-1 font-normal"
-        >
+          >
           <a href="#" className="flex items-center">
             Docs
           </a>
         </Typography>
+          </Link>
       </ul>
     );
   return (
@@ -70,7 +90,7 @@ function OfficeNavbar() {
             href="#"
             className="mr-4 cursor-pointer py-1.5 font-medium"
           >
-            Material Tailwind
+            Runway
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
@@ -78,8 +98,9 @@ function OfficeNavbar() {
               variant="gradient"
               size="sm"
               className="hidden lg:inline-block"
+              onClick={handleLogout}
               >
-              <span>Buy Now</span>
+              <span>Logout</span>
             </Button>
             <IconButton
               variant="text"
@@ -122,8 +143,8 @@ function OfficeNavbar() {
         </div>
         <MobileNav open={openNav}>
           {navList}
-          <Button variant="gradient" size="sm" fullWidth className="mb-2">
-            <span>Buy Now</span>
+          <Button onClick={handleLogout} variant="gradient" size="sm" fullWidth className="mb-2">
+            <span>Logout</span>
           </Button>
         </MobileNav>
       </Navbar>

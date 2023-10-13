@@ -43,7 +43,7 @@ function Notifications() {
     let ws;
 
     const connectWebSocket = () => {
-      ws = new WebSocket(`ws://127.0.0.1:8001/ws/notifications/?token=${accessToken}`);
+      ws = new WebSocket(import.meta.env.VITE_BASE_WEB_URL+`ws/notifications/?token=${accessToken}`);
 
       ws.addEventListener('open', () => {
         console.log('WebSocket connection established');
@@ -72,7 +72,7 @@ function Notifications() {
           // Unauthorized status (customize the code based on your server's response)
           try {
             // Call your token refresh API with Axios
-            const response = await axios.post('http://127.0.0.1:8000/auths/token/refresh/', {
+            const response = await axios.post(import.meta.env.VITE_BASE_URL+'auths/token/refresh/', {
               refresh: refreshToken,
             }, {
               headers: {

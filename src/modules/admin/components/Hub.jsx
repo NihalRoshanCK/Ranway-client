@@ -147,7 +147,7 @@ function Hub() {
         </div>
       </CardHeader> */} 
       <CardBody className="overflow-scroll px-0">
-        <Link to={"addhub"}>
+        <Link to={"/admin/addhub"}>
             <Button className=" flex  " color="blue" size="sm">
             <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Hub
             </Button>
@@ -181,7 +181,9 @@ function Hub() {
               return (
                 <tr key={item.id}>
                   <td className={classes}>
-                      <Link to={`hubadmin/${item.id}`}>
+                      <Link 
+                      //  to={`/admin/hubadmin/${item.id}`}
+                      >
                     <div className="flex items-center gap-3">
                       <Avatar src={item?.hub_head?.user?.profile_picture} alt='name' size="sm" />
                       <div className="flex flex-col">
@@ -228,9 +230,9 @@ function Hub() {
                       {item?.number}
                     </Typography>
                   </td>
-                  <Link to={`hubdetail/${item.id}`}>
+                  <Link to={`/admin/hubdetail/${item.id}`}>
                   <td className={classes}>
-                    <Tooltip content="Edit User">
+                    <Tooltip content="Hub Detail">
                       <IconButton variant="text" color="blue-gray">
                         <PencilIcon className="h-4 w-4" />
                       </IconButton>

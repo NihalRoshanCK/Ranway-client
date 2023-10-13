@@ -59,7 +59,7 @@ function Chat() {
     let ws;
 
     const connectWebSocket = () => {
-      ws = new WebSocket(`ws://127.0.0.1:8001/ws/messaging/?token=${accessToken}`);
+      ws = new WebSocket(import.meta.env.VITE_BASE_WEB_URL+`ws/messaging/?token=${accessToken}`);
 
       ws.addEventListener('open', () => {
         console.log('WebSocket connection established');
@@ -72,7 +72,7 @@ function Chat() {
         
         console.log(message.message.message_data["sender"].profile_picture);
         let pic=message.message.message_data["sender"].profile_picture
-        message.message.message_data['sender'].profile_picture="http://127.0.0.1:8000/"+pic
+        message.message.message_data['sender'].profile_picture=import.meta.env.VITE_BASE_URL+pic
 
         setMessages((prevMessages) => [...prevMessages, message.message.message_data])
       

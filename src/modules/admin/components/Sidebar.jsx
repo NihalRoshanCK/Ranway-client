@@ -79,7 +79,7 @@ function Sidebar() {
     localStorage.removeItem('refresh');
     localStorage.removeItem('access');
     localStorage.removeItem('role');
-    navigate('/login')
+    navigate('/adminlogin')
     // navigate(-1)
   }
   return (

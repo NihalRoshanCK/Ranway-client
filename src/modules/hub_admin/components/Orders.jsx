@@ -8,12 +8,12 @@ import {
     Tooltip,
 
 } from "@material-tailwind/react";
-// import {
-//     HomeIcon,
-//     ChatBubbleLeftEllipsisIcon,
-//     Cog6ToothIcon,
-//     ChevronUpDownIcon,
-//   } from "@heroicons/react/24/solid";
+import {
+    // HomeIcon,
+    // ChatBubbleLeftEllipsisIcon,
+    // Cog6ToothIcon,
+    ChevronUpDownIcon,
+  } from "@heroicons/react/24/solid";
 import api from '../axiosInterceptor';
 // import NavbarUser from '../components/NavbarUser';
 import jwt_decode from "jwt-decode";

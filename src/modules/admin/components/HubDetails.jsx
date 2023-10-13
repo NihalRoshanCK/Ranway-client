@@ -151,7 +151,7 @@ function HubDetails() {
         api.post(`hub/staff/`, formData)
           .then((response) => {
             console.log("Response:", response.data);
-            setOpenRegister(!open)
+            setOpenRegister(false)
 
           })
           .catch((error) => {

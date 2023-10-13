@@ -6,7 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import Asignorder from '../page/AsignOrder';
 import Chat from '../components/Chat';
 import Asignpickup from './Asignpickup';
-
+import Category from '../components/Category';
 
 function Home() {
  
@@ -19,9 +19,11 @@ function Home() {
         
         <Routes>
         <Route path='' element={<Table/>}/>
-        <Route path='/asign' element={<Asignorder/>}/>
+        <Route path='/delevery' element={<Asignorder/>}/>
         <Route path='/chat' element={<Chat/>}/>
         <Route path='/pickup' element={<Asignpickup/>}/>
+        <Route path='/collecting' element={<Category/>}/>
+
 
         </Routes>
     </>

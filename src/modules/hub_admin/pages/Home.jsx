@@ -7,6 +7,7 @@ import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import Orders from '../components/Orders';
 import SeeAllNotifications from '../components/SeeAllNotifications';
 import Chat from '../components/Chat';
+import HubDash from '../components/HubDash';
 // import { open } from '../../../Redux/StateReducer';
 
 
@@ -28,10 +29,10 @@ if(role &&  refresh && access){
         <div  className= "w-full lg:ml-0 transition-all ease-in-out p-5">
           <Navbar  />
           <Routes>
-              <Route path='huborder' index element={<Orders/>}/>
-              <Route path='notifications' index element={<SeeAllNotifications/>}/>
-              <Route path='chat' index element={<Chat/>}/>
-
+              <Route path='' e  lement={<HubDash/>}/>
+              <Route path='huborder'  element={<Orders/>}/>
+              <Route path='notifications'  element={<SeeAllNotifications/>}/>
+              <Route path='chat'  element={<Chat/>}/>
 
               
           </Routes>

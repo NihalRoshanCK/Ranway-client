@@ -85,6 +85,7 @@ if(role && refresh && access){
             localStorage.setItem('refresh', response.data.refresh)
             localStorage.setItem('access', response.data.access)
             localStorage.setItem('role', response.data.access_token_payload.role)
+            localStorage.setItem('user',response.data.user)
             console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
             // item=jwt_decode(response.data.access)
             console.log(localStorage.getItem('role'));  

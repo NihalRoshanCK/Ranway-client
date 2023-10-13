@@ -14,6 +14,7 @@ import HubDetails from '../components/HubDetails';
 import AdminDash from '../components/AdminDash';
 import UserManagement from '../components/UserManagement';
 
+
 function Home() {
   
   // const isOpen=useSelector((state) => state.counter.value)
@@ -33,13 +34,13 @@ if(role &&  refresh && access){
         <div  className= "w-full lg:ml-0 transition-all ease-in-out">
           <Navbar  />
           <Routes>
-              <Route path='dash'  element={<AdminDash/>}/>
-              <Route path='/'  element={<UserManagement/>}/>
+              <Route path='' element={<AdminDash/>}/>
+              <Route path='user'  element={<UserManagement/>}/>
               <Route path='hub'  element={<Hub/>}/>
               <Route path='addhub'  element={<AddHub/>} />
               <Route path='hubadmin/:id'  element={<HubAdminDetailview/>} />
               <Route path='hubdetail/:id' element={<HubDetails/>} />
-              <Route path='AdminProfile' element={<AdminProfile/>}/>
+              {/* <Route path='AdminProfile' element={<AdminProfile/>}/> */}
           </Routes>
           {/* <Outlet/> */}
           <div>

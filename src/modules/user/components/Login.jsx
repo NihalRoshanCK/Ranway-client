@@ -52,6 +52,8 @@ function Login({handelChange}) {
             localStorage.setItem('refresh', response.data.refresh)
             localStorage.setItem('access', response.data.access)
             localStorage.setItem('role', response.data.access_token_payload.role)
+            // localStorage.setItem('user', JSON.stringify(response.data.user))
+            console.log(response.data.user,"kkkkkkkkkkkkkk");
             // item=jwt_decode(response.data.access)
             console.log(localStorage.getItem('role'));  
             // console.log("itemsssssssssssssssssssssssssssssssssssssss",item);
