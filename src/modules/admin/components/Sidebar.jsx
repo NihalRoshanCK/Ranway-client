@@ -208,10 +208,12 @@ function Sidebar() {
             </Accordion>
             <hr className="my-2 border-blue-gray-50" />
             <ListItem style={text}>
+              <Link to="/admin/user" >
               <ListItemPrefix>
+
                 <InboxIcon className="h-5 w-5" />
               </ListItemPrefix>
-              Inbox
+              User
               <ListItemSuffix>
                 <Chip
                   style={text}
@@ -220,8 +222,9 @@ function Sidebar() {
                   variant="ghost"
                   color="blue-gray"
                   className="rounded-full"
-                />
+                  />
               </ListItemSuffix>
+                  </Link>
             </ListItem>
             <ListItem style={text}>
               <ListItemPrefix>
@@ -229,7 +232,7 @@ function Sidebar() {
               </ListItemPrefix>
               Profile
             </ListItem>
-            <Link to="" >
+            <Link to="/admin/hub" >
             <ListItem style={text}>
               <ListItemPrefix>
                 {/* <Cog6ToothIcon className="h-5 w-5" /> */}

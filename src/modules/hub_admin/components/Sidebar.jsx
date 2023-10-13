@@ -226,13 +226,13 @@ function Sidebar() {
               </ListItemPrefix>
               Profile
             </ListItem>
-            <Link to="huborder/" >
+            <Link to="/hub/chat" >
             <ListItem style={text}>
               <ListItemPrefix>
                 {/* <Cog6ToothIcon className="h-5 w-5" /> */}
                 <SiHomeassistantcommunitystore/>
               </ListItemPrefix>
-              Hub
+              Chat
             </ListItem>
             </Link>
             <ListItem onClick={handleLogout} className="text-red-500">
