@@ -101,23 +101,25 @@ function Sidebar() {
           </div>
           <hr className="my-2 border-blue-gray-50" />
           <List>
+            
             <Accordion
-              open={open === 1}
-              icon={
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? "rotate-180" : ""
-                  }`}
-                />
-              }
+              // open={open === 2}
+              // icon={
+              //   <ChevronDownIcon
+              //     strokeWidth={2.5}
+              //     className={`mx-auto h-4 w-4 transition-transform ${
+              //       open === 2 ? "rotate-180" : ""
+              //     }`}
+              //   />
+              // }
             >
-              <ListItem className="p-0" selected={open === 1}>
+              <Link to={"/hub"}>
+               <ListItem className="p-0" >
                 <AccordionHeader
                   style={text}
                   onClick={() => handleOpen(1)}
                   className="border-b-0 p-3"
-                >
+                  >
                   <ListItemPrefix style={text}>
                     <PresentationChartBarIcon className="h-5 w-5" />
                   </ListItemPrefix>
@@ -125,63 +127,12 @@ function Sidebar() {
                     style={text}
                     color="blue-gray"
                     className="mr-auto font-normal"
-                  >
+                    >
                     Dashboard
                   </Typography>
                 </AccordionHeader>
               </ListItem>
-              <AccordionBody className="py-1">
-                <List className="p-0">
-                  <ListItem style={text}>
-                    <ListItemPrefix style={text}>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Analytics
-                  </ListItem>
-                  <ListItem style={text}>
-                    <ListItemPrefix style={text}>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Reporting
-                  </ListItem>
-                  <ListItem style={text}>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Projects
-                  </ListItem>
-                </List>
-              </AccordionBody>
-            </Accordion>
-            <Accordion
-              open={open === 2}
-              icon={
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 2 ? "rotate-180" : ""
-                  }`}
-                />
-              }
-            >
-              <ListItem className="p-0" selected={open === 2}>
-                <AccordionHeader
-                  style={text}
-                  onClick={() => handleOpen(2)}
-                  className="border-b-0 p-3"
-                >
-                  <ListItemPrefix style={text}>
-                    <ShoppingBagIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-                  <Typography
-                    style={text}
-                    color="blue-gray"
-                    className="mr-auto font-normal"
-                  >
-                    E-Commerce
-                  </Typography>
-                </AccordionHeader>
-              </ListItem>
+                    </Link>
               <AccordionBody style={text} className="py-1">
                 <List className="p-0">
                   <ListItem style={text}>
@@ -203,23 +154,25 @@ function Sidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-            <hr className="my-2 border-blue-gray-50" />
+            <Link to="/hub/huborder" >
+
             <ListItem style={text}>
               <ListItemPrefix>
                 <InboxIcon className="h-5 w-5" />
               </ListItemPrefix>
-              bookings
+              Orders
               <ListItemSuffix>
-                <Chip
+                {/* <Chip
                   style={text}
                   value="14"
                   size="sm"
                   variant="ghost"
                   color="blue-gray"
                   className="rounded-full"
-                />
+                /> */}
               </ListItemSuffix>
             </ListItem>
+                  </Link>
             <ListItem style={text}>
               <ListItemPrefix>
                 <UserCircleIcon className="h-5 w-5" />

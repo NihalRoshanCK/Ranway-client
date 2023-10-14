@@ -43,6 +43,7 @@ function NavbarUser() {
       localStorage.removeItem('access');
       localStorage.removeItem('role');
       localStorage.removeItem('user');
+      navigate("/")
 
     }
     const navList = (

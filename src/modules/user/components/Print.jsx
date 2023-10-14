@@ -1,11 +1,15 @@
 import React from 'react'
 import QRCode from "react-qr-code";
 import Barcode from 'react-barcode';
+import { Button } from '@material-tailwind/react';
 
 function Print({paymentDetails,ref}) {
-   
-  return (
-    <div className='h-screen flex justify-center items-center  '>
+    const handlePrint=()=>{
+        window.print();
+    }
+    return (
+      <>
+    <div className='h-screen flex justify-center items-center '>
         <div>
 
 
@@ -113,7 +117,7 @@ function Print({paymentDetails,ref}) {
         </div>
     
     </div>
-    <div className='flex  justify-between'>
+    <div className='flex  justify-between border-2 border-black'>
     <div className=''>
         <p><span className='font-black'>Order Id:</span> {paymentDetails?.['order']?.order_id}</p>
         <p><span className='font-black'>Order Date:bhjsdbcbdjbjdb</span></p>
@@ -128,6 +132,12 @@ function Print({paymentDetails,ref}) {
     </div>
         </div>
     </div>
+    <div className='flex justify-center'>
+
+    <Button onClick={handlePrint}>print</Button>
+    </div>
+    </>
+
   )
 }
 

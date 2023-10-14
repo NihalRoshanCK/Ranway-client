@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import api from '../deleveryaxiosInterceptor';
 import Test from './Scanner';
 import QRCode from "react-qr-code";
@@ -13,6 +13,7 @@ import {
 } from "@material-tailwind/react";
 import { data } from 'autoprefixer';
 function SingleOder() {
+  const navigate=useNavigate()
   const { id } = useParams();
   const [order,setOrder]=useState(null)
 //   const [result, setResult] = useState('No result');
@@ -55,6 +56,7 @@ function SingleOder() {
       api.patch(`product/order/${id}/`,data)
       .then((response) => {
         console.log(response.data, "orderrrrrrrrrrrrrrrrrrr");
+        navigate(-1)
         // setOrder(response.data); // Update state with the response data
       })
       .catch((error) => {
@@ -67,6 +69,7 @@ function SingleOder() {
         api.patch(`product/order/${id}/`,data)
       .then((response) => {
         console.log(response.data, "orderrrrrrrrrrrrrrrrrrr");
+        navigate(-1)
         // setOrder(response.data); // Update state with the response data
       })
       .catch((error) => {

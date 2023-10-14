@@ -10,7 +10,7 @@ import React, { useState, useEffect } from 'react';
 // import { CustomerService } from './CustomerService';
 import api from "../../../axiosInterceptor";
 function Orderstable({orderDetail}) {
-    const TABLE_HEAD = ["No.","Product Name","Order_id","From address","To address","status","Action"];
+    const TABLE_HEAD = ["No.","Product Name","Order_id","From address","To address","Status","Action","Detail"];
     const ITEMS_PER_PAGE = 5;
     const [orderData, setorderData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -44,22 +44,22 @@ function Orderstable({orderDetail}) {
           console.error('Error fetching user data:', error);
         }
       }
-    const handleReturnUser= (id)=>{
-        api.patch(`/auths/user/${id}/`,{'is_active':false}).then((response)=>{
-            console.log(response.data)
-            fetchUsers();
-            
-        })
-        
-    }
-    const handleUnblockUser= (id)=>{
-        api.patch(`/auths/user/${id}/`,{'is_active':true}).then((response)=>{
+    const handleReturnOrder= (id)=>{
+        api.patch(`product/order/${id}/`,{'status':'return'}).then((response)=>{
             console.log(response.data)
             
-        })
-        fetchUsers();
-        
+          })
+          fetchUsers();
+          
     }
+    // const handleUnblockUser= (id)=>{
+    //     api.patch(`/auths/user/${id}/`,{'is_active':true}).then((response)=>{
+    //         console.log(response.data)
+            
+    //     })
+    //     fetchUsers();
+        
+    // }
 
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
@@ -96,7 +96,7 @@ console.log(orderData,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         {currentOrder.map((order, index) => {
           return (
             <tr 
-            onClick={()=>orderDetail(order?.id)}
+            
             key={order?.id}
             >
               <td className="p-4 border-b border-blue-gray-50">
@@ -172,8 +172,7 @@ console.log(orderData,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
               <td className="p-4 border-b border-blue-gray-50">
                 {order?.status ==="return" ? (
                   <Chip
-                    onClick={() => handleReturnUser(order?.id)}
-                    // className="bg-red-500 hover:bg-red-600 text-white font-medium py-1 px-2 rounded"
+                    className="bg-red-300 hover:bg-red-600 text-white font-medium py-1 px-2 rounded"
                     value={"Returnd"}
                     />
                     
@@ -181,13 +180,25 @@ console.log(orderData,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                     ) : (
                   <Chip
                   size="sm"
-                  onClick={() => handleUnblockUser(order?.id)}
-                    // className="bg-green-500 hover:bg-green-600 text-white font-medium py-1 px-2 rounded"
+                  onClick={() => handleReturnOrder(order?.id)}
+                    className="bg-red-500 hover:bg-orange-500 text-white font-medium py-1 px-2 rounded"
                     value={"Ruturn"}
                   />
                     
                 //   </Chip>
                 )}
+              </td>
+              <td className="p-4 border-b border-blue-gray-50">
+                {/* <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="font-normal"
+                >
+                  
+                </Typography> */}
+                <Chip onClick={()=>orderDetail(order?.id)} value={"view Details"}/>
+                  
+                
               </td>
             </tr>
           );

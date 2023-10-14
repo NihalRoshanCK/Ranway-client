@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 
 import api from '../../../axiosInterceptor';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { ArrowDownTrayIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
@@ -89,13 +91,23 @@ function HubDetails() {
     const inputObject = Object.fromEntries(Object.entries(formData));
     const errors = {};
       console.log(inputObject);
-      if (!inputObject.email) {
-        return toast.warning('email is required')
-      } else if (!isValidEmail(inputObject.email)) {
-        return toast.warning('enter a correct email format')
-      }else if (!inputObject.age) {
+      // if (!inputObject.email) {
+      //   return toast.warning('email is required')
+      // } else if (!isValidEmail(inputObject.email)) {
+      //   return toast.warning('enter a correct email format')
+      // }
+    if (!inputObject.age) {
         return toast.warning('age is required')
       }
+      let flag=0;
+      for (let i=0;i<e.target.address.value;i++){
+        if (e.target.address.value[i] !== ' '&& e.target.address.value[i]!=="."){
+          flag=1;
+        }
+      }
+        if (flag===0) {
+          return toast.warning('enter a correct address')
+        }
 
       api.patch(`hub/staff/${staffId}/`,inputObject)
           .then((response) => {
@@ -104,6 +116,7 @@ function HubDetails() {
           })
           .catch((error) => {
             console.error(error);
+            toast.error(error.response.data.message)
           });
   }
   const handleOpen = (id) =>{ 
@@ -113,6 +126,7 @@ function HubDetails() {
           console.log("SingleStaffffffffffffffffffffff",response.data);
           // setTABLE_ROWS(response.data.staffs)
           setStaff(response.data)
+          fetchdata()
           })
           .catch((error) => {
             console.error(error);
@@ -139,6 +153,15 @@ function HubDetails() {
       formData.append('phone', e.target.phone.value);
       formData.append('address', e.target.address.value);
       // formData.append('staff', e.target.staff.value);
+      let flag=0;
+      for (let i=0;i<e.target.address.value.length;i++){
+        if (e.target.address.value[i] !== ' '&& e.target.address.value[i]!=="."){
+          flag=1;
+        }
+      }
+        if (flag===0) {
+          return toast.warning('enter a correct address')
+        }
       const staffs=e.target.staff.value
       formData.append(staffs, true);
       formData.append('password', e.target.password.value);
@@ -152,22 +175,27 @@ function HubDetails() {
           .then((response) => {
             console.log("Response:", response.data);
             setOpenRegister(false)
+            fetchdata()
 
           })
           .catch((error) => {
             console.error("Error:", error);
+            toast.error(error.response.data.message)
           });
       }
     };
+    const fetchdata=()=>{
+      api.get(`admins/hub/${id}`)
+      .then((response) => {
+      setTABLE_ROWS(response.data.staffs)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
     useEffect(() => {
         // Example API request using the api instance
-        api.get(`admins/hub/${id}`)
-          .then((response) => {
-          setTABLE_ROWS(response.data.staffs)
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        fetchdata()
       }, []);
 
   return (
@@ -179,12 +207,12 @@ function HubDetails() {
         <DialogBody divider className="p-1 scroll-auto space-y-4">
           {/* <div className='space-y-3'> */}
 
-          <Input label='Name' name='name' type='text' color='indigo'/>
-          <Input label='E-mail' name='email' type='email' color='indigo'/>
-          <Input type='number' label='Age' name='age' color='indigo' />
-          <Input type='file' color='indigo' name='profile_picture' label="Photo"/>
-          <Input type='number' color='indigo' name='phone' label="Phone"/>
-          <Textarea color='indigo' name='address' label="address"/>
+          <Input label='Name' pattern="[A-Za-z]+" required title="Only letters allowed" name='name' type='text' color='indigo'/>
+          <Input label='E-mail' pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required title="Enter a valid Email" name='email' type='email' color='indigo'/>
+          <Input type='number'pattern="[0-9]{1-2}" required title="Enter a correct age" label='Age' name='age' color='indigo' />
+          <Input type='file' color='indigo' required name='profile_picture' label="Photo"/>
+          <Input type='number' required  pattern="[0-9]{10}" title="Please enter a 10-digit contact code"  color='indigo' name='phone' label="Phone"/>
+          <Textarea color='indigo'  name='address' label="address"/>
           <Radio
         name="staff"
         ripple={false}
@@ -227,6 +255,7 @@ function HubDetails() {
           </Button>
         </DialogFooter>
             </form>
+            <ToastContainer className={"z-50"} />
       </Dialog>
        <Dialog open={open} handler={handleOpen}>
     <div className="flex items-center justify-between">
@@ -249,12 +278,12 @@ function HubDetails() {
     <form onSubmit={(e) => handleupdate(e,staff.id)}>
     <DialogBody divider>
       <div className="grid gap-6">
-        <Input label="Username" name='name' value={formData.name} onChange={handleChange} />
-        <Input label="Email" name='email' value={formData.email} onChange={handleChange} />
+        <Input required  pattern="[A-Za-z]+"  title="Only letters allowd"  label="Name" name='name' value={formData.name} onChange={handleChange} />
+        <Input disabled label="Email" name='email' value={formData.email} onChange={handleChange} />
 
-        <Input label="Age" name='age'  value={formData.age} onChange={handleChange} />
+        <Input label="Age" required  pattern="[0-9]{1-2}" title="Please enter a 2-digit age"  name='age'  value={formData.age} onChange={handleChange} />
         {/* <Input label="age" name='is_officeStaff' value={staff.user.name} /> */}
-        <Input label="Phone" name='phone'  value={formData.phone} onChange={handleChange} />
+        <Input label="Phone" required  pattern="[0-9]{10}" title="Please enter a 10-digit contact code"  name='phone'  value={formData.phone} onChange={handleChange} />
         <Textarea label="Address" name='address' value={formData.address} onChange={handleChange} />
         <div className='flex'>
         <Checkbox label="Is_officeStaff" name='is_officeStaff' checked={formData.is_officeStaff} onChange={handleChange}/>
@@ -274,6 +303,7 @@ function HubDetails() {
       </Button>
     </DialogFooter>
         </form>
+        <ToastContainer className={"z-50"} />
   </Dialog>
 
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -437,6 +467,7 @@ function HubDetails() {
           Next
         </Button>
       </CardFooter>
+      
     </Card>
 
   )

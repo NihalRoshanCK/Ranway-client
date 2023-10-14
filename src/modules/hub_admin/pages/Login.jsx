@@ -158,7 +158,7 @@ if(role && refresh && access){
         <Button type='submit' variant="gradient" fullWidth>
           Sign In
         </Button>
-        <Typography variant="small" className="mt-6 flex justify-center">
+        {/* <Typography variant="small" className="mt-6 flex justify-center">
           Don&apos;t have an account?
           <Typography
             as="a"
@@ -169,7 +169,7 @@ if(role && refresh && access){
             >
             Sign up
           </Typography>
-        </Typography>
+        </Typography> */}
       </CardFooter>
             </form>
     </Card>

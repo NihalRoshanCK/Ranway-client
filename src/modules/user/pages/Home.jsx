@@ -23,11 +23,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { open  } from '../../../Redux/LoginReduser';
 // import { XMarkIcon } from '@heroicons/react/24/solid';
 import Navbar from '../components/NavbarUser';
+import Forgot from '../components/Forgot';
 function Home() {
     const [auth ,setAuth]=useState();
     const [login,setLogin]=useState(true)
     const [orders,setOrders]=useState([])
     const [order,setorder]=useState(false)
+    const[forget,setforget]=useState(false)
     useEffect(() => {
       const access=localStorage.getItem('access');
       if (access === null){
@@ -54,6 +56,11 @@ function Home() {
     const handelChange=()=>{
         setAuth(!auth)
     }    
+    const handleForget=(e)=>{
+      setforget(!forget)
+
+    }
+
     const text={
         fontFamily: 'monospace'
     }
@@ -90,7 +97,7 @@ function Home() {
             && 
         <Dialog size="xs" open={on} className=" flex bg-transparent shadow-none" >
 
-            {auth ? <Register handelChange={handelChange} /> : <Login handelChange={handelChange} />}
+            {auth ? <Register handelChange={handelChange} /> : forget? <Forgot/> :<Login handelChange={handelChange} handleForget={handleForget} />}
             <ToastContainer/>
         </Dialog>
         }

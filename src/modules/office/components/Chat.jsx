@@ -69,7 +69,6 @@ function Chat() {
         const message = JSON.parse(event.data);
         console.log(message.message.message_data,"messsssssssssssssssssssssss");
         // messages.push(message.message.message_data);
-        
         console.log(message.message.message_data["sender"].profile_picture);
         let pic=message.message.message_data["sender"].profile_picture
         message.message.message_data['sender'].profile_picture=import.meta.env.VITE_BASE_URL+pic

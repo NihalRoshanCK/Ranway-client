@@ -104,7 +104,7 @@ function Sidebar() {
           </div>
           <hr className="my-2 border-blue-gray-50" />
           <List>
-            <Accordion
+            {/* <Accordion
               open={open === 1}
               icon={
                 <ChevronDownIcon
@@ -158,7 +158,7 @@ function Sidebar() {
                   </ListItem>
                 </List>
               </AccordionBody>
-            </Accordion>
+            </Accordion> */}
             <Accordion
               open={open === 2}
               icon={
@@ -170,7 +170,7 @@ function Sidebar() {
                 />
               }
             >
-              <ListItem className="p-0" selected={open === 2}>
+              {/* <ListItem className="p-0" selected={open === 2}>
                 <AccordionHeader
                   style={text}
                   onClick={() => handleOpen(2)}
@@ -187,7 +187,28 @@ function Sidebar() {
                     E-Commerce
                   </Typography>
                 </AccordionHeader>
+              </ListItem> */}
+              <Link to="/admin">
+              <ListItem className="p-0" >
+                <AccordionHeader
+                  style={text}
+                  onClick={() => handleOpen(1)}
+                  className="border-b-0 p-3"
+                  >
+
+                  <ListItemPrefix style={text}>
+                    <PresentationChartBarIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+                  <Typography
+                    style={text}
+                    color="blue-gray"
+                    className="mr-auto font-normal"
+                    >
+                    Dashboard
+                  </Typography>
+                </AccordionHeader>
               </ListItem>
+                      </Link>
               <AccordionBody style={text} className="py-1">
                 <List className="p-0">
                   <ListItem style={text}>
@@ -209,7 +230,6 @@ function Sidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-            <hr className="my-2 border-blue-gray-50" />
               <Link to="/admin/user" >
             <ListItem style={text}>
               <ListItemPrefix>
@@ -218,14 +238,14 @@ function Sidebar() {
               </ListItemPrefix>
               User
               <ListItemSuffix>
-                <Chip
+                {/* <Chip
                   style={text}
-                  value="14"
+                  // value="14"
                   size="sm"
                   variant="ghost"
                   color="blue-gray"
                   className="rounded-full"
-                  />
+                  /> */}
               </ListItemSuffix>
             </ListItem>
                   </Link>

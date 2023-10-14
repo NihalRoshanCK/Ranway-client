@@ -66,6 +66,7 @@ function AddHub() {
         console.log(response.data);
         alert(`${response.data} Hub has been created successfully`);
       } catch (error) {
+        toast.error(error.response.data.message)
         console.error(error);
         // Handle error: Display an error message to the user or perform other actions.
       }

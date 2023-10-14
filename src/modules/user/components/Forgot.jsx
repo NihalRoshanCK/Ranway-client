@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Button,
     Card,
@@ -15,9 +15,11 @@ import { close } from '../../../Redux/LoginReduser';
 import { useSelector, useDispatch } from 'react-redux'
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { Link, useNavigate } from 'react-router-dom';
+import Otp from './ForgotOtp';
 
-function Login({handelChange,handleForget}) {
+function Forgot({handelChange}) {
   const navigate=useNavigate()
+  const [email,setemail]=useState("")
     const handleSubmit = async (e) => {
         e.preventDefault();
         // setIsSubmitted(true);
@@ -31,9 +33,9 @@ function Login({handelChange,handleForget}) {
       return toast.warning('enter a correct email format')
     }
 
-    if (!inputObject.password) {
-      return toast.warning('Password is required')
-    } 
+    // if (!inputObject.password) {
+    //   return toast.warning('Password is required')
+    // } 
     // else if (!isValidPassword(inputObject.password)) {
     //   return toast.warning(
     //     'Password must contain at least one uppercase letter, one lowercase letter, and one special character')
@@ -47,25 +49,29 @@ function Login({handelChange,handleForget}) {
     
         try {
           console.log(inputObject,"dataaaaaaaaaaaaaaaaaa");
-          const response = await axios.post(import.meta.env.VITE_BASE_URL+'auths/login/', inputObject);
+          const response = await axios.post(import.meta.env.VITE_BASE_URL+'user/forget/', inputObject);
           
           // Check if the response is successful
           if (response && response.status === 200) {
             // console.log(response.data);
-            localStorage.setItem('refresh', response.data.refresh)
-            localStorage.setItem('access', response.data.access)
-            localStorage.setItem('role', response.data.access_token_payload.role)
-            // localStorage.setItem('user', JSON.stringify(response.data.user))
-            console.log(response.data.user,"kkkkkkkkkkkkkk");
-            // item=jwt_decode(response.data.access)
-            console.log(localStorage.getItem('role'));  
+            // localStorage.setItem('refresh', response.data.refresh)
+            // localStorage.setItem('access', response.data.access)
+            // localStorage.setItem('role', response.data.access_token_payload.role)
+            // // localStorage.setItem('user', JSON.stringify(response.data.user))
+            // console.log(response.data.user,"kkkkkkkkkkkkkk");
+            // // item=jwt_decode(response.data.access)
+            // console.log(localStorage.getItem('role'));  
             // console.log("itemsssssssssssssssssssssssssssssssssssssss",item);
-            toast.success('welcome')
+            console.log(response.data);
+            setdata(response.data)
+            setemail(inputObject.email)
+            toast.success('Otp sented to your mail')
             setTimeout(()=>{
 
-              dispatch(close())
+            //   dispatch(close())
+            setconform(true)
             },1500)
-            navigate("/")
+            // navigate("/")
             // navigate('/home')
             // Handle success response and further actions upon successful login here
           } else {
@@ -93,16 +99,21 @@ function Login({handelChange,handleForget}) {
     const on =useSelector((state) => state.login.value)
     const dispatch = useDispatch()
 
+    const [conform,setconform]=useState(false)
+    const[data,setdata]=useState()
+
+    
+
   return (
      <>
-      {/* <Button className='' onClick={()=>dispatch(open())}>Sign In</Button>
-      <Dialog
-        size="xs"
-        open={on}
-        handler={()=>dispatch(close())}
-        className="bg-transparent shadow-none"
-      > */}
-             <Card className="mx-auto w-full max-w-[24rem]">
+     {conform?
+     <Otp data={data} email={email} />:
+
+     
+     
+
+     <>
+     <Card className="mx-auto w-full max-w-[24rem]">
 
               <CardHeader
                 variant="gradient"
@@ -117,8 +128,8 @@ function Login({handelChange,handleForget}) {
               <CardBody className="flex flex-col gap-4">
 
                 <Input label="Email" size="lg" name='email' />
-                <Input label="Password" type='password' name='password' size="lg" />
-                <input type='hidden' value='user' name='role'/>
+                {/* <Input label="Password" type='password' name='password' size="lg" />
+                <Input label='conform password'  name='conform_password'/> */}
                 {/* <div className="-ml-2.5">
                   <Checkbox label="Remember Me" />
                 </div> */}
@@ -129,7 +140,7 @@ function Login({handelChange,handleForget}) {
                 type='submit'
                 
                 fullWidth>
-                  Sign In
+                  Submit
                 </Button>
                  <Typography variant="small" className="mt-6 flex justify-center">
                   Don&apos;t have an account?
@@ -137,7 +148,7 @@ function Login({handelChange,handleForget}) {
                     as="a"
                     variant="small"
                     color="blue"
-                    onClick={handelChange}
+                    // onClick={handelChange}
 
                     className="ml-1 font-bold"
                     >
@@ -151,24 +162,22 @@ function Login({handelChange,handleForget}) {
                     as="a"
                     variant="small"
                     color="blue"
-                    onClick={handleForget}
+                    // onClick={handelChange}
 
                     className="ml-1 font-bold"
                     >
-                    Forgot password
+                    Back to login
                   </Typography>
                 </Typography>
               </CardFooter>
                 </form>
              </Card>
              <XMarkIcon onClick={()=>dispatch(close())} color='white' className=' w-6 h-6 ms-5 '/>
-
-            {/* <ToastContainer/> */}
-
-      {/* </Dialog> */}
+     </>
+     }
     </>
   )
 }
 
-export default Login
+export default Forgot
  

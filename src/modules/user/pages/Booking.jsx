@@ -20,10 +20,36 @@ import Login from '../components/Login';
 import Register from '../components/Register';
 // import Loader from '../components/Loader';
 import image from '../images/booking.jpg'
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
+
+const validationSchema = Yup.object().shape({
+  product_name: Yup.string()
+    .matches(/^[A-Za-z]+$/, 'Only letters are allowed')
+    .required('Product Name is required'),
+  category: Yup.string().required('Category is required'),
+  from_address: Yup.string()
+    .matches(/^[\w\s]+$/, 'Please enter a correct value for the From Address'),
+  from_zipcode: Yup.string()
+    .matches(/^\d{6}$/, 'Please enter a 6-digit zip code'),
+  from_user_contact: Yup.string()
+    .matches(/^\d{10}$/, 'Please enter a 10-digit phone number'),
+});
 
 function Booking() {
+
+  const initialValues = {
+    product_name: '',
+    category: '',
+    from_address: '',
+    from_zipcode: '',
+    from_user_contact: '',
+    
+  };
   const currentDate = new Date();
   const maxDate = new Date(currentDate);
+  currentDate.setDate(currentDate.getDate() + 1);
   maxDate.setDate(currentDate.getDate() + 5);
   const currentDateStr = currentDate.toISOString().split('T')[0];
   const maxDateStr = maxDate.toISOString().split('T')[0];
@@ -92,6 +118,7 @@ function Booking() {
     inputObject["category"]=select.id
     console.log(inputObject,"inputttttttttttttttt");
     if (select ||inputObject.to_address||inputObject.from_address||inputObject.height||inputObject.product_name||inputObject.weight||inputObject.width){
+    
       setPrice(select.price)
       if (inputObject.height>250){
         console.log(price,"firsttttttttttttttttttttttttttttt");
@@ -147,7 +174,7 @@ function Booking() {
           <Typography variant="h1" className="text-center">Enter Details</Typography>
           <form onSubmit={handleSubmit}>
             <div className="mb-2">
-              <Input className="" name="product_name" color="indigo" label="Product Name" />
+            <Input  type="text" name="product_name" pattern="[A-Za-z]+" required title="Only letters allowed" label="Product Name" />
             </div>
             <div className="mb-2">
               <Select onChange={handleSelect} className="" name="category" color="indigo" label="Category">
@@ -156,33 +183,33 @@ function Booking() {
                 ))}
               </Select>
             </div>
-            <Textarea name="from_address" color="indigo" label="From address" />
+            <Textarea   title='please enter a correct ' name="from_address" color="indigo" label="From address" />
             <div className="mb-2">
               
-              <Input className="no-spin-button"   pattern="^\d{6}$"   
+              <Input className="no-spin-button" required   pattern="^\d{6}$"   
           title="Please enter a 6-digit zip code" id='' name="from_zipcode" color="indigo" label="From address pincode" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" type="number" name="from_user_contact" color="indigo" label="From address contact number" />
+            <Input pattern="[0-9]{10}" required title="Please enter a 10-digit phone number" className="no-spin-button" type="tel" name="from_user_contact" color="indigo" label="From address contact number" />
             </div>
             <Textarea name="to_address" color="indigo" label="To address" />
             <div className="mb-2">
-              <Input className="no-spin-button" type="number" name="to_zipcode" color="indigo" label="To address pincode" />
+              <Input pattern="[0-9]{6}" title="Please enter a 6-digit zip code" className="no-spin-button" type="number" name="to_zipcode" color="indigo" label="To address pincode" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" type="number" name="to_user_contact" color="indigo" label="To address contact number" />
+              <Input className="no-spin-button" required  pattern="[0-9]{10}" title="Please enter a 10-digit contact code" name="to_user_contact" color="indigo" label="To address contact number" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" type="number" name="height" color="indigo" label="Height" />
+              <Input className="no-spin-button" required pattern="[0-9]{1-2}" title="Please enter a 2-digit height" name="height" color="indigo" label="Height" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" type="number" name="width" color="indigo" label="Width" />
+              <Input className="no-spin-button" required pattern="[0-9]{1-2}" title="Please enter a 2-digit width"  name="width" color="indigo" label="Width" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" type="number" name="weight" color="indigo" label="Weight" />
+              <Input className="no-spin-button" required pattern="[0-9]{1-2}" title="Please enter a 2-digit weight" name="weight" color="indigo" label="Weight" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" type="number" name="product_price" color="indigo" label="Price to be collected" />
+              <Input className="no-spin-button" pattern="[0-9]{1-2}" title="Please enter a digits "  name="product_price" color="indigo" label="Price to be collected" />
             </div>
             <div className="mb-2">
               <Input onKeyDown={handleKeyPress} color="indigo" name="hbd" label="Date for pickup" type="date" min={currentDateStr} max={maxDateStr} />
