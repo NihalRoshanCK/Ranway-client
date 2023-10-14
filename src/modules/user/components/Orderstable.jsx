@@ -170,14 +170,25 @@ console.log(orderData,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                           />
               </td>
               <td className="p-4 border-b border-blue-gray-50">
-                {order?.status ==="return" ? (
+                {order?.status ==="return"   ? (
                   <Chip
                     className="bg-red-300 hover:bg-red-600 text-white font-medium py-1 px-2 rounded"
                     value={"Returnd"}
                     />
                     
                     //   </Chip>
-                    ) : (
+                    ) 
+                    : 
+                    order?.status ==="completed" ? (
+                      <Chip
+                      size="sm"
+                      // onClick={() => handleReturnOrder(order?.id)}
+                        className="bg-green-500 hover:bg-green-800 text-white font-medium py-1 px-2 rounded"
+                        value={"Deleverd"}
+                      />
+                    ):
+                    
+                    (
                   <Chip
                   size="sm"
                   onClick={() => handleReturnOrder(order?.id)}

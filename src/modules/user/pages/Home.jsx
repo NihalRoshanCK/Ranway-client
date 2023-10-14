@@ -97,7 +97,7 @@ function Home() {
             && 
         <Dialog size="xs" open={on} className=" flex bg-transparent shadow-none" >
 
-            {auth ? <Register handelChange={handelChange} /> : forget? <Forgot/> :<Login handelChange={handelChange} handleForget={handleForget} />}
+            {auth ? <Register handelChange={handelChange} /> : forget? <Forgot handleForget={handleForget}  /> :<Login handelChange={handelChange} handleForget={handleForget} />}
             <ToastContainer/>
         </Dialog>
         }

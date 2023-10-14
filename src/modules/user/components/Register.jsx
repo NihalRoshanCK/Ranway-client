@@ -34,9 +34,12 @@ function Register({handelChange}) {
     if (!inputObject.password) {
       return toast.warning('Password is required')
     } 
-    // else if (!isValidPassword(inputObject.password)) {
-    //   return toast.warning(
-    //     'Password must contain at least one uppercase letter, one lowercase letter, and one special character')
+    else if (!isValidPassword(inputObject.password)) {
+      return toast.warning(
+        'Password must contain at least one uppercase letter, one lowercase letter, and one special character')
+    }
+    // if (inputObject.password !=inputObject.password){
+
     // }
 
     if (Object.keys(errors).length > 0) {
@@ -78,12 +81,12 @@ function Register({handelChange}) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
       };
-      // const isValidPassword = (password) => {
-      //   // Password validation using regular expression
-      //   // Requires at least one uppercase letter, one lowercase letter, and one special character
-      //   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-      //   return passwordRegex.test(password);
-      // };
+      const isValidPassword = (password) => {
+        // Password validation using regular expression
+        // Requires at least one uppercase letter, one lowercase letter, and one special character
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return passwordRegex.test(password);
+      };
     // const on =useSelector((state) => state.login.value)
     const dispatch = useDispatch()
     const [registerd,setRegisterd]=useState(false)
@@ -106,8 +109,8 @@ function Register({handelChange}) {
 
                 <Input label="Email" size="lg" name='email' />
                 <Input label='Name' name='name'/>
-                <Input label="Password" name='password' size="lg" />
-                <Input label="Conform Password" name='confornpassword' size="lg" />
+                <Input label="Password" type='password' name='password' size="lg" />
+                <Input label="Conform Password" type='password' name='confornpassword' size="lg" />
                 <div className='flex'>
 
                 <svg

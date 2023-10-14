@@ -85,7 +85,7 @@ function AddHub() {
           
           <div className="space-y-4 md:space-y-0 md:flex md:space-x-10 p-20 flex items-center justify-center  ">
             <div className="md:w-1/2 space-y-4">
-              <Input type="text" id="name_hub" name="hub_name" label="Hub Name" size="xl" />
+              <Input type="text" pattern="[A-Za-z]+" required title="Only letters allowed" id="name_hub" name="hub_name" label="Hub Name" size="xl" />
               <div className="w-98">
                  <Textarea label="Hub Address" name='address' id="address"/>
               <Input  id="number" name="number" label="Hub number" size="xl" pattern='[0-9]{10}' title="Please enter a 10-digit phone number" />
@@ -99,13 +99,13 @@ function AddHub() {
               </div>
               <hr />
               <h1 className='text-center'>Assaingn Hub Head</h1>
-              <Input  type="name" id="name" name="name" label="Head Name" size="xl" />
-              <Input  type="email" id="email" name="email" label="Head Email" size="xl" />
-              <Input  type="number" id="age"  name="age" label="age" size="xl" />
+              <Input  type="name" pattern="[A-Za-z]+" required title="Only letters allowed" id="name" name="name" label="Head Name" size="xl" />
+              <Input  type="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required title="Enter a valid Email"  id="email" name="email" label="Head Email" size="xl" />
+              <Input  type="number" pattern="[0-9]{2}" required title="Enter a correct age" id="age"  name="age" label="age" size="xl" />
               <Textarea label="Address" name='admin_address' id="address"/>
-              <Input  type="number" id="number" name="phone"  label="Number" size="xl" className=""/>
-              <Input  type="password" name='password' id="password" label="Password" />
-              <Input  type="password" name='conformpassword' id="user[conformpassword]" label="Password" />
+              <Input  type="number" required  pattern="[0-9]{10}" title="Please enter a 10-digit contact number" id="number" name="phone"  label="Number" size="xl" className=""/>
+              <Input  type="password" required  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?!.*\s).{6,}$" title="Please enter  min 6 letter including digit,spacialcharecter,Uppercaseletter " name='password' id="password" label="Password" />
+              <Input  type="password"  required  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?!.*\s).{6,}$" title="Please enter  min 6 letter including digit,spacialcharecter,Uppercaseletter " name='conformpassword' id="user[conformpassword]" label="Password" />
               <Typography
                 variant="small"
                 color="gray"

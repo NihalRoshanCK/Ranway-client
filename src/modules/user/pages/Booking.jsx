@@ -197,7 +197,7 @@ function Booking() {
               <Input pattern="[0-9]{6}" title="Please enter a 6-digit zip code" className="no-spin-button" type="number" name="to_zipcode" color="indigo" label="To address pincode" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" required  pattern="[0-9]{10}" title="Please enter a 10-digit contact code" name="to_user_contact" color="indigo" label="To address contact number" />
+              <Input className="no-spin-button" required  pattern="[0-9]{10}" title="Please enter a 10-digit contact number" name="to_user_contact" color="indigo" label="To address contact number" />
             </div>
             <div className="mb-2">
               <Input className="no-spin-button" required pattern="[0-9]{1-2}" title="Please enter a 2-digit height" name="height" color="indigo" label="Height" />

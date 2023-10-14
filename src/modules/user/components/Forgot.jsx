@@ -17,7 +17,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 import { Link, useNavigate } from 'react-router-dom';
 import Otp from './ForgotOtp';
 
-function Forgot({handelChange}) {
+function Forgot({handleForget}) {
   const navigate=useNavigate()
   const [email,setemail]=useState("")
     const handleSubmit = async (e) => {
@@ -162,7 +162,7 @@ function Forgot({handelChange}) {
                     as="a"
                     variant="small"
                     color="blue"
-                    // onClick={handelChange}
+                    onClick={handleForget}
 
                     className="ml-1 font-bold"
                     >

@@ -209,7 +209,7 @@ function HubDetails() {
 
           <Input label='Name' pattern="[A-Za-z]+" required title="Only letters allowed" name='name' type='text' color='indigo'/>
           <Input label='E-mail' pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required title="Enter a valid Email" name='email' type='email' color='indigo'/>
-          <Input type='number'pattern="[0-9]{1-2}" required title="Enter a correct age" label='Age' name='age' color='indigo' />
+          <Input type='number'pattern="[0-9]{2}" required title="Enter a correct age" label='Age' name='age' color='indigo' />
           <Input type='file' color='indigo' required name='profile_picture' label="Photo"/>
           <Input type='number' required  pattern="[0-9]{10}" title="Please enter a 10-digit contact code"  color='indigo' name='phone' label="Phone"/>
           <Textarea color='indigo'  name='address' label="address"/>
