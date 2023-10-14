@@ -44,6 +44,28 @@ function AddHub() {
       e.preventDefault();
       const formData = new FormData(e.target);
       const inputObject = Object.fromEntries(formData);
+      let flag=0;
+      for (let i=0;i<inputObject.address.length;i++){
+        if (inputObject.address[i] !== ' '&& inputObject.address[i]!=="."){
+          flag=1;
+        }
+      }
+        if (flag===0) {
+          return toast.warning('enter a valid address')
+        }
+        flag=0;
+        for (let i=0;i<inputObject.admin_address.length;i++){
+          if (inputObject.admin_address[i] !== ' '&& inputObject.admin_address[i]!=="."){
+            flag=1;
+          }
+        }
+          if (flag===0) {
+            return toast.warning('enter a valid user address')
+          }
+      if (inputObject.password !=inputObject.conformpassword){
+        return toast.warning('password is not matching')
+      }
+
       // const point = new Point(parseFloat(inputObject.longitude), parseFloat(inputObject.latitude));
        const location = {
         latitude: parseFloat(inputObject.latitude),
