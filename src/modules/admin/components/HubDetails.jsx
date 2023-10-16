@@ -270,11 +270,11 @@ const handleChange = (e) => {
       };
   return (
     <>
-          <Dialog open={openRegister} className='max-h-screen overflow-y-auto' handler={()=>setOpenRegister(!openRegister)}>
+          <Dialog open={openRegister} className='max-h-screen overflow-y-scroll' handler={()=>setOpenRegister(!openRegister)}>
             <form onSubmit={handleRegister} encType="multipart/form-data">
 
         <DialogHeader>Add Staff</DialogHeader>
-        <DialogBody divider className="  space-y-4 p-2">
+        <DialogBody divider className=" space-y-4 p-2">
           <Input label='Name'  name='name' type='text' color='indigo'/>
           <Input label='E-mail' name='email' type='email' color='indigo'/>
           <Input type='number' label='Age' name='age' color='indigo' />
