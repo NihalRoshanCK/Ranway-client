@@ -118,10 +118,10 @@ if(role && refresh && access){
       };
 
   return (
-    <div style={divStyle} className="overflow-hidden " >
+    <div style={divStyle} className="" >
 <div style={overlayStyle}></div>
-   <div className="flex  h-96 justify-center items-center " >
-   <Card className="w-96">
+   <div className="flex    justify-center items-center " >
+   <Card className="w-96 ">
       <CardHeader
         variant="gradient"
         color="blue"
@@ -131,7 +131,8 @@ if(role && refresh && access){
           Sign In admin
         </Typography>
       </CardHeader>
-        <form onSubmit={handleSubmit}>
+      
+        <form className='max-h-screen overflow-auto' onSubmit={handleSubmit}>
       <CardBody className="flex flex-col gap-4">
         <Input 
         label="Email" 
