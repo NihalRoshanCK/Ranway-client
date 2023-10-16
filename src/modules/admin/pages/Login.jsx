@@ -35,7 +35,7 @@ if(role && refresh && access){
         backgroundSize: "cover",
         backgroundPosition: "center",
         // marginTop: "-vh",
-        padding: "25vh",
+        // padding: "vh",
         
     
     
