@@ -131,8 +131,7 @@ if(role && refresh && access){
           Sign In admin
         </Typography>
       </CardHeader>
-      
-        <form className='max-h-screen overflow-y-scroll ' onSubmit={handleSubmit}>
+        <form className='max-h-screen overflow-y-auto' onSubmit={handleSubmit}>
       <CardBody className="flex flex-col gap-4">
         <Input 
         label="Email" 
