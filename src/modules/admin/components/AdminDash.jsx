@@ -32,9 +32,9 @@ function AdminDash() {
     })()
 }, []);
   return (
-    <div className="" >
-        <div className="my-8 lg:flex justify-evenly gap-2 ">
-          <Card className="w-full mt-11 lg:mt-0 ">
+    <div className="mt-10 " >
+        <div className="xl:flex xl:space-y-0 space-y-8 gap-2  justify-evenly mb-8 ">
+          <Card className="w-full">
             <div className="flex justify-between ">
               <CardHeader
                 variant="gradient"
@@ -56,7 +56,7 @@ function AdminDash() {
               </h1>
             </CardFooter>
           </Card>
-          <Card className="w-full mt-11 lg:mt-0 ">
+          <Card className="w-full">
             <div className="flex justify-between ">
               <CardHeader
                 variant="gradient"
@@ -78,7 +78,7 @@ function AdminDash() {
               </h1>
             </CardFooter>
           </Card>
-          <Card className="w-full mt-11 lg:mt-0  ">
+          <Card className="w-full">
             <div className="flex justify-between ">
               <CardHeader
                 variant="gradient"
@@ -100,7 +100,7 @@ function AdminDash() {
               </h1>
             </CardFooter>
           </Card>
-          <Card className="w-full mt-11 lg:mt-0  ">
+          <Card className="w-full">
             <div className="flex justify-between ">
               <CardHeader
                 variant="gradient"
@@ -123,18 +123,16 @@ function AdminDash() {
             </CardFooter>
           </Card>
         </div>
-        <div className="flex justify-evenly gap-2">
-          <div className="my-8 w-full">
-            <Card className="w-full">
-              <div >
+        <div className="">
+            <Card className="">
                 {data?.orders?.order_month_data && <ChartLine data={data?.orders?.order_month_data} />}
-              </div>
-              <CardFooter></CardFooter>
+              {/* <CardFooter></CardFooter> */}
             </Card>
-          </div>
-  
         </div>
+        <div className="mt-8">
+
         <AllOrder/>
+        </div>
         
       </div>
   );

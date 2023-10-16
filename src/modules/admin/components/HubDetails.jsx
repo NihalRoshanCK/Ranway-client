@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { PencilIcon } from "@heroicons/react/24/solid";
+import { FiUserPlus } from 'react-icons/fi';
 import { ArrowDownTrayIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import {
   Card,
@@ -41,82 +42,82 @@ function HubDetails() {
   const [staff,setStaff]=useState([])
   const[TABLE_ROWS,setTABLE_ROWS]=useState([])
   const [openRegister,setOpenRegister]=useState(false)
-  // const [hub,setHub]=useState([])
-  const [formData, setFormData] = useState({
-    name: '', // Default value
-    email: '', // Default value
-    age: '',
-    phone:'',
-    address:'',
-    is_officeStaff:false,
-    is_deleverystaff:false,
-    is_active:false, // Default value
-    // ... other form fields
-  });
-  const isValidEmail = (email) => {
-    // Simple email format validation using regular expression
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  
+  
 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    age: '',
+    phone: '',
+    address: '',
+    is_officeStaff: false,
+    is_deliveryStaff: false,
+    is_active: false,
+  });
+
+  // This effect updates the form data when the staff data changes
   useEffect(() => {
-    if (staff && staff.age !== undefined) {
-      setFormData((prevData) => ({
-        ...prevData,
-        name: staff.user.name,
-        email: staff.user.email,
-        age: staff.age,
-        phone: staff.user.phone,
-        address: staff.address,
-        is_active: staff.user.is_active,
-        is_officeStaff: staff.is_officeStaff,
-        is_deleverystaff: staff.is_deleverystaff,
-      }));
+    if (staff) {
+      setFormData({
+        name: staff?.user?.name || '',
+        email: staff?.user?.email || '',
+        age: staff?.age || '',
+        phone: staff?.user?.phone || '',
+        address: staff?.address || '',
+        is_officeStaff: staff?.is_officeStaff || false,
+        is_deleverystaff: staff?.is_deleverystaff || false,
+        is_active: staff?.user?.is_active || false,
+        is_hubadmin:staff?.is_hubadmin || false,
+      });
     }
   }, [staff]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
   const handleSelect = (event)=>{
     console.log('Event:', event);
     setSelect(event);
 }
+
+const handleChange = (e) => {
+  const { name, value, type, checked } = e.target;
+  const newValue = type === 'checkbox' ? checked : value;
+  setFormData({ ...formData, [name]: newValue });
+};
   const handleupdate = async (e,staffId) => {
     e.preventDefault();
-    const inputObject = Object.fromEntries(Object.entries(formData));
-    const errors = {};
-      console.log(inputObject);
-      // if (!inputObject.email) {
-      //   return toast.warning('email is required')
-      // } else if (!isValidEmail(inputObject.email)) {
-      //   return toast.warning('enter a correct email format')
-      // }
-    if (!inputObject.age) {
-        return toast.warning('age is required')
-      }
-      let flag=0;
-      for (let i=0;i<e.target.address.value;i++){
-        if (e.target.address.value[i] !== ' '&& e.target.address.value[i]!=="."){
-          flag=1;
-        }
-      }
-        if (flag===0) {
-          return toast.warning('enter a correct address')
-        }
+    
+    
+    if (!formData.name){
+      return toast.warning(' Staff name  is required')
+    }else if (!formData.email) {
+      return toast.warning('staff email  is requird')
+    }else if (!formData.age) {
+      return toast.warning('Staff age is requred')
+    }else if (!formData.phone) {
+      return toast.warning('staff phone number is requird')
+    }else if (!formData.address) {
+      return toast.warning('staff address is requird')
+    }
 
-      api.patch(`hub/staff/${staffId}/`,inputObject)
+     if (!isValidName(formData.name)) {
+      return toast.warning('Enter a valid staff name format')
+    }else if (!isValidEmail(formData.email)) {
+      return toast.warning('Enter a valid staff email format')
+    }else if (!isValidAge(formData.age)) {
+      return toast.warning('Enter a valid age which is larger than 18 and lesser than 99')
+    }else if (!isValidPhone(formData.phone)) {
+      return toast.warning('Enter a valid phone number format requires 10 digit')
+    }else if (!isValidAddress(formData.address)) {
+      return toast.warning('Enter a valid address format ')
+    }
+      api.patch(`hub/staff/${staffId}/`,formData)
           .then((response) => {
           console.log("yessssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
           setOpen(!open)
           })
           .catch((error) => {
             console.error(error);
-            toast.error(error.response.data.message)
+            toast.error(error?.response?.data[0])
+            toast.error(error?.response?.data?.message[0])
           });
   }
   const handleOpen = (id) =>{ 
@@ -144,32 +145,67 @@ function HubDetails() {
       const formData = new FormData();
     
       // Append file input data to the FormData
+      
       formData.append('profile_picture', e.target.profile_picture.files[0]); // Make sure 'profile_picture' matches the input name
-    
-      // Append other form data fields to formData as needed
       formData.append('name', e.target.name.value);
       formData.append('email', e.target.email.value);
       formData.append('age', e.target.age.value);
       formData.append('phone', e.target.phone.value);
       formData.append('address', e.target.address.value);
-      // formData.append('staff', e.target.staff.value);
-      let flag=0;
-      for (let i=0;i<e.target.address.value.length;i++){
-        if (e.target.address.value[i] !== ' '&& e.target.address.value[i]!=="."){
-          flag=1;
-        }
+      formData.append('password', e.target.password.value);
+      formData.append('conform_password', e.target.conform_password.value);
+
+
+      if (!formData.get('name')){
+        return toast.warning(' Staff name  is required')
+      }else if (!formData.get('email')) {
+        return toast.warning('staff email  is requird')
+      }else if (!formData.get('age')) {
+        return toast.warning('Staff age is requred')
+      }else if (!formData.get('profile_picture')) {
+        return toast.warning('Staff photo is requred')
+      }else if (!formData.get('phone')) {
+        return toast.warning('staff phone number is requird')
+      }else if (!formData.get('address')) {
+        return toast.warning('staff address is requird')
+      }else if (!formData.get('password')) {
+        return toast.warning('staff password is requird')
+      }else if (!formData.get("conform_password")) {
+        return toast.warning('staff conform password is requird')
       }
-        if (flag===0) {
-          return toast.warning('enter a correct address')
-        }
+
+      if (!isValidName(formData.get('name'))) {
+        return toast.warning('Enter a valid staff name format')
+      }else if (!isValidEmail(formData.get('email'))) {
+        return toast.warning('Enter a valid staff email format')
+      }else if (!isValidAge(formData.get('age'))) {
+        return toast.warning('Enter a valid age which is larger than 18 and lesser than 99')
+      }else if (!isValidPhone(formData.get('phone'))) {
+        return toast.warning('Enter a valid phone number format requires 10 digit')
+      }else if (!isValidAddress(formData.get('address'))) {
+        return toast.warning('Enter a valid address format ')
+      }else if (!isValidPassword(formData.get('password'))) {
+        return toast.warning('Password requires at least one uppercase letter, one lowercase letter, and one special character')
+      }
+
+      const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+
+      if (!allowedFileTypes.includes(formData.get('profile_picture').type)) {
+        return toast.warning("Invalid file type. Please select a .jpg, .jpeg, .png, or .gif file.");
+      }
+
+      // const maxFileSizeMB = 2; // Adjust the maximum file size as needed
+      // if (formData.profile_picture.size > maxFileSizeMB * 1024 * 1024) {
+      //   return toast.warning(`File size exceeds the maximum allowed size of ${maxFileSizeMB}MB.`);
+      // }
+
+      if (formData.get('password') ===formData.get('conform_password')){
+        return toast.warning('password is not matching')
+      }
+
       const staffs=e.target.staff.value
       formData.append(staffs, true);
-      formData.append('password', e.target.password.value);
-      // formData.append('conform_password', e.target.conform_password.value);
       formData.append('hub', id)
-      console.log(formData,"formmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-      // Check if password and confirm password match
-      if (e.target.password.value === e.target.conform_password.value) {
         // Send the formData in your API request
         api.post(`hub/staff/`, formData)
           .then((response) => {
@@ -182,7 +218,6 @@ function HubDetails() {
             console.error("Error:", error);
             toast.error(error.response.data.message)
           });
-      }
     };
     const fetchdata=()=>{
       api.get(`admins/hub/${id}`)
@@ -198,25 +233,57 @@ function HubDetails() {
         fetchdata()
       }, []);
 
+      const isValidEmail = (email) => {
+        // Valid email addresses in the format user@example.com
+        //  consisting of non-space characters before the @ symbol
+        //  followed by non-space characters, and a valid top-level domain (TLD) after the @ symbol
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      };
+      const isValidName = (name) => {
+        // usernames must start and end with an alphanumeric character (letter or digit)
+        //  can contain periods (dots) within, must not have consecutive periods
+        //  and be between 1 and 30 characters in length
+        const nameRegex = /^(?!.*\.\.)(?!.*\.$)[^\W_][\w.]{3,29}$/;
+        return nameRegex.test(name);
+      };
+      const isValidPhone = (phone) => {
+        // Required 10 digit with no six consecutive identical digits
+        const numberRegex = /^(?!.*(\d)\1{5})(?:\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/;
+        return numberRegex.test(phone);
+      };
+      const isValidAddress = (address) => {
+        // Valid addresses can contain word characters, spaces, dots, commas, hyphens, and hash symbols
+        const addressRegex = /^[\w\s.,#-]+$/;
+        return addressRegex.test(address);
+      };
+      const isValidPassword = (password) => {
+        // Password validation using regular expression
+        // Requires at least one uppercase letter, one lowercase letter, and one special character
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return passwordRegex.test(password);
+      };
+      const isValidAge = (age) => {
+        // Valid ages must be integers starting from 18 to 99
+        const ageRegex = /^(?:1[89]|[2-9]\d)$/;
+        return ageRegex.test(age);
+      };
   return (
-    <Card className="h-full w-full">
-          <Dialog open={openRegister} className='sm:overflow-x-auto' handler={()=>setOpenRegister(!openRegister)}>
+    <>
+          <Dialog open={openRegister} className='max-h-screen overflow-y-auto' handler={()=>setOpenRegister(!openRegister)}>
             <form onSubmit={handleRegister} encType="multipart/form-data">
 
         <DialogHeader>Add Staff</DialogHeader>
-        <DialogBody divider className="p-1 scroll-auto space-y-4">
-          {/* <div className='space-y-3'> */}
-
-          <Input label='Name' pattern="[A-Za-z]+" required title="Only letters allowed" name='name' type='text' color='indigo'/>
-          <Input label='E-mail' pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required title="Enter a valid Email" name='email' type='email' color='indigo'/>
-          <Input type='number'pattern="[0-9]{2}" required title="Enter a correct age" label='Age' name='age' color='indigo' />
-          <Input type='file' color='indigo' required name='profile_picture' label="Photo"/>
-          <Input type='number' required  pattern="[0-9]{10}" title="Please enter a 10-digit contact code"  color='indigo' name='phone' label="Phone"/>
+        <DialogBody divider className=" scroll-auto space-y-4">
+          <Input label='Name'  name='name' type='text' color='indigo'/>
+          <Input label='E-mail' name='email' type='email' color='indigo'/>
+          <Input type='number' label='Age' name='age' color='indigo' />
+          <Input type='file' color='indigo'  name='profile_picture' label="Photo"/>
+          <Input type='number'   color='indigo' name='phone' label="Phone"/>
           <Textarea color='indigo'  name='address' label="address"/>
           <Radio
         name="staff"
         ripple={false}
-        // icon={<Icon />}
         value={"is_deleverystaff"}
         className="border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0"
         label={
@@ -238,90 +305,137 @@ function HubDetails() {
           </Typography>
         }
       />
+       <Radio
+        name="staff"
+        ripple={false}
+        value={"is_hubadmin"}
+        className="border-gray-900/10 bg-gray-900/5 p-0 transition-all hover:before:opacity-0"
+        label={
+          <Typography color="blue-gray" className="font-normal">
+            Hub admin
+          </Typography>
+        }
+      />
       <Input type='password' color='indigo' name='password' label="Password"/>
       <Input type='password' color='indigo' name='conform_password' label="Conform Password"/>
 
-          <div className="flex gap-10">
-      
-    </div>
+     
 
         </DialogBody>
-        <DialogFooter className="space-x-2">
-          <Button variant="outlined" color="red" onClick={()=>setOpenRegister(!openRegister)}>
-            close
-          </Button>
-          <Button type='submit' variant="gradient" color="green" onClick={""}>
-            Save changes
-          </Button>
+        <DialogFooter className="space-y-4 sm:space-y-0 sm:flex sm:justify-between">
+      <Button variant="outlined" color="red" onClick={()=>setOpenRegister(!openRegister)} className="w-full sm:w-auto">
+        Close
+      </Button>
+      <Button variant="gradient" color="green" type="submit" className="w-full sm:w-auto ">
+        Add
+      </Button>
+    
         </DialogFooter>
             </form>
             <ToastContainer className={"z-50"} />
       </Dialog>
-       <Dialog open={open} handler={handleOpen}>
-    <div className="flex items-center justify-between">
-      <DialogHeader>Update </DialogHeader>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="mr-3 h-5 w-5"
-        onClick={handleOpen}
-      >
-        <path
-          fillRule="evenodd"
-          d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-          clipRule="evenodd"
-          />
-      </svg>
+
+
+
+
+  <Dialog open={open} className='max-h-screen overflow-y-auto ' handler={handleOpen}>
+    <div className=' flex items-center justify-between '>
+
+    <DialogHeader>Update</DialogHeader>
+    <svg 
+    onClick={handleOpen}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="mr-3 h-5 w-5 cursor-pointer"
+    >
+      <path
+        fillRule="evenodd"
+        d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+        clipRule="evenodd"
+      />
+    </svg>
     </div>
 
-    <form onSubmit={(e) => handleupdate(e,staff.id)}>
-    <DialogBody divider>
-      <div className="grid gap-6">
-        <Input required  pattern="[A-Za-z]+"  title="Only letters allowd"  label="Name" name='name' value={formData.name} onChange={handleChange} />
-        <Input disabled label="Email" name='email' value={formData.email} onChange={handleChange} />
+    <div className=''>
+  <form className='space-y-2 ' onSubmit={(e) => handleupdate(e, staff.id)}>
+    <DialogBody className='space-y-4 py-8  px-2' divider>
+        <Input
+          
+          label="Name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
 
-        <Input label="Age" required  pattern="[0-9]{1-2}" title="Please enter a 2-digit age"  name='age'  value={formData.age} onChange={handleChange} />
-        {/* <Input label="age" name='is_officeStaff' value={staff.user.name} /> */}
-        <Input label="Phone" required  pattern="[0-9]{10}" title="Please enter a 10-digit contact code"  name='phone'  value={formData.phone} onChange={handleChange} />
-        <Textarea label="Address" name='address' value={formData.address} onChange={handleChange} />
-        <div className='flex'>
-        <Checkbox label="Is_officeStaff" name='is_officeStaff' checked={formData.is_officeStaff} onChange={handleChange}/>
-        <Checkbox name='Is_deleverystaff' label="is_deleverystaff" checked={formData.is_deleverystaff} onChange={handleChange} />
-        <Checkbox name='Is_active' label="is_active" checked={formData.is_active} onChange={handleChange} />
-        </div>
+        />
+        <Input  label="Email" name="email" value={formData.email}
+        onChange={handleChange}  />
 
-
-      </div>
+        <Input
+          label="Age"
+          name="age"
+          value={formData.age}
+          onChange={handleChange}
+        />
+        <Input
+          label="Phone"
+          
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}  
+        />
+        <Textarea label="Address" name="address" value={formData.address} onChange={handleChange} />
+          <Checkbox
+            label="Is Office Staff"
+            name="is_officeStaff"
+            checked={formData.is_officeStaff}
+            onChange={handleChange}
+            />
+          <Checkbox
+            name="is_deleverystaff"
+            label="Is Delivery Staff"
+            checked={formData.is_deleverystaff}
+            onChange={handleChange}
+            />
+          <Checkbox
+            name="is_hubadmin"
+            label="Is Hub Admin"
+            checked={formData.is_hubadmin}
+            onChange={handleChange}
+            />
+            <Checkbox
+            name="is_active"
+            label="Is Active"
+            checked={formData.is_active}
+            onChange={handleChange}
+            />
+       
     </DialogBody>
-    <DialogFooter className="space-x-2">
-      <Button variant="outlined" color="red" onClick={handleOpen}>
-        close
+    <DialogFooter className="space-y-2 sm:space-y-0 sm:flex sm:justify-between">
+      <Button variant="outlined" color="red" onClick={handleOpen} className="w-full sm:w-auto">
+        Close
       </Button>
-      <Button variant="gradient" color="green" type='submit'>
-        send message
+      <Button variant="gradient" color="green" type="submit" className="w-full sm:w-auto">
+        Update
       </Button>
     </DialogFooter>
-        </form>
-        <ToastContainer className={"z-50"} />
-  </Dialog>
+  </form>
+  </div>
+  <ToastContainer className="z-50" />
+</Dialog>
 
+
+
+
+
+      <Card className="w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
-          <div>
-            {/* <Typography variant="h5" color="blue-gray">
-              Recent Transactions
-            </Typography>
-            <Typography color="gray" className="mt-1 font-normal">
-              These are details about the last transactions
-            </Typography> */}
-          </div>
+          
           <div className="flex w-full shrink-0 gap-2 md:w-max">
-            {/* <div className="w-full md:w-72">
-              <Input label="Search" icon={<MagnifyingGlassIcon className="h-5 w-5" />} />
-            </div> */}
+           
             <Button onClick={()=>setOpenRegister(!openRegister)} className="flex items-center gap-3" color="blue" size="sm">
-              <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" /> Add staff
+              <FiUserPlus strokeWidth={2} className="h-4 w-4" /> Add staff
             </Button>
           </div>
         </div>
@@ -351,8 +465,6 @@ function HubDetails() {
  
                 return (
                   <tr key={staff.id}>
-
-
                     <td className={classes}>
                       <div className="flex items-center gap-3">
                         <Avatar
@@ -390,19 +502,9 @@ function HubDetails() {
                     </td>
                     <td className={classes}>
                       <div className="flex items-center gap-3 ">
-                         <div className="h-9 w-12 rounded-md border border-blue-gray-50 p-1">
-                          {/*<Avatar
-                            src={
-                              account === "visa"
-                                ? "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/visa.png"
-                                : "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/mastercard.png"
-                            }
-                            size="sm"
-                            alt={staff.i}
-                            variant="square"
-                            className="h-full w-full object-contain p-1"
-                          />*/}
-                        {staff.is_deleverystaff ? "DeleveryStaff" : "Officestaff"}
+                         <div className="h-9 rounded-md border border-blue-gray-50 p-1">
+                       
+                        {staff.is_hubadmin? "Hub admin" : staff.is_deleverystaff ? "Delevery Staff" : "Office Staff"}
                         </div> 
                         <div className="flex flex-col">
                           <Typography
@@ -410,14 +512,12 @@ function HubDetails() {
                             color="blue-gray"
                             className="font-normal capitalize"
                           >
-                            {/* {account.split("-").join(" ")} {accountNumber} */}
                           </Typography>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal opacity-70"
                           >
-                            {/* {expiry} */}
                           </Typography>
                         </div>
                       </div>
@@ -437,10 +537,13 @@ function HubDetails() {
         </table>
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Button variant="outlined" color="blue-gray" size="sm">
+        <div className=''>
+          
+        <Button variant="outlined" color="blue-gray" className='' size="sm">
           Previous
         </Button>
-        <div className="flex items-center gap-2">
+        </div>
+        <div className="sm:flex items-center gap-2">
           <IconButton variant="outlined" color="blue-gray" size="sm">
             1
           </IconButton>
@@ -470,6 +573,7 @@ function HubDetails() {
       
     </Card>
 
+    </>
   )
 }
 

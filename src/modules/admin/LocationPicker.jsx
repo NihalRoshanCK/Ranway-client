@@ -101,21 +101,18 @@ class LocationPicker extends Component {
 
   render() {
     return (
-    
-        <div className="w-2/3">
-          
-          <div className="flex">
-            
+    <>
+    <div className="sm:flex sm:space-x-5 sm:space-y-0 space-y-4">
+
             <Input
             name="latitude"
-              size="10"
-              placeholder="Longitude"
-              label="Longitude"
-              type="text"
-              value={this.state.longval}
+            size="10"
+            placeholder="Longitude"
+            label="Longitude"
+            type="text"
+            value={this.state.longval}
               onChange={(e) => this.setState({ longval: e.target.value })}
             />
-            <br />
             
             <Input
             name="longitude"
@@ -125,16 +122,22 @@ class LocationPicker extends Component {
               type="text"
               value={this.state.latval}
               onChange={(e) => this.setState({ latval: e.target.value })}
-            />
-
+              />
+              </div>
+            <div className="flex justify-center">
+            <Button  onClick={this.handleJumpToLocation}>Jump back </Button>
             </div>
-            <div className="flex">
-            <Button className="justify-center" onClick={this.handleJumpToLocation}>Jump to location</Button>
-            </div>
-          <div style={{ backgroundColor: "#E0E0E0", width: "480px", height: "540px" }} ref={this.mapRef}>
+          <div  
+           style={{
+            backgroundColor: "#E0E0E0",
+            width: "100%",  // Set width to 100% to make it responsive
+            paddingTop: "56.25%", // Set a fixed aspect ratio (16:9), adjust as needed
+            position: "relative",
+          }} 
+          ref={this.mapRef}>
             
           </div>
-        </div>
+    </>
      
     );
   }

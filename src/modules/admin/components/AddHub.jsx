@@ -18,19 +18,9 @@ import api from '../../../axiosInterceptor';
 const DefaultLocation = { lat: 11.151789755424579, lng: 75.89337095618248 };
 const DefaultZoom = 18;
 function AddHub() {
-    
-    // const [block,setblock]=useState(false)
-    // const [formData,setFormData]=useState({})
+  
     const [defaultLocation, setDefaultLocation] = useState(DefaultLocation);
-  
-    // const [location, setLocation] = useState(defaultLocation);
-    // const [zoom, setZoom] = useState(DefaultZoom);
-  
-    // function handleChangeLocation(lat, lng) {
-    //   setLocation({ lat: lat, lng: lng });
-    //   // setFormData(formData.location=location);
-    // }
-  
+   
     function handleChangeZoom(newZoom) {
       setZoom(newZoom);
     }
@@ -44,27 +34,51 @@ function AddHub() {
       e.preventDefault();
       const formData = new FormData(e.target);
       const inputObject = Object.fromEntries(formData);
-      let flag=0;
-      for (let i=0;i<inputObject.address.length;i++){
-        if (inputObject.address[i] !== ' '&& inputObject.address[i]!=="."){
-          flag=1;
-        }
+      if (!inputObject.hub_name){
+        return toast.warning('Hub name  is required')
+      }else if (!inputObject.address) {
+        return toast.warning('Hub address name is requird')
+      }else if (!inputObject.number) {
+        return toast.warning('Hub number is requred')
+      }else if (!inputObject.name) {
+        return toast.warning('Hub head name is requird')
+      }else if (!inputObject.email) {
+        return toast.warning('Hub head email  is requird')
+      }else if (!inputObject.age) {
+        return toast.warning('Hub head age  is requird')
+      }else if (!inputObject.admin_address) {
+        return toast.warning('Hub head address is requird')
+      }else if (!inputObject.phone) {
+        return toast.warning('Hub head number is requird')
+      }else if (!inputObject.password) {
+        return toast.warning('Hub head password is requird')
+      }else if (!inputObject.conformpassword) {
+        return toast.warning('Hub head conform password is requird')
       }
-        if (flag===0) {
-          return toast.warning('enter a valid address')
-        }
-        flag=0;
-        for (let i=0;i<inputObject.admin_address.length;i++){
-          if (inputObject.admin_address[i] !== ' '&& inputObject.admin_address[i]!=="."){
-            flag=1;
-          }
-        }
-          if (flag===0) {
-            return toast.warning('enter a valid user address')
-          }
+      if (!isValidName(inputObject.hub_name)) {
+        return toast.warning('Enter a correct name format')
+      }else if (!isValidAddress(inputObject.address)) {
+        return toast.warning('Enter a correct  address  format')
+      }else if (!isValidPhone(inputObject.number)) {
+        return toast.warning('Enter a correct hub contact number format')
+      }else if (!isValidName(inputObject.name)) {
+        return toast.warning('Enter a correct hub admin name format')
+      }else if (!isValidEmail(inputObject.email)) {
+        return toast.warning('Enter a correct hub admin email format')
+      }else if (!isValidAge(inputObject.age)) {
+        return toast.warning('Enter a correct hub admin age which is larger than 18 and lesser than 99')
+      }else if (!isValidAddress(inputObject.admin_address)) {
+        return toast.warning('Enter a correct  Hub head address format')
+      }else if (!isValidPhone(inputObject.phone)) {
+        return toast.warning('Enter a correct Hub head phone number format requires 10 digit')
+      }else if (!isValidPassword(inputObject.password)) {
+        return toast.warning('Password requires at least one uppercase letter, one lowercase letter, and one special character')
+      }
+      
       if (inputObject.password !=inputObject.conformpassword){
         return toast.warning('password is not matching')
       }
+      
 
       // const point = new Point(parseFloat(inputObject.longitude), parseFloat(inputObject.latitude));
        const location = {
@@ -84,14 +98,60 @@ function AddHub() {
       try {
         // Send the POST request to create the Hub, Staff, and CustomUser
         const response = await api.post('admins/hub/', inputObject);
-    
-        console.log(response.data);
-        alert(`${response.data} Hub has been created successfully`);
+        toast.success("hub created successfully created")
+        e.target.reset();
+
+        console.log(response);
+        // alert(`${response.data} Hub has been created successfully`);
       } catch (error) {
-        toast.error(error.response.data.message)
         console.error(error);
+        toast.error(error?.response.data?.message)
+        toast.error(error?.response.data?.hub_name[0])
+        toast.error(error?.response.data?.address[0])
+        toast.error(error?.response.data?.location[0])
+        toast.error(error?.response.data?.hub_head[0])
+        toast.error(error?.response.data?.is_hotspot[0])
+        toast.error(error?.response.data?.is_active[0])
+        toast.error(error?.response.data?.number[0])
+
+
         // Handle error: Display an error message to the user or perform other actions.
       }
+    };
+    const isValidEmail = (email) => {
+      // Valid email addresses in the format user@example.com
+      //  consisting of non-space characters before the @ symbol
+      //  followed by non-space characters, and a valid top-level domain (TLD) after the @ symbol
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+    const isValidName = (name) => {
+      // usernames must start and end with an alphanumeric character (letter or digit)
+      //  can contain periods (dots) within, must not have consecutive periods
+      //  and be between 1 and 30 characters in length
+      const nameRegex = /^(?!.*\.\.)(?!.*\.$)[^\W_][\w.]{3,29}$/;
+      return nameRegex.test(name);
+    };
+    const isValidPhone = (phone) => {
+      // Required 10 digit with no six consecutive identical digits
+      const numberRegex = /^(?!.*(\d)\1{5})(?:\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/;
+      return numberRegex.test(phone);
+    };
+    const isValidAddress = (address) => {
+      // Valid addresses can contain word characters, spaces, dots, commas, hyphens, and hash symbols
+      const addressRegex = /^[\w\s.,#-]+$/;
+      return addressRegex.test(address);
+    };
+    const isValidPassword = (password) => {
+      // Password validation using regular expression
+      // Requires at least one uppercase letter, one lowercase letter, and one special character
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return passwordRegex.test(password);
+    };
+    const isValidAge = (age) => {
+      // Valid ages must be integers starting from 18 to 99
+      const ageRegex = /^(?:1[89]|[2-9]\d)$/;
+      return ageRegex.test(age);
     };
   return (
   <>
@@ -102,36 +162,28 @@ function AddHub() {
             Add Hubs
           </Typography>
         </CardHeader>
-        <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+        <CardBody 
+        // className="grid justify-center "
+        >
             <form onSubmit={handleSubmit}>
           
-          <div className="space-y-4 md:space-y-0 md:flex md:space-x-10 p-20 flex items-center justify-center  ">
-            <div className="md:w-1/2 space-y-4">
-              <Input type="text" pattern="[A-Za-z]+" required title="Only letters allowed" id="name_hub" name="hub_name" label="Hub Name" size="xl" />
-              <div className="w-98">
-                 <Textarea label="Hub Address" name='address' id="address"/>
-              <Input  id="number" name="number" label="Hub number" size="xl" pattern='[0-9]{10}' title="Please enter a 10-digit phone number" />
-
-            </div>
-            
-              <div className="space-y-4 md:flex md:space-x-6 md:items-center">
-                <div >
-                  < LocationPicker/>
-                </div>
-              </div>
-              <hr />
+          <div className="space-y-4  items-center justify-center  ">
+              <Input type="text" color='indigo' id="name_hub" name="hub_name" label="Hub Name" size="xl" />
+              <Textarea color='indigo' label="Hub Address" name='address' id="address"/>
+              <Input color='indigo' id="number" name="number" label="Hub number" size="xl"  />
+              < LocationPicker/>
               <h1 className='text-center'>Assaingn Hub Head</h1>
-              <Input  type="name" pattern="[A-Za-z]+" required title="Only letters allowed" id="name" name="name" label="Head Name" size="xl" />
-              <Input  type="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required title="Enter a valid Email"  id="email" name="email" label="Head Email" size="xl" />
-              <Input  type="number" pattern="[0-9]{2}" required title="Enter a correct age" id="age"  name="age" label="age" size="xl" />
-              <Textarea label="Address" name='admin_address' id="address"/>
-              <Input  type="number" required  pattern="[0-9]{10}" title="Please enter a 10-digit contact number" id="number" name="phone"  label="Number" size="xl" className=""/>
-              <Input  type="password" required  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?!.*\s).{6,}$" title="Please enter  min 6 letter including digit,spacialcharecter,Uppercaseletter " name='password' id="password" label="Password" />
-              <Input  type="password"  required  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?!.*\s).{6,}$" title="Please enter  min 6 letter including digit,spacialcharecter,Uppercaseletter " name='conformpassword' id="user[conformpassword]" label="Password" />
+              <Input color='indigo' type="name"id="name" className='w-full' name="name" label="Head Name" size="xl" />
+              <Input color='indigo' type="email"  id="email" name="email" label="Head Email" size="xl" />
+              <Input color='indigo' type="number"  id="age"  name="age" label="age" size="xl" />
+              <Textarea color='indigo' label="Address" name='admin_address' id="address"/>
+              <Input color='indigo' type="number"  id="number" name="phone"  label="Number" size="xl" className=""/>
+              <Input color='indigo' type="password" name='password' id="password" label="Password" />
+              <Input color='indigo'  type="password"  name='conformpassword' id="user[conformpassword]" label="Conform Password" />
               <Typography
                 variant="small"
                 color="gray"
-                className="mt-2 flex items-center gap-1 font-normal"
+                className="mt-2 flex items-center justify-center gap-1 font-normal"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -147,14 +199,11 @@ function AddHub() {
                 </svg>
                 Use at least 8 characters, one uppercase, one lowercase and one number.
               </Typography>
-              {/* {
-              <Button type="submit" disabled >Ripple Effect Off</Button>
-                   :  
-              <Button type="submit"  >Ripple Effect Off</Button>
-            } */}
-              <Button type="submit"  >Ripple Effect Off</Button>
+              <div className='flex justify-center items-center'>
 
-            </div>
+              <Button type="submit"   >Create</Button>
+              </div>
+
           </div>
           </form>
           </CardBody>

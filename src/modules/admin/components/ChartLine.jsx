@@ -27,7 +27,6 @@ function OrderLineChart({ data }) {
   };
 
   return (
-    <div className='p-2'>
     <Chart
       chartType="LineChart"
       data={chartData}
@@ -35,7 +34,6 @@ function OrderLineChart({ data }) {
       width="100%"
       height="100%"
       />
-      </div>
   );
 }
 
