@@ -274,7 +274,7 @@ const handleChange = (e) => {
             <form onSubmit={handleRegister} encType="multipart/form-data">
 
         <DialogHeader>Add Staff</DialogHeader>
-        <DialogBody divider className=" scroll-auto space-y-4">
+        <DialogBody divider className="  space-y-4 p-2">
           <Input label='Name'  name='name' type='text' color='indigo'/>
           <Input label='E-mail' name='email' type='email' color='indigo'/>
           <Input type='number' label='Age' name='age' color='indigo' />
