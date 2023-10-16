@@ -118,7 +118,7 @@ if(role && refresh && access){
       };
 
   return (
-    <div style={divStyle} className="" >
+    <div style={divStyle} className="overflow-x-hidden" >
 <div style={overlayStyle}></div>
    <div className="flex    justify-center items-center " >
    <Card className="w-96 ">
@@ -132,7 +132,7 @@ if(role && refresh && access){
         </Typography>
       </CardHeader>
       
-        <form className='max-h-screen overflow-auto' onSubmit={handleSubmit}>
+        <form className='max-h-screen overflow-y-scroll ' onSubmit={handleSubmit}>
       <CardBody className="flex flex-col gap-4">
         <Input 
         label="Email" 
