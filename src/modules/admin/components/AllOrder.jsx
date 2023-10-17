@@ -1,21 +1,9 @@
-import {
-    Card,
-  } from "@material-tailwind/react";
-import { classNames } from 'primereact/utils';
 import React, { useState, useEffect } from 'react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
-import { InputNumber } from 'primereact/inputnumber';
-import { Button } from 'primereact/button';
-import { ProgressBar } from 'primereact/progressbar';
-import { Calendar } from 'primereact/calendar';
-import { MultiSelect } from 'primereact/multiselect';
-import { Slider } from 'primereact/slider';
-import { Tag } from 'primereact/tag';
-// import { CustomerService } from './CustomerService';
+
 import api from "../../../axiosInterceptor";
 function AllOrder() {
     const [customers, setCustomers] = useState([]);
@@ -31,27 +19,8 @@ function AllOrder() {
         activity: { value: null, matchMode: FilterMatchMode.BETWEEN }
     });
     const [globalFilterValue, setGlobalFilterValue] = useState('');
-    const [statuses] = useState(['unqualified', 'qualified', 'new', 'negotiation', 'renewal']);
     
-    const getSeverity = (status) => {
-        switch (status) {
-            case 'unqualified':
-                return 'danger';
-
-            case 'qualified':
-                return 'success';
-
-            case 'new':
-                return 'info';
-
-            case 'negotiation':
-                return 'warning';
-
-            case 'renewal':
-                return null;
-        }
-    };
-    const CustomerService=[]
+    
     useEffect(() => {
         (async()=>{
             

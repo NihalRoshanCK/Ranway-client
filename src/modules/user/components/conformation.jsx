@@ -24,7 +24,7 @@ function Conformation({is_active,price,booking,handleOpen }) {
         // const order = await createOrder(params); //  Create order on your backend
       
         const options = {
-          key: "rzp_test_z1X4JkjnVQE52D", // Enter the Key ID generated from the Dashboard
+          key: import.meta.env.VITE_razorpay_key, // Enter the Key ID generated from the Dashboard
           amount: price*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
           currency: "INR",
           name: "Runway",

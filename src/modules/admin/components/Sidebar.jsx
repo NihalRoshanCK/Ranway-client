@@ -83,8 +83,7 @@ function Sidebar() {
     // navigate(-1)
   }
   return (
-    // <div className="  hidden lg:block  ">
-    //   <div className=" m-4  flex">
+          
         <Card
           style={divStyle}
           className={`${
@@ -113,7 +112,6 @@ function Sidebar() {
                   onClick={() => handleOpen(1)}
                   className="border-b-0 p-3"
                   >
-
                   <ListItemPrefix style={text}>
                     <PresentationChartBarIcon className="h-5 w-5" />
                   </ListItemPrefix>
@@ -127,7 +125,7 @@ function Sidebar() {
                 </AccordionHeader>
               </ListItem>
                       </Link>
-              <AccordionBody style={text} className="py-1">
+                      <AccordionBody style={text} className="py-1">
                 <List className="p-0">
                   <ListItem style={text}>
                     <ListItemPrefix style={text}>
@@ -138,32 +136,24 @@ function Sidebar() {
                       />
                     </ListItemPrefix>
                     Orders
-                  </ListItem>
+                    </ListItem>
                   <ListItem style={text}>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Products
-                  </ListItem>
+                    </ListItem>
                 </List>
               </AccordionBody>
             </Accordion>
               <Link to="/admin/user" >
-            <ListItem style={text}>
+              <ListItem style={text}>
               <ListItemPrefix>
-
                 <InboxIcon className="h-5 w-5" />
               </ListItemPrefix>
               User
               <ListItemSuffix>
-                {/* <Chip
-                  style={text}
-                  // value="14"
-                  size="sm"
-                  variant="ghost"
-                  color="blue-gray"
-                  className="rounded-full"
-                  /> */}
+                
               </ListItemSuffix>
             </ListItem>
                   </Link>
@@ -176,7 +166,6 @@ function Sidebar() {
             <Link to="/admin/hub" >
             <ListItem style={text}>
               <ListItemPrefix>
-                {/* <Cog6ToothIcon className="h-5 w-5" /> */}
                 <SiHomeassistantcommunitystore/>
               </ListItemPrefix>
               Hub

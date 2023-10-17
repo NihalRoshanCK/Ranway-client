@@ -80,39 +80,28 @@ function Sidebar() {
     // navigate(-1)
   }
   return (
-    // <div className="  hidden lg:block  ">
-    //   <div className=" m-4  flex">
-        <Card
-          style={divStyle}
-          className={`${
-            isOpen && isMobileView ? "fixed z-20 h-full" : "hidden lg:block sticky top-4"
-          }  m-4 md:h-[calc(95vh)] w-full max-w-[16rem] p-4 shadow-xl shadow-blue-gray-900/5`}
-          >
-          <div className=" mb-2 p-4 flex justify-between">
-            <Typography style={text} variant="h5" color="text-gray">
-              RUNWAY
-            </Typography>
-            <XMarkIcon
-              style={text}
-              className={`lg:hidden m-1 h-5 w-5 ${isOpen ? 'block' : 'hidden'}`}
-              onClick={() => dispatch(close())}
-            />
-            
-          </div>
-          <hr className="my-2 border-blue-gray-50" />
+
+    <Card
+    style={divStyle}
+    className={`${
+      isOpen &&  isMobileView ? "fixed z-20 h-full overflow-x-hidden" : "hidden lg:block sticky top-4 m-4"
+    }   md:h-[calc(95vh)] w-full max-w-[16rem] p-4 shadow-xl shadow-blue-gray-900/5`}
+    >
+    <div className=" mb-2 p-4 flex justify-between">
+      <Typography style={text} variant="h5" color="text-gray">
+        RUNWAY
+      </Typography>
+      <XMarkIcon
+        style={text}
+        className={`lg:hidden m-1 h-5 w-5 ${isOpen ? 'block' : 'hidden'}`}
+        onClick={() => dispatch(close())}
+      />
+      
+    </div>
+    <hr className="my-2 border-blue-gray-50" />
           <List>
             
-            <Accordion
-              // open={open === 2}
-              // icon={
-              //   <ChevronDownIcon
-              //     strokeWidth={2.5}
-              //     className={`mx-auto h-4 w-4 transition-transform ${
-              //       open === 2 ? "rotate-180" : ""
-              //     }`}
-              //   />
-              // }
-            >
+            <Accordion >
               <Link to={"/hub"}>
                <ListItem className="p-0" >
                 <AccordionHeader
@@ -162,18 +151,11 @@ function Sidebar() {
               </ListItemPrefix>
               Orders
               <ListItemSuffix>
-                {/* <Chip
-                  style={text}
-                  value="14"
-                  size="sm"
-                  variant="ghost"
-                  color="blue-gray"
-                  className="rounded-full"
-                /> */}
+                
               </ListItemSuffix>
             </ListItem>
                   </Link>
-            <ListItem style={text}>
+                  <ListItem style={text}>
               <ListItemPrefix>
                 <UserCircleIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -182,18 +164,17 @@ function Sidebar() {
             <Link to="/hub/chat" >
             <ListItem style={text}>
               <ListItemPrefix>
-                {/* <Cog6ToothIcon className="h-5 w-5" /> */}
                 <SiHomeassistantcommunitystore/>
               </ListItemPrefix>
               Chat
-            </ListItem>
+              </ListItem>
             </Link>
             <ListItem onClick={handleLogout} className="text-red-500">
               <ListItemPrefix>
                 <PowerIcon className="h-5 w-5" />
               </ListItemPrefix>
               Log Out
-            </ListItem>
+              </ListItem>
           </List>
         </Card>
         

@@ -21,12 +21,12 @@ function Home() {
 if(role &&  refresh && access){
   return (
     <>
-      <div className="flex bg-blue-gray-50">
+      <div className="flex min-h-screen w-full  max-h-fit bg-blue-gray-50  pb-5">
     
 
         <Sidebar/>
           
-        <div  className= "w-full lg:ml-0 transition-all ease-in-out p-5">
+        <div  className= "w-full  lg:ml-0 transition-all ease-in-out">
           <Navbar  />
           <Routes>
               <Route path='' element={<HubDash/>}/>
