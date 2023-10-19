@@ -1,6 +1,6 @@
 import { MapPinIcon } from '@heroicons/react/24/outline'
 import React,{useState} from 'react'
-import { Input } from "@material-tailwind/react";
+import { Button, Card, CardBody, CardHeader, Input, Typography } from "@material-tailwind/react";
 import axios from 'axios';
 import {  useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
@@ -56,6 +56,7 @@ function Select({order,orders,setOrders,setorder}) {
             const inputObject = Object.fromEntries(formData);
             api.post(`product/order/trackorder/`,inputObject)
           .then((response) => {
+            console.log(response.data);
             setOrders(response.data)
             setorder(true)
         //   setTABLE_ROWS(response.data);
@@ -74,8 +75,28 @@ function Select({order,orders,setOrders,setorder}) {
 
         return (
             
-            <div className=' bg-white z-10 rounded sm:w-fll md:w-full lg:w-1/3 h-56' >
-        <div className=' p-8 flex text-center gap-6'>
+            <Card className='bg-white w-full  mx-12 p-3' >
+                <CardBody className='space-y-4'>
+                    <div className='flex space-x-4'>
+                        <Typography variant='h6' onClick={()=>setValue('track')} className='hover:cursor-pointer border-b  border-b-light-blue-800'>
+                            Tracking
+                        </Typography>
+                        <Typography variant='h6' onClick={()=>setValue('shadules')} className='hover:cursor-pointer border-b   hover:border-b-light-blue-800'>
+                            Schedule
+                        </Typography>
+                    </div>
+                    <form onSubmit={handleTrack} className='flex '>
+                        <div className='relative w-full'> 
+                            <MapPinIcon color='gray' className=' absolute w-8 h-8  top-1/2 transform -translate-y-4'/>
+                            <input placeholder='Order ID' name='orderId' class="border-b border-gray-400 py-2 w-full pl-9 focus:outline-none focus:border-blue-500"/>
+                            {/* <Input variant="static" name='orderId' className='pl-10 w-10/12' placeholder="Enter the traking ID" /> */}
+                        </div>
+                            <Button type='submit' className='ms-4 bg-blue-gray-900 text-white rounded p-2 translate-y-1'>Track</Button>
+                    
+                    </form>
+
+                </CardBody>
+        {/* <div className=' p-8 flex text-center gap-6'>
             <h1 onClick={()=>setValue('track')} className='hover:cursor-pointer border-b-2  border-b-light-blue-800'>
                 Tracking
             </h1>
@@ -93,37 +114,65 @@ function Select({order,orders,setOrders,setorder}) {
         </div>
             <button type='submit' className='ms-4 bg-blue-gray-900 text-white rounded p-2 translate-y-1'>Track</button>
             </form>
-        </div>
-    </div>
+        </div> */}
+    </Card>
   )
 }else{
     return (
-            
-        <div className='bg-white z-10 rounded sm:w-fll md:w-full lg:w-1/3 h-fit' >
-    <div className=' pt-8 pl-8 flex text-center gap-6'>
-        <h1 onClick={()=>setValue('track')} className='hover:cursor-pointer border-b-2   hover:border-b-light-blue-800'>
-            Tracking
-        </h1>
-        <h1 onClick={()=>setValue('shadules')} className='hover:cursor-pointer border-b-2 border-b-light-blue-800'>
-            Schedule
-        </h1>
+            <Card  className='bg-white w-full  mx-12 p-3'>
+                <CardBody className='space-y-4'>
+                    <div className='flex space-x-4'>
+                        <Typography variant='h6' onClick={()=>setValue('track')} className='hover:cursor-pointer border-b  hover:border-b-light-blue-800'>
+                            Tracking
+                        </Typography>
+                        <Typography variant='h6' onClick={()=>setValue('shadules')} className='hover:cursor-pointer border-b   border-b-light-blue-800'>
+                            Schedule
+                        </Typography>
+                    </div>
+                    <form onSubmit={handleSubmit} >
+                        <div className=' flex  space-x-4 '>
+                            <div className='relative '>
+                                <MapPinIcon color='gray' className= {`absolute w-8 h-8  top-1/2 transform ${IsMessage ? '-translate-y-6' : '-translate-y-3'}`}/>
+                                {/* <Input name='from_zipcode' variant="static" className='pl-10 w-full' placeholder="Orgin" maxLength={6} /> */}
+                                <input placeholder='Orgin' name='from_zipcode' class="border-b border-gray-400 py-2 w-full pl-9 focus:outline-none focus:border-blue-500"/>
+
+                            </div>
+                            <div className='relative'> 
+                                <MapPinIcon color='gray' className= {`absolute w-8 h-8  top-1/2 transform ${IsMessage ? '-translate-y-6' : '-translate-y-3'}`}/>
+                                {/* <Input name='to_zipcode' variant="static" className='pl-10 ' placeholder="Destination" maxLength={6} /> */}
+                                <input placeholder='Destination' name='to_zipcode' class="border-b border-gray-400 py-2 w-full pl-9 focus:outline-none focus:border-blue-500"/>
+                            </div>
+                            {approve? <button type='button' onClick={()=>navigate("/booking")} className='bg-blue-gray-900 text-white rounded p-2 translate-y-1'>book a slot</button>: <button type='submit' className='bg-blue-gray-900 text-white rounded p-2 translate-y-1'>Sreach</button>}
+                        </div>
+                    </form>
+                        {IsMessage ? <p className='text-green-400'>Product will delvery with in  {message}</p>:null}
+                </CardBody>
+            </Card>
+//         <div className='bg-white z-10 rounded sm:w-fll md:w-full lg:w-1/3 h-fit' >
+//     <div className=' pt-8 pl-8 flex text-center gap-6'>
+//         <h1 onClick={()=>setValue('track')} className='hover:cursor-pointer border-b-2   hover:border-b-light-blue-800'>
+//             Tracking
+//         </h1>
+//         <h1 onClick={()=>setValue('shadules')} className='hover:cursor-pointer border-b-2 border-b-light-blue-800'>
+//             Schedule
+//         </h1>
         
-    </div>
-        <form onSubmit={handleSubmit} >
-        <div className='p-5'>
-            <div className='relative '>
-                <MapPinIcon color='gray' className=' absolute w-8 h-8  top-1/2 transform -translate-y-3'/>
-                <Input name='from_zipcode' variant="static" className='pl-10 w-full' placeholder="Orgin" maxLength={6} />
-            </div>
-            <div className='relative '> 
-                <MapPinIcon color='gray' className=' absolute w-8 h-8  top-1/2 transform -translate-y-3'/>
-                <Input name='to_zipcode' variant="static" className='pl-10 ' placeholder="Destination" maxLength={6} />
-            </div>
-            {approve? <button type='button' onClick={()=>navigate("/booking")} className='bg-blue-gray-900 text-white rounded p-2 translate-y-1'>book a slot</button>: <button type='submit' className='bg-blue-gray-900 text-white rounded p-2 translate-y-1'>Sreach</button>}
-        </div>
-        {IsMessage ? <p>{message}</p>:null}
-        </form>
-</div>
+//     </div>
+//         <form onSubmit={handleSubmit} >
+//         <div className='p-5'>
+//             <div className='relative '>
+//                 <MapPinIcon color='gray' className=' absolute w-8 h-8  top-1/2 transform -translate-y-3'/>
+//                 {/* <Input name='from_zipcode' variant="static" className='pl-10 w-full' placeholder="Orgin" maxLength={6} /> */}
+//             </div>
+//             <div className='relative '> 
+//                 <MapPinIcon color='gray' className=' absolute w-8 h-8  top-1/2 transform -translate-y-3'/>
+//                 <Input name='to_zipcode' variant="static" className='pl-10 ' placeholder="Destination" maxLength={6} />
+//             </div>
+//             {approve? <button type='button' onClick={()=>navigate("/booking")} className='bg-blue-gray-900 text-white rounded p-2 translate-y-1'>book a slot</button>: <button type='submit' className='bg-blue-gray-900 text-white rounded p-2 translate-y-1'>Sreach</button>}
+//         </div>
+//         {IsMessage ? <p>{message}</p>:null}
+//         </form>
+// </div>
 )
 
 }

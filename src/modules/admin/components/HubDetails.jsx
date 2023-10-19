@@ -199,7 +199,7 @@ const handleChange = (e) => {
       //   return toast.warning(`File size exceeds the maximum allowed size of ${maxFileSizeMB}MB.`);
       // }
 
-      if (formData.get('password') ===formData.get('conform_password')){
+      if (formData.get('password') !=formData.get('conform_password')){
         return toast.warning('password is not matching')
       }
 
@@ -274,7 +274,7 @@ const handleChange = (e) => {
             <form className='' onSubmit={handleRegister} encType="multipart/form-data">
 
         <DialogHeader>Add Staff</DialogHeader>
-        <DialogBody divider className="  space-y-4 p-2">
+        <DialogBody divider className=" space-y-4 p-2">
           <Input label='Name'  name='name' type='text' color='indigo'/>
           <Input label='E-mail' name='email' type='email' color='indigo'/>
           <Input type='number' label='Age' name='age' color='indigo' />

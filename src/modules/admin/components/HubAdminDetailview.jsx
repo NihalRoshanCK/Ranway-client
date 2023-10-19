@@ -14,7 +14,7 @@ import {
 //     ChatBubbleLeftEllipsisIcon,
 //     Cog6ToothIcon,
 //   } from "@heroicons/react/24/solid";
-function HubAdminDetailview() {
+function HubDetailview() {
 // const [admin,Setadmin]=useState([])
   const {id}=useParams();
   console.log(id)
@@ -82,4 +82,4 @@ function HubAdminDetailview() {
   )
 }
 
-export default HubAdminDetailview
+export default HubDetailview

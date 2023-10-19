@@ -33,7 +33,7 @@ function AdminDash() {
 }, []);
   return (
     <div className="mt-10 " >
-        <div className="xl:flex xl:space-y-0 space-y-8 gap-2  justify-evenly mb-8 ">
+        <div className="xl:flex  xl:space-y-0 space-y-8 gap-2  justify-evenly mb-8 ">
         <Card className="w-full  mt-11 lg:mt-0 ">
             <div className="flex justify-between ">
               <CardHeader

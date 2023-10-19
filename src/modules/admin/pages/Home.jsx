@@ -9,7 +9,7 @@ import Hub from '../components/Hub';
 import AdminProfile from '../components/AdminProfile';
 // import HubAdminDetailview from '../components/HubAdminDetailview';
 // import HubAdminDetailview from '../components/Hubadmindetailview';
-import HubAdminDetailview  from  '../components/HubAdminDetailview'
+import HubDetailview  from  '../components/HubAdminDetailview'
 import HubDetails from '../components/HubDetails';
 import AdminDash from '../components/AdminDash';
 import UserManagement from '../components/UserManagement';
@@ -26,7 +26,7 @@ function Home() {
 if(role &&  refresh && access){
   return (
     <>
-      <div className="flex min-h-screen max-h-fit bg-blue-gray-50  pb-5">
+      <div className="flex min-h-screen max-h-fit  bg-blue-gray-50  pb-5">
     
 
         <Sidebar/>
@@ -38,9 +38,9 @@ if(role &&  refresh && access){
               <Route path='user'  element={<UserManagement/>}/>
               <Route path='hub'  element={<Hub/>}/>
               <Route path='addhub'  element={<AddHub/>} />
-              <Route path='hubadmin/:id'  element={<HubAdminDetailview/>} />
+              <Route path='hubadmin/:id'  element={<HubDetailview/>} />
               <Route path='hubdetail/:id' element={<HubDetails/>} />
-              {/* <Route path='AdminProfile' element={<AdminProfile/>}/> */}
+              <Route path='profile' element={<AdminProfile/>}/>
           </Routes>
           {/* <Outlet/> */}
           <div>

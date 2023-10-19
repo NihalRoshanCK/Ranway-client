@@ -41,21 +41,21 @@ function Sheet(item) {
     }
   return (
     <>
-    <div className='px-10 py-4 bg-white h-fit space-y-6'>
+    <div className='px-10 py-4 bg-white h-fit space-y-6 break-all'>
       <div>{item.item.name}</div>
 
       <div className='flex space-x-2'><BsBoxFill color='grey' className='h-6 w-6'/><span>{item.item.orders.length}</span>Shipment</div>
-      <div className='  bg-blue-gray-50  flex justify-between'>
+      <div className='  bg-blue-gray-50  flex flex-col md:flex-row justify-between'>
 
-        <div className='text-center border-e-2 w-2/6 text-blue-400 opacity-75 font-black text-xl'>
+        <div className='text-center  border-e-2 md:w-2/6 text-blue-400 opacity-75 font-black text-xl'>
           <div>{pending.length}</div>
-          <div>Pending</div> 
+          <div className=''>Pending</div> 
         </div>
-        <div className='border-x-2 border-gray-500 w-2/6 text-center text-red-400 opacity-75 font-black text-xl'>
+        <div className='md:border-x-2 md:border-y-0 border-y-2 border-gray-500 md:w-2/6 text-center text-red-400 opacity-75 font-black text-xl'>
           <div>{failed.length}</div>
           <div>Failed</div> 
         </div>
-        <div className=' text-green-400 w-2/6 text-center opacity-75 font-black text-xl'>
+        <div className=' text-green-400 md:w-2/6 text-center opacity-75 font-black text-xl'>
           <div>{completed.length}</div>
           <div>Completed</div> 
       </div>

@@ -68,13 +68,6 @@ function Chat() {
       ws.addEventListener('message', (event) => {
         const message = JSON.parse(event.data);
         console.log(message.message.message_data,"messsssssssssssssssssssssss");
-        // messages.push(message.message.message_data);
-        var originalString =import.meta.env.VITE_BASE_URL;
-        var modifiedString = originalString.replace(/\/$/, '');
-        console.log(message.message.message_data["sender"].profile_picture);
-        let pic=message.message.message_data["sender"].profile_picture
-        message.message.message_data['sender'].profile_picture=modifiedString+pic
-
         setMessages((prevMessages) => [...prevMessages, message.message.message_data])
       
         // console.log('Received message from server:', message);

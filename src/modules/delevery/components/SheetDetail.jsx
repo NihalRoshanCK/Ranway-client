@@ -36,8 +36,8 @@ order.status==='completed' ?
         (<>
           <Link to=''>
           <Card  className='m-5 p-5 space-y-1 bg-gray-200 rounded-none'>
-            <div>{order.order_id}</div>
-            <div>{order.booking.user.name}</div>
+            <div className='break-all'>{order.order_id}</div>
+            <div className='break-all'>{order.booking.user.name}</div>
             {order.collected?<div>{order.booking.to_address}</div>:<div>{order.booking.from_address}</div>}
             <hr />
             <div className='flex'><RiLogoutBoxRFill className='h-6 w-6' color='green'/><div>Delevered</div></div>
@@ -50,9 +50,9 @@ order.status==='return' ?
 
          (<>
           <Link to=''>
-          <Card  className='m-5 p-5 space-y-1 bg-red-400 rounded-none'>
-            <div>{order.order_id}</div>
-            <div>{order.booking.user.name}</div>
+          <Card  className='m-5 p-5 space-y-1  bg-red-400 rounded-none'>
+            <div className='break-all'>{order.order_id}</div>
+            <div className='break-all'>{order.booking.user.name}</div>
             {order.collected?<div>{order.booking.to_address}</div>:<div>{order.booking.from_address}</div>}
             <hr />
             {order.collected?<div>Delevery Returned</div>:<div>Pickup Cancelled</div>}
@@ -65,8 +65,8 @@ order.status==='return' ?
 	(<> 
         <Link to={`/delevery/order/${order.id}`}>
           <Card  className='m-5 p-5 space-y-1  rounded-none'>
-            <div>{order.order_id}</div>
-            <div>{order.booking.user.name}</div>
+            <div className='break-all'>{order.order_id}</div>
+            <div className='break-all'>{order.booking.user.name}</div>
             {order.collected?<div>{order.booking.to_address}</div>:<div>{order.booking.from_address}</div>}
             <hr />
             {order.collected?<div className='flex'><RiLogoutBoxRFill className='h-6 w-6'/> <div> Delevery</div></div>:<div><ArchiveBoxArrowDownIcon className='w-6 h-6'/><div>Pickup</div></div>}
@@ -80,8 +80,8 @@ order.status==='in_progress' ?
         (<> 
         <Link to=''>
           <Card  className='bg-green-100 m-5 p-5 space-y-1 rounded-none'>
-            <div>{order.order_id}</div>
-            <div>{order.booking.user.name}</div>
+            <div className='break-all'>{order.order_id}</div>
+            <div className='break-all'>{order.booking.user.name}</div>
             {order.collected?<div>{order.booking.to_address}</div>:<div>{order.booking.from_address}</div>}
             <hr />
             {order.collected?<div className='flex'><RiLogoutBoxRFill className='h-6 w-6'/> <div> Delevery</div></div>:<div className='flex'><ArchiveBoxArrowDownIcon className='w-6 h-6' color='orange'/><div>Pickup Collected</div></div>}
@@ -95,8 +95,8 @@ order.status==='in_progress' ?
   (<> 
     <Link >
       <Card  className='m-5 p-5 space-y-1  bg-red-400 rounded-none'>
-        <div>{order.order_id}</div>
-        <div>{order.booking.user.name}</div>
+        <div className='break-all'>{order.order_id}</div>
+        <div className='break-all'>{order.booking.user.name}</div>
         {order.collected?<div>{order.booking.to_address}</div>:<div>{order.booking.from_address}</div>}
         <hr />
         {order.collected?<div className='flex'><RiLogoutBoxRFill className='h-6 w-6'/> <div> Delevery</div></div>:<div className='flex'><ArchiveBoxArrowDownIcon color='orange' className='w-6 h-6'/><div>Pickup Canceled</div></div>}
@@ -109,8 +109,8 @@ order.status==='in_progress' ?
 	(<> 
         <Link to={`/delevery/order/${order.id}`}>
           <Card  className='m-5 p-5 space-y-1  rounded-none'>
-            <div>{order.order_id}</div>
-            <div>{order.booking.user.name}</div>
+            <div className='break-all'>{order.order_id}</div>
+            <div className='break-all'>{order.booking.user.name}</div>
             {order.collected?<div>{order.booking.to_address}</div>:<div>{order.booking.from_address}</div>}
             <hr />
             {order.collected?<div className='flex'><RiLogoutBoxRFill className='h-6 w-6'/> <div> Delevery</div></div>:<div className='flex'><ArchiveBoxArrowDownIcon color='orange' className='w-6 h-6'/><div>Pickup</div></div>}

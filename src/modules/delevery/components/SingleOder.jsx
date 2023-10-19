@@ -124,13 +124,48 @@ function SingleOder() {
         open={scan}
         size={'xxl'}
         // handler={handleOpen}
+        className='h-screen w-screen'
       >
         <Test  result={result} setResult={setResult}  setScan={setScan}/>
       </Dialog>
-    {order === null ? (
+      {order === null ? (
         <div>Loading...</div>
       ) : (
-        <div className='h-screen  bg-white' >
+        <div className='h-screen m-8 p-5 bg-white'>
+          <div className='font-bold' >Costumer Name: <span className='font-black text-blue-500'>{order.booking.user.name}</span> </div>
+          <div className='text-lg font-bold'>
+            address:{order.collected ? 
+              <span className='font-black text-blue-500'>{order.booking.to_address}</span> 
+               : 
+               <span className='font-black text-blue-500'> {order.booking.from_address}</span>
+                }
+                </div>
+                <div className='my-2 space-y-5   bg-gray-300 block sm:flex sm:justify-between p-4'>
+                  <div className='break-all '>{order.order_id}</div>
+                  {order.collected ?
+                    <div>Rs:{order.booking.product_price}</div>: null
+                  }
+              {!result.text ? (<div className='sm:space-x-0 space-x-2 md:space-y-2 space-y-0'><Button color='blue' onClick={()=>setScan(true)}>Verify</Button><Button onClick={handleCancel} color='red'>cancell</Button></div>) : (result.text === order.order_id ? <Button color='green'>Verifed</Button> : <div >Cancelled</div>)}
+                        </div>
+                        <QRCode className='sm:block hidden' size={70}  value={order.order_id}/>
+
+                        <div className='fixed bottom-0 left-0 right-0'>
+
+{
+  result.text === order.order_id ? <Button className='w-full' onClick={handledelevery}>Conform</Button>: null
+}
+</div>
+        </div>
+      )}
+    </>
+  )
+}
+
+export default SingleOder
+
+
+
+{/* <div className='h-screen  bg-white' >
           <div className='  space-y-5'>
             <div className='font-bold' >Costumer Name: <span className='font-black text-blue-500'>{order.booking.user.name}</span> </div>
             <div className='text-lg'>
@@ -147,7 +182,6 @@ function SingleOder() {
                   }
               {!result.text ? (<div className='space-x-2'><Button color='blue' onClick={()=>setScan(true)}>Verify</Button><Button onClick={handleCancel} color='red'>cancell</Button></div>) : (result.text === order.order_id ? <Button color='green'>Verifed</Button> : <div >Cancelled</div>)}
                         </div>
-            {/* <p>{result?.text}</p> */}
             <QRCode className='m-10  mb-0' value={order.order_id}/>
           </div>
           
@@ -157,10 +191,5 @@ function SingleOder() {
             result.text === order.order_id ? <Button className='w-full' onClick={handledelevery}>Conform</Button>: null
           }
           </div>
-        </div>
-      )}
-    </>
-  )
-}
-
-export default SingleOder
+        </div> */}
+        

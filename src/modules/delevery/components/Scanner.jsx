@@ -18,12 +18,12 @@ function Test({result,setResult,setScan}) {
     
     
   };
-
+  const previewStyle = {
+    height: '100%',
+    width: '100%',
+  };
   useEffect(() => {
-    const previewStyle = {
-      height: 500,
-      width: 320,
-    };
+    
 
     // You can set up any other side effects here if needed.
 
@@ -34,18 +34,19 @@ function Test({result,setResult,setScan}) {
   console.log(result?.text,"resultresultresultresult");
 
   return (
-    <div className='w-full'>
+    // <div className='w-full'>
+    <>
       <QrReader
         delay={delay}
-        style={{
-          
-        }}
+        style={previewStyle}
         onError={handleError}
         onScan={handleScan}
-      />
+        
+        />
       
       <p>{result?.text}</p>
-    </div>
+        </>
+    // </div>
   );
 }
 

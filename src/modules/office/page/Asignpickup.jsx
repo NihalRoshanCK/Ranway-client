@@ -94,10 +94,10 @@ function Asignpickup() {
               </ListItemPrefix>
               <div>
 
-              <Typography color="blue-gray" className="font-medium">
+              <Typography color="blue-gray" className="font-medium break-all">
                 {pick.order_id}
               </Typography>
-              <Typography color="blue-gray" className="font-medium">
+              <Typography color="blue-gray" className="font-medium break-all">
                 <span className='font-medium '>From Address:</span>{pick.booking.from_address}
               </Typography>
               </div>
