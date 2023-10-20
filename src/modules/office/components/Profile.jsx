@@ -165,7 +165,7 @@ function Profile() {
                   variant="small"
                   className="font-normal text-blue-gray-600 break-all"
                   >
-                  CEO / Co-Founder of Runway.PVT
+                  office staff
                 </Typography>
               </div>
             </div>
