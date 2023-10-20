@@ -67,6 +67,7 @@ function Otp({data,setdata}) {
               console.log(response.data,"responseeeeeeeeeeeeeeeee");
               localStorage.setItem('refresh', response.data.refresh)
               localStorage.setItem('access', response.data.access)
+              localStorage.setItem('role',response.data.role)
               
               toast.success('Registered successfully')
               console.log(response.data)
