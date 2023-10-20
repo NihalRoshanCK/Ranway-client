@@ -8,6 +8,7 @@ import Orders from '../components/Orders';
 import SeeAllNotifications from '../components/SeeAllNotifications';
 import Chat from '../components/Chat';
 import HubDash from '../components/HubDash';
+import Profile from '../components/Profile';
 // import { open } from '../../../Redux/StateReducer';
 
 
@@ -33,6 +34,8 @@ if(role &&  refresh && access){
               <Route path='huborder'  element={<Orders/>}/>
               <Route path='notifications'  element={<SeeAllNotifications/>}/>
               <Route path='chat'  element={<Chat/>}/>
+              <Route path='profile'  element={<Profile/>}/>
+
 
               
           </Routes>

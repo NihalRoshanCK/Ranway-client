@@ -119,19 +119,22 @@ function Home() {
          <Navbar />
             <div className="flex items-center justify-evenly w-full h-5/6 ">
               <div className="space-y-1 p-8">
-                <h6 style={text} className="md:text-3xl z-10 text-2xl antialiased font-black   text-white " >
+                <h6 style={text} className="md:text-3xl z-10 sm:text-2xl text-xl    antialiased font-black   text-white " >
               Logistics made easy through digital solutions
             </h6>
-            <p className="antialiased text-white text-sm md:text-base break-after-all lg:text-lg ">
+            <p className="hidden antialiased text-white text-sm md:text-base break-after-all lg:text-lg ">
               We make it easy to manage your shipments and logistics online.
               From finding a price and making bookings to submitting documents
               and tracking cargo.
             </p>
-            <p className="antialiased text-white text-sm md:text-base lg:text-lg ">
+            <p className="hidden antialiased text-white text-sm md:text-base lg:text-lg ">
               Register and you will soon be able to manage your logistics
               online.
             </p>
-            <div className=" space-x-3">
+
+            <div className="">
+
+            <div className="sm:space-x-2 flex flex-row">
 
              {login ? null : (
                <Button
@@ -148,12 +151,13 @@ function Home() {
               color="white"
               variant="text"
               >
-              Book New Order
+              Book  Order
             </Button>
                 </div>
+            </div>
               </div>
               <div className="w-full lg:flex hidden justify-center ">
-               <Select  setOrders={setOrders} setorder={setorder} order={order} orders={orders}/>
+               <Select setOrders={setOrders} setorder={setorder} order={order} orders={orders}/>
               </div>
 
         </div>
@@ -189,88 +193,137 @@ function Home() {
           Product Name:{orders?.booking?.product_name}
         </DialogHeader>
         <DialogBody divider className="h-full flex  justify-center items-center">
-
-        <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:ml-[8.75rem] md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
-
-<div class="relative">
-    <div class="md:flex items-center md:space-x-4 mb-3">
-        <div class="flex items-center space-x-4 md:space-x-2 md:space-x-reverse">
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow md:order-1">
-                <svg class="fill-emerald-500" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-                    <path d="M8 0a8 8 0 1 0 8 8 8.009 8.009 0 0 0-8-8Zm0 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" />
-                </svg>
+        <ol class="items-center  sm:flex w-full">
+    <li class={`relative mb-5  w-2/12 ${ orders?.created_at  ? "sm:mb-0"  : "sm:mb-5"}`}>
+            <h3  color='' className={`text-sm mb-1 font-semibold ${order?.out_for_delivery ? 'text-green-300' : orders?.returned_at ? 'text-red-300' : 'text-gray dark:text-white '}`}>Order conformed</h3>
+        <div class="flex items-center ">
+            <div class={` flex  items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${order?.returned_at ? 'bg-red-300' :order?.created_at ? 'bg-green-300' : order?.returned_at ? 'bg-red-300' : 'bg-gray-200 dark:bg-gray-700'}   `}>
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
             </div>
-            <time class="font-caveat font-medium text-xl text-indigo-500 md:w-28">Apr 7, 2024</time>
-        </div>
-        <div class="text-slate-500 ml-14"><span class="text-slate-900 font-bold">Mark Mikrol</span> opened the request</div>
-    </div>
-    <div class="bg-white p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like.</div>
-</div>
 
-<div class="relative">
-    <div class="md:flex items-center md:space-x-4 mb-3">
-        <div class="flex items-center space-x-4 md:space-x-2 md:space-x-reverse">
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow md:order-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-                    <path class="fill-slate-300" d="M14.853 6.861C14.124 10.348 10.66 13 6.5 13c-.102 0-.201-.016-.302-.019C7.233 13.618 8.557 14 10 14c.51 0 1.003-.053 1.476-.143L14.2 15.9a.499.499 0 0 0 .8-.4v-3.515c.631-.712 1-1.566 1-2.485 0-.987-.429-1.897-1.147-2.639Z" />
-                    <path class="fill-slate-500" d="M6.5 0C2.91 0 0 2.462 0 5.5c0 1.075.37 2.074 1 2.922V11.5a.5.5 0 0 0 .8.4l1.915-1.436c.845.34 1.787.536 2.785.536 3.59 0 6.5-2.462 6.5-5.5S10.09 0 6.5 0Z" />
-                </svg>
+            <div class={`hidden sm:flex w-full bg-gray-200 h-0.5 ${orders?.returned_at ? 'bg-red-300' :orders?.created_at ? 'bg-green-300' : orders?.returned_at ? 'bg-red-300' : 'bg-gray-500 dark:bg-gray-700'}`}></div>
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block ml-4 mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{orders?.created_at}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+
+    <li class={`relative mb-5  w-2/12 ${ orders?.collected_at  ? "sm:mb-0"  : "sm:mb-5"}`}>
+            <h3  color='' className={`text-sm mb-1 font-semibold ${orders?.out_for_delivery ? 'text-green-300' : orders?.returned_at ? 'text-red-300' : 'text-gray dark:text-white '}`}>Order Collected</h3>
+        <div class="flex items-center">
+            <div class={` flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${orders?.returned_at ? 'bg-red-300' :orders?.nearest_hub_at ? 'bg-green-300' : orders?.returned_at ? 'bg-red-300' : 'bg-gray-200 dark:bg-gray-700'}   `}>
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
             </div>
-            <time class="font-caveat font-medium text-xl text-indigo-500 md:w-28">Apr 7, 2024</time>
-        </div>
-        <div class="text-slate-500 ml-14"><span class="text-slate-900 font-bold">John Mirkovic</span> commented the request</div>
-    </div>
-    <div class="bg-white p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</div>
-</div>
 
-<div class="relative">
-    <div class="md:flex items-center md:space-x-4 mb-3">
-        <div class="flex items-center space-x-4 md:space-x-2 md:space-x-reverse">
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow md:order-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-                    <path class="fill-slate-300" d="M14.853 6.861C14.124 10.348 10.66 13 6.5 13c-.102 0-.201-.016-.302-.019C7.233 13.618 8.557 14 10 14c.51 0 1.003-.053 1.476-.143L14.2 15.9a.499.499 0 0 0 .8-.4v-3.515c.631-.712 1-1.566 1-2.485 0-.987-.429-1.897-1.147-2.639Z" />
-                    <path class="fill-slate-500" d="M6.5 0C2.91 0 0 2.462 0 5.5c0 1.075.37 2.074 1 2.922V11.5a.5.5 0 0 0 .8.4l1.915-1.436c.845.34 1.787.536 2.785.536 3.59 0 6.5-2.462 6.5-5.5S10.09 0 6.5 0Z" />
-                </svg>
+            <div class={`hidden sm:flex w-full bg-gray-200 h-0.5 ${orders?.returned_at ? 'bg-red-300' :orders?.collected_at ? 'bg-green-300' : orders?.returned_at ? 'bg-red-300' : 'bg-gray-500 dark:bg-gray-700'}`}></div>
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{orders?.collected_at}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+
+    <li class={`relative mb-5  w-2/12 ${ orders?.nearest_hub_at  ? "sm:mb-0"  : "sm:mb-5"}`}>
+            <h3  color='' className={`text-sm mb-1 font-semibold ${orders?.out_for_delivery ? 'text-green-300' : orders?.returned_at ? 'text-red-300' : 'text-gray dark:text-white '}`}>Reached nearest hub</h3>
+        <div class="flex items-center">
+            <div class={` flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${orders?.returned_at ? 'bg-red-300' :orders?.nearest_hub_at ? 'bg-green-300' : orders?.returned_at ? 'bg-red-300' : 'bg-gray-200 dark:bg-gray-700'}   `} >
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
             </div>
-            <time class="font-caveat font-medium text-xl text-indigo-500 md:w-28">Apr 8, 2024</time>
-        </div>
-        <div class="text-slate-500 ml-14"><span class="text-slate-900 font-bold">Vlad Patterson</span> commented the request</div>
-    </div>
-    <div class="bg-white p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">Letraset sheets containing passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Ipsum.</div>
-</div>
 
-<div class="relative">
-    <div class="md:flex items-center md:space-x-4 mb-3">
-        <div class="flex items-center space-x-4 md:space-x-2 md:space-x-reverse">
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow md:order-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-                    <path class="fill-slate-300" d="M14.853 6.861C14.124 10.348 10.66 13 6.5 13c-.102 0-.201-.016-.302-.019C7.233 13.618 8.557 14 10 14c.51 0 1.003-.053 1.476-.143L14.2 15.9a.499.499 0 0 0 .8-.4v-3.515c.631-.712 1-1.566 1-2.485 0-.987-.429-1.897-1.147-2.639Z" />
-                    <path class="fill-slate-500" d="M6.5 0C2.91 0 0 2.462 0 5.5c0 1.075.37 2.074 1 2.922V11.5a.5.5 0 0 0 .8.4l1.915-1.436c.845.34 1.787.536 2.785.536 3.59 0 6.5-2.462 6.5-5.5S10.09 0 6.5 0Z" />
-                </svg>
+            <div class={`hidden sm:flex w-full bg-gray-200 h-0.5 ${orders?.returned_at ? 'bg-red-300' :orders?.nearest_hub_at ? 'bg-green-300' : orders?.returned_at ? 'bg-red-300' : 'bg-gray-500 dark:bg-gray-700'}`}></div>
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{orders?.nearest_hub_at}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+
+    <li class={`relative mb-5  w-2/12 ${ orders?.out_for_delivery  ? "sm:mb-0"  : "sm:mb-5"}`}>
+            <h3  color='' className={`text-sm mb-1 font-semibold ${orders?.out_for_delivery ? 'text-green-300' : orders?.returned_at ? 'text-red-300' : 'text-gray dark:text-white '}`}>Out for Delivery</h3>
+        <div class="flex items-center">
+            <div class={` flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${orders?.returned_at ? 'bg-red-300' :orders?.out_for_delivery ? 'bg-green-300' : orders?.returned_at ? 'bg-red-300' : 'bg-gray-200 dark:bg-gray-700'}   `}>
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
             </div>
-            <time class="font-caveat font-medium text-xl text-indigo-500 md:w-28">Apr 8, 2024</time>
-        </div>
-        <div class="text-slate-500 ml-14"><span class="text-slate-900 font-bold">Mila Capentino</span> commented the request</div>
-    </div>
-    <div class="bg-white p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</div>
-</div>
 
-<div class="relative">
-    <div class="md:flex items-center md:space-x-4 mb-3">
-        <div class="flex items-center space-x-4 md:space-x-2 md:space-x-reverse">
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow md:order-1">
-                <svg class="fill-red-500" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-                    <path d="M8 0a8 8 0 1 0 8 8 8.009 8.009 0 0 0-8-8Zm0 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" />
-                </svg>
+            <div class={`hidden sm:flex w-full bg-gray-200 h-0.5 ${orders?.returned_at ? 'bg-red-300' :orders?.out_for_delivery ? 'bg-green-300' : orders?.returned_at ? 'bg-red-300' : 'bg-gray-500 dark:bg-gray-700'}`}></div>
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{orders?.out_for_delivery}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+    {orders?.delivered_at ?
+    <li class={`relative mb-5  w-2/12 ${ orders?.delivered_at  ? "sm:mb-0"  : "sm:mb-5"}`}>
+            <h3  color='' className={`text-sm mb-1 font-semibold ${orders?.delivered_at ? 'text-green-300' :  'text-gray dark:text-white '}`}>Delivery</h3>
+        <div class="flex items-center">
+            <div class={` flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${orders?.returned_at ? 'bg-red-300' :orders?.delivered_at ? 'bg-green-300' : orders?.returned_at ? 'bg-red-300' : 'bg-gray-200 dark:bg-gray-700'}   `}>
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
             </div>
-            <time class="font-caveat font-medium text-xl text-indigo-500 md:w-28">Apr 9, 2024</time>
-        </div>
-        <div class="text-slate-500 ml-14"><span class="text-slate-900 font-bold">Mark Mikrol</span> closed the request</div>
-    </div>
-    <div class="bg-white p-4 rounded border border-slate-200 text-slate-500 shadow ml-14 md:ml-44">If you are going to use a passage of Lorem Ipsum!</div>
-</div>
 
-</div>
+            {/* <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div> */}
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{orders?.delivered_at}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+:
+orders?.returned_at ?
+  <li class={`relative mb-0  w-2/12 ${ orders?.returned_at  ? "sm:mb-0"  : "sm:mb-5"}`}>
+            <h3  color='' className={`text-sm mb-1 font-semibold ${orders?.returned_at ? 'text-red-300' : 'text-gray dark:text-white '}`}>Returnd</h3>
+        <div class="flex items-center">
+            <div class=" flex items-center justify-center w-4 h-4 bg-red-200 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
+            </div>
+
+            {/* <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div> */}
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block mb-2 text-sm font-normal leading-none text-red-200 dark:text-gray-500">{orders?.returned_at}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+:
+    <li class="relative mb-0 sm:mb-0 w-2/12 ">
+            <h3  color='' className={`text-sm mb-1 font-semibold ${orders?.delivered_at ? 'text-green-300' : 'text-gray dark:text-white '}`}>Delivery</h3>
+        <div class="flex items-center">
+            <div class={` flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${orders?.returned_at ? 'bg-red-300' :order?.delivered_at ? 'bg-green-300' : orders?.returned_at ? 'bg-red-300' : 'bg-gray-200 dark:bg-gray-700'}   `} >
+                {/* <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                </svg> */}
+            </div>
+
+            {/* <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div> */}
+        </div>
+        <div class="mt-3 sm:pr-8">
+            {/* <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3> */}
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Expected {orders?.booking?.cpd}</time>
+            {/* <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> */}
+        </div>
+    </li>
+    }
+    
+</ol>
+
         </DialogBody>
         <DialogFooter>
           <Button

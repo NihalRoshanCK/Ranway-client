@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-
+import React,{useState} from 'react'
 import {
     Card,
     CardBody,
@@ -14,16 +13,16 @@ import {
 } from "@material-tailwind/react";
 import { useQuery } from 'react-query';
 import jwt_decode from 'jwt-decode';
-import api from '../../../axiosInterceptor';
+import api from '../deleveryaxiosInterceptor'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-  const fetchUserData = async (userId) => {
+const fetchUserData = async (userId) => {
     const response = await api.get(`auths/user/${userId}/`);
     return response.data;
   };
-function AdminProfile() {
-  var token=localStorage.getItem('access')
+function Profile() {
+    var token=localStorage.getItem('access')
   var decoded = jwt_decode(token);
   const userId = decoded.user_id;
   const { data: user, isLoading, isError } = useQuery(['user', userId], () => fetchUserData(userId));
@@ -97,6 +96,7 @@ function AdminProfile() {
           .then((response) => {
           console.log("SingleStaffffffffffffffffffffff",response.data);
           setOpenDialog(false)
+          toast.success('profile updated')
           })
           .catch((error) => {
             console.error(error);
@@ -178,6 +178,7 @@ function AdminProfile() {
       </div>
 
     </div>
+  <ToastContainer className="z-50" />
       
     </Card>
     <Dialog className='max-h-screen overflow-y-auto'
@@ -253,4 +254,4 @@ function AdminProfile() {
   )
 }
 
-export default AdminProfile
+export default Profile

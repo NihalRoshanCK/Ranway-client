@@ -51,6 +51,7 @@ api.interceptors.response.use(
         // If refreshing the token fails, clear all tokens and redirect to login
         localStorage.removeItem('access');
         localStorage.removeItem('refresh');
+        localStorage.removeItem('role');
         // dispatch(()=>open()) // Redirect to login page
       }
     }
@@ -59,6 +60,7 @@ api.interceptors.response.use(
     if (!localStorage.getItem('access') || (error.response && error.response.status === 401)) {
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
+      localStorage.removeItem('role');
     //   window.location.href = '/login'; // Redirect to login page
     // dispatch(()=>open())
 

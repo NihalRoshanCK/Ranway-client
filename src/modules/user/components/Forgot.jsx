@@ -17,6 +17,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 import { Link, useNavigate } from 'react-router-dom';
 import Otp from './ForgotOtp';
 
+
 function Forgot({handleForget}) {
   const navigate=useNavigate()
   const [email,setemail]=useState("")
@@ -107,7 +108,7 @@ function Forgot({handleForget}) {
   return (
      <>
      {conform?
-     <Otp data={data} email={email} />:
+     <Otp data={data} email={email} setdata={setdata} />:
 
      
      

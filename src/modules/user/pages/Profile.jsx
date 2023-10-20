@@ -402,7 +402,7 @@ order?.returned_at ?
 
         <DialogBody className='p-2 space-y-4 py-4' divider>
           <Input className=''onChange={(e) =>
-            setFormData({
+            setData({
               ...data,
               name: e.target.value,
             })

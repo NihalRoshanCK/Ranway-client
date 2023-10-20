@@ -10,6 +10,7 @@ import {
     Typography,
     Badge,
   } from "@material-tailwind/react";
+  import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 function Notifications() {
   function calculateTimeDifference(createdDate) {

@@ -8,6 +8,7 @@ import SheetList from '../components/SheetList';
 import SheetDetail from '../components/SheetDetail';
 import SingleOder from '../components/SingleOder';
 import Chat from '../components/Chat';
+import Profile from '../components/Profile';
 function Home() {
   const [worksheet,setWorksheet]=useState([])
   useEffect(() => {
@@ -34,6 +35,8 @@ function Home() {
       <Route path='sheet/:id'element={<SheetDetail/>}/>
       <Route path='/order/:id'element={<SingleOder/>}/>
       <Route path='/chat' element={<Chat/>}/>
+      <Route path='/profile' element={<Profile/>}/>
+
     </Routes>
      
     </div>

@@ -61,7 +61,6 @@ if(role && refresh && access){
     } else if (!isValidEmail(inputObject.email)) {
       return toast.warning('enter a correct email format')
     }
-
     if (!inputObject.password) {
       return toast.warning('Password is required')
     } 

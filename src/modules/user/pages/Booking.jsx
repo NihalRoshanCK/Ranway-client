@@ -112,12 +112,58 @@ function Booking() {
     const formData = new FormData(event.target);
     const inputObject = Object.fromEntries(formData);
     console.log(select.id);
+    if (!inputObject.product_name){
+      return toast.warning('Product name  is required')
+    }else if (!inputObject.from_address) {
+      return toast.warning('from  address  is requird')
+    }else if (!inputObject.from_zipcode) {
+      return toast.warning(' from addresss zipcode is requred')
+    }else if (!inputObject.from_user_contact) {
+      return toast.warning('from address contact number is requird')
+    }else if (!inputObject.to_address) {
+      return toast.warning('to address  is requird')
+    }else if (!inputObject.to_zipcode) {
+      return toast.warning('to address zipcode  is requird')
+    }else if (!inputObject.to_user_contact) {
+      return toast.warning('to address contact number is requird')
+    }else if (!inputObject.height) {
+      return toast.warning('product height is requird')
+    }else if (!inputObject.width) {
+      return toast.warning('product width is requird')
+    }else if (!inputObject.weight) {
+      return toast.warning('product weight is requird')
+    }else if (!inputObject.product_price) {
+      return toast.warning('product price is requird if not needed put 0')
+    }else if (!inputObject.hbd) {
+      return toast.warning('product pickup date is requird')
+    }
+
+    if (!isValidName(inputObject.product_name)) {
+      return toast.warning('Enter a correct name format without space and minimum 4 letters')
+    }else if (!isValidAddress(inputObject.from_address)) {
+      return toast.warning('Enter a correct from  address  format')
+    }else if (!isValidZipcode(inputObject.from_zipcode)) {
+      return toast.warning('Enter a correct from zipcode number format')
+    }else if (!isValidPhone(inputObject.from_user_contact)) {
+      return toast.warning('Enter a correct from addreess phone number format')
+    }else if (!isValidAddress(inputObject.to_address)) {
+      return toast.warning('Enter a correct to address format')
+    }else if (!isValidZipcode(inputObject.to_zipcode)) {
+      return toast.warning('Enter a correct to zipcode format')
+    }else if (!isValidPhone(inputObject.to_user_contact)) {
+      return toast.warning('Enter a correct  to address contact number format')
+    }else if (!isValidvalue(inputObject.height)) {
+      return toast.warning('Enter height must be than 1 and less than 50')
+    }else if (!isValidvalue(inputObject.width)) {
+      return toast.warning('Enter height must be than 1 and less than 50')
+    }else if (!isValidvalue(inputObject.weight)) {
+      return toast.warning('Enter height must be than 1 and less than 50')
+    }
     const cpd = new Date(inputObject["hbd"]);
     cpd.setDate(currentDate.getDate() + 6);
     inputObject["cpd"]=cpd.toISOString().split('T')[0];
     inputObject["category"]=select.id
     console.log(inputObject,"inputttttttttttttttt");
-    if (select ||inputObject.to_address||inputObject.from_address||inputObject.height||inputObject.product_name||inputObject.weight||inputObject.width){
     
       setPrice(select.price)
       if (inputObject.height>250){
@@ -154,12 +200,62 @@ function Booking() {
         // Handle error: Display an error message to the user or perform other actions.
       }
       
-    }
     // Process and validate form data here
   };
   const handleOpen=(event)=>{
     setIs_active(event)
   }
+
+
+  const isValidvalue = (value) => {
+    // Valid email addresses in the format user@example.com
+    //  consisting of non-space characters before the @ symbol
+    //  followed by non-space characters, and a valid top-level domain (TLD) after the @ symbol
+    const valueRegex = /^(?:[1-9]|[1-4]\d|50)$/;
+    return valueRegex.test(email);
+  };
+  const isValidEmail = (email) => {
+    // Valid email addresses in the format user@example.com
+    //  consisting of non-space characters before the @ symbol
+    //  followed by non-space characters, and a valid top-level domain (TLD) after the @ symbol
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const isValidZipcode = (zipcode) => {
+    // Valid email addresses in the format user@example.com
+    //  consisting of non-space characters before the @ symbol
+    //  followed by non-space characters, and a valid top-level domain (TLD) after the @ symbol
+    const zipcodeRegex = /^\d{6}(?:-\d{4})?$/;
+    return zipcodeRegex.test(zipcode);
+  };
+  const isValidName = (name) => {
+    // usernames must start and end with an alphanumeric character (letter or digit)
+    //  can contain periods (dots) within, must not have consecutive periods
+    //  and be between 1 and 30 characters in length
+    const nameRegex = /^(?!.*\.\.)(?!.*\.$)[^\W_][\w.]{3,29}$/;
+    return nameRegex.test(name);
+  };
+  const isValidPhone = (phone) => {
+    // Required 10 digit with no six consecutive identical digits
+    const numberRegex = /^(?!.*(\d)\1{5})(?:\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/;
+    return numberRegex.test(phone);
+  };
+  const isValidAddress = (address) => {
+    // Valid addresses can contain word characters, spaces, dots, commas, hyphens, and hash symbols
+    const addressRegex = /^[\w\s.,#-]+$/;
+    return addressRegex.test(address);
+  };
+  const isValidPassword = (password) => {
+    // Password validation using regular expression
+    // Requires at least one uppercase letter, one lowercase letter, and one special character
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+  };
+  const isValidAge = (age) => {
+    // Valid ages must be integers starting from 18 to 99
+    const ageRegex = /^(?:1[89]|[2-9]\d)$/;
+    return ageRegex.test(age);
+  };
   return (
     <>
       <Dialog size="xs" open={on} className=" flex bg-transparent shadow-none" >

@@ -155,12 +155,15 @@ function Sidebar() {
               </ListItemSuffix>
             </ListItem>
                   </Link>
+                  <Link to='/hub/profile'>
+
                   <ListItem style={text}>
               <ListItemPrefix>
                 <UserCircleIcon className="h-5 w-5" />
               </ListItemPrefix>
               Profile
             </ListItem>
+                  </Link>
             <Link to="/hub/chat" >
             <ListItem style={text}>
               <ListItemPrefix>

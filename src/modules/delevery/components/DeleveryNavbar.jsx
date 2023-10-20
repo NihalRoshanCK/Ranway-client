@@ -37,6 +37,18 @@ function DeleveryNavbar() {
           </a>
         </Typography>
           </Link>
+          <Link to="/delevery/profile">
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+          >
+          <a  className="flex items-center">
+            Profile
+          </a>
+        </Typography>
+          </Link>
         {/* <Typography
           as="li"
           variant="small"

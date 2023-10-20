@@ -19,7 +19,7 @@ import {  useDispatch } from 'react-redux'
 //   import axios from 'axios';
   import { close } from '../../../Redux/LoginReduser';
 // import { XMarkIcon } from '@heroicons/react/24/solid';
-function ForgotOtp({data,email}) {
+function ForgotOtp({data,email,setdata}) {
   const [varified,setVarified]=useState(false)
   const dispatch = useDispatch()
 
@@ -47,15 +47,33 @@ function ForgotOtp({data,email}) {
             }
           }
         };
+
+        
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const currentTime = new Date();
+        const backendTime = new Date(data.data.time);
+        const timeDifference = currentTime - backendTime;
+        const otpExpirationTime = 30 * 1000;
     console.log(data);
     const otpValue = inputRefs.map(ref => ref.current.value).join('');
     console.log(otpValue,"otpValueotpValue");
     // console.log(data,"dddddddddddddddddddddddddddddddddddddddddddddddddddd")
-    if (data.data==otpValue){
+    if (data.data.otp==otpValue){
       console.log("innnnnnnnnnnnnnnnnnn");
-      setVarified(true)
+      console.log(backendTime);
+      console.log(otpExpirationTime);
+      if (timeDifference <= otpExpirationTime) {
+        toast.success('Enter new Password');
+        setVarified(true)
+        // setTimeout(() => {
+        //     dispatch(close());
+        //   }, 4500);
+    } else {
+        toast.error('OTP has expired');
+    }
+
+
       
 
     }
@@ -69,7 +87,7 @@ function ForgotOtp({data,email}) {
       const inputObject = Object.fromEntries(formData);
       inputObject["email"]=email
       if (inputObject.pasword=inputObject.conform_password){
-        const response = await axios.post(import.meta.env.VITE_BASE_URL+'user/forget/change/', inputObject);
+        const response = await axios.post(import.meta.env.VITE_BASE_URL+'user/forget/', inputObject);
         if (response && response.status === 200) {
           toast.success('Password changed')
           setTimeout(()=>{
@@ -82,6 +100,14 @@ function ForgotOtp({data,email}) {
           toast.error('Something went wrong!')
         }
       }
+  }
+
+  const resendOtp=async()=>{
+    // const inputObject = Object.fromEntries();
+    // inputObject["email"]=email;
+    const response = await axios.post(import.meta.env.VITE_BASE_URL+'user/forget/', {'email':email});
+    setdata(response.data)
+    console.log(response.data);
   }
   return (
 
@@ -147,12 +173,15 @@ function ForgotOtp({data,email}) {
   </Typography>
 </CardFooter>
   </form>
+{/* {data.data.time<otpExpirationTime && <span onClick={resendOtp}>Resend Otp</span>}   */}
 </Card>
 <XMarkIcon onClick={()=>dispatch(close())} color='white' className=' w-6 h-6 ms-5 '/>
      </>
 :
     <> 
-             <Card className="mx-auto w-full max-w-[24rem]">
+    <div className='flex  overflow-visible   '>
+
+             <Card className="mx-auto overflow-scroll max-h-screen  w-full max-w-[24rem]">
     
              <CardHeader
                 variant="gradient"
@@ -168,21 +197,21 @@ function ForgotOtp({data,email}) {
               </CardHeader>
               <form onSubmit={handleSubmit}>
               
-              <CardBody className="flex flex-col gap-4">
+              <CardBody className="flex flex-col space-y-6">
               <Typography variant="h4" >
                   Enter the Otp sent to your Email
                 </Typography>
-              <div className="flex gap-2 justify-center items-center">
+              <div className=" flex flex-wrap gap-2 justify-center items-center">
               {inputRefs.map((ref, index) => (
           <input
-            key={index}
-            ref={ref}
-            className='border-2 border-light-blue-800 w-12 h-14 text-4xl flex text-center justify-center items-center'
-            type='text'
-            maxLength={1}
+          key={index}
+          className='border-2 border-light-blue-800 w-10 h-10 flex text-center justify-center items-center'
+          ref={ref}
+          type='text'
+            // maxLength={1}
             onChange={(event) => handleInputChange(index, event)}
             onKeyDown={(event) => handleKeyDown(index, event)}
-          />
+            />
         ))}
           </div>
                 </CardBody>
@@ -195,8 +224,14 @@ function ForgotOtp({data,email}) {
                 </Button>
               </CardFooter>
                 </form>
+                <div className='flex justify-center items-center'>
+
+            <div className='p-5' onClick={resendOtp}>Resend Otp</div>
+                </div>
+
              </Card>
             <XMarkIcon onClick={()=>dispatch(close())} color='red' className=' absolutew-6 h-6 ms-5 '/>
+                </div>
 
 
 

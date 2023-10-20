@@ -19,7 +19,7 @@ import {  useDispatch } from 'react-redux'
 //   import axios from 'axios';
   import { close } from '../../../Redux/LoginReduser';
 // import { XMarkIcon } from '@heroicons/react/24/solid';
-function Otp({data}) {
+function Otp({data,setdata}) {
     const dispatch = useDispatch()
 
     const inputRefs = Array.from({ length: 6 }, () => useRef(null));
@@ -48,10 +48,17 @@ function Otp({data}) {
         };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+    const currentTime = new Date();
+    const backendTime = new Date(data.otp.data.time);
+    const timeDifference = currentTime - backendTime;
+    const otpExpirationTime = 30 * 1000;
     const otpValue = inputRefs.map(ref => ref.current.value).join('');
+    console.log(data);
+    console.log(backendTime);
+    console.log(otpExpirationTime);
     // console.log(data,"dddddddddddddddddddddddddddddddddddddddddddddddddddd")
-    if (data.otp===otpValue){
+    if (data.otp.data.otp===otpValue){
+      if (timeDifference <= otpExpirationTime) {
         try {
           const response = await axios.post(import.meta.env.VITE_BASE_URL+'user/register/', data);
           
@@ -80,9 +87,26 @@ function Otp({data}) {
           console.error('Error:', error);
           toast.error(error.response.data.detail)
         }
+      }else {
+        toast.error('OTP has expired');
+    }
+    }else{
+      toast.error('wrong otp')
     }
   };
 
+  
+  const resendOtp=async()=>{
+    // const inputObject = Object.fromEntries();
+    // inputObject["email"]=email;
+    const response = await axios.post(import.meta.env.VITE_BASE_URL+'user/resend/', {'email':data.email});
+    setdata({
+      ...data,
+      otp: response.data
+    })
+    // console.log(response.data);
+    console.log(response.data);
+  }
   return (
     <> 
              <Card className="mx-auto w-full max-w-[24rem]">
@@ -128,10 +152,12 @@ function Otp({data}) {
                 </Button>
               </CardFooter>
                 </form>
+                <div className='flex justify-center items-center'>
+
+            <div className='p-5' onClick={resendOtp}>Resend Otp</div>
+                </div>
              </Card>
-            <XMarkIcon onClick={()=>dispatch(close())} color='red' className=' absolutew-6 h-6 ms-5 '/>
-
-
+            <XMarkIcon onClick={()=>dispatch(close())} color='red' className='absolute flex left-full ms-5 w-6 h-6  '/>
 
     </>
   )

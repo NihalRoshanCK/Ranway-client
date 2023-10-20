@@ -29,8 +29,11 @@ function Register({handelChange}) {
       return toast.warning('email is required')
     } else if (!isValidEmail(inputObject.email)) {
       return toast.warning('enter a correct email format')
+    }   if (!inputObject.name){
+      return toast.warning('name  is required')
+    }else if (!isValidName(inputObject.name)) {
+      return toast.warning('enter a correct name  without space and atleast 4 letter  ')
     }
-
     if (!inputObject.password) {
       return toast.warning('Password is required')
     } 
@@ -58,7 +61,7 @@ function Register({handelChange}) {
           if (response && response.status === 200) {
             toast.success('Otp sented to email')
             console.log(response.data)
-            inputObject['otp']=response.data
+            inputObject['otp']=response.data 
             console.log(inputObject,"fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
             setdata(inputObject)
             // console.log(data)
@@ -87,12 +90,19 @@ function Register({handelChange}) {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return passwordRegex.test(password);
       };
+      const isValidName = (name) => {
+        // usernames must start and end with an alphanumeric character (letter or digit)
+        //  can contain periods (dots) within, must not have consecutive periods
+        //  and be between 1 and 30 characters in length
+        const nameRegex = /^(?!.*\.\.)(?!.*\.$)[^\W_][\w.]{3,29}$/;
+        return nameRegex.test(name);
+      };
     // const on =useSelector((state) => state.login.value)
     const dispatch = useDispatch()
     const [registerd,setRegisterd]=useState(false)
   return (
     <>
-    {registerd ?  <Otp data={data}/> : <>
+    {registerd ?  <Otp data={data} setdata={setdata}/> : <>
              <Card className="mx-auto w-full max-w-[24rem]">
 
               <CardHeader
