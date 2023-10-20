@@ -42,6 +42,8 @@ function SingleOder() {
     api.patch(`product/order/${id}/`,data)
       .then((response) => {
         console.log(response.data, "orderrrrrrrrrrrrrrrrrrr");
+        setCash(false)
+        navigate(-1)
         // setOrder(response.data); // Update state with the response data
       })
       .catch((error) => {
@@ -102,7 +104,7 @@ function SingleOder() {
     <Dialog open={cash} >
         <DialogHeader>Cash</DialogHeader>
         <DialogBody divider>
-         Collect {order?.booking?.product_price}
+         Collect ₹ {order?.booking?.product_price}
         </DialogBody>
         <DialogFooter>
           <Button
