@@ -212,7 +212,7 @@ function Booking() {
     //  consisting of non-space characters before the @ symbol
     //  followed by non-space characters, and a valid top-level domain (TLD) after the @ symbol
     const valueRegex = /^(?:[1-9]|[1-4]\d|50)$/;
-    return valueRegex.test(email);
+    return valueRegex.test(value);
   };
   const isValidEmail = (email) => {
     // Valid email addresses in the format user@example.com
