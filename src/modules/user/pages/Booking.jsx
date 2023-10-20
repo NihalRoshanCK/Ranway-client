@@ -270,7 +270,7 @@ function Booking() {
           <Typography variant="h1" className="text-center">Enter Details</Typography>
           <form onSubmit={handleSubmit}>
             <div className="mb-2">
-            <Input  type="text" name="product_name" pattern="[A-Za-z]+" required title="Only letters allowed" label="Product Name" />
+            <Input  type="text" name="product_name"  label="Product Name" />
             </div>
             <div className="mb-2">
               <Select onChange={handleSelect} className="" name="category" color="indigo" label="Category">
@@ -282,30 +282,29 @@ function Booking() {
             <Textarea   title='please enter a correct ' name="from_address" color="indigo" label="From address" />
             <div className="mb-2">
               
-              <Input className="no-spin-button" required   pattern="^\d{6}$"   
-          title="Please enter a 6-digit zip code" id='' name="from_zipcode" color="indigo" label="From address pincode" />
+              <Input className="no-spin-button"    id='' name="from_zipcode" color="indigo" label="From address pincode" />
             </div>
             <div className="mb-2">
-            <Input pattern="[0-9]{10}" required title="Please enter a 10-digit phone number" className="no-spin-button" type="tel" name="from_user_contact" color="indigo" label="From address contact number" />
+            <Input  className="no-spin-button" type="tel" name="from_user_contact" color="indigo" label="From address contact number" />
             </div>
             <Textarea name="to_address" color="indigo" label="To address" />
             <div className="mb-2">
-              <Input pattern="[0-9]{6}" required title="Please enter a 6-digit zip code" className="no-spin-button" type="number" name="to_zipcode" color="indigo" label="To address pincode" />
+              <Input  className="no-spin-button" type="number" name="to_zipcode" color="indigo" label="To address pincode" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" required  pattern="[0-9]{10}" title="Please enter a 10-digit contact number" name="to_user_contact" color="indigo" label="To address contact number" />
+              <Input className="no-spin-button"  name="to_user_contact" color="indigo" label="To address contact number" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" required pattern="[0-9]{1-2}" title="Please enter a 2-digit height" name="height" color="indigo" label="Height" />
+              <Input className="no-spin-button"  name="height" color="indigo" label="Height" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" required pattern="[0-9]{1-2}" title="Please enter a 2-digit width"  name="width" color="indigo" label="Width" />
+              <Input className="no-spin-button"  name="width" color="indigo" label="Width" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" required pattern="[0-9]{1-2}" title="Please enter a 2-digit weight" name="weight" color="indigo" label="Weight" />
+              <Input className="no-spin-button"  name="weight" color="indigo" label="Weight" />
             </div>
             <div className="mb-2">
-              <Input className="no-spin-button" pattern="[0-9]{1-2}" title="Please enter a digits "  name="product_price" color="indigo" label="Price to be collected" />
+              <Input className="no-spin-button"   name="product_price" color="indigo" label="Price to be collected" />
             </div>
             <div className="mb-2">
               <Input onKeyDown={handleKeyPress} color="indigo" name="hbd" label="Date for pickup" type="date" min={currentDateStr} max={maxDateStr} />
