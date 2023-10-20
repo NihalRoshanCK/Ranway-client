@@ -155,9 +155,9 @@ function Booking() {
     }else if (!isValidvalue(inputObject.height)) {
       return toast.warning('Enter height must be than 1 and less than 50')
     }else if (!isValidvalue(inputObject.width)) {
-      return toast.warning('Enter height must be than 1 and less than 50')
+      return toast.warning('Enter width must be than 1 and less than 50')
     }else if (!isValidvalue(inputObject.weight)) {
-      return toast.warning('Enter height must be than 1 and less than 50')
+      return toast.warning('Enter weight must be than 1 and less than 50')
     }
     const cpd = new Date(inputObject["hbd"]);
     cpd.setDate(currentDate.getDate() + 6);
