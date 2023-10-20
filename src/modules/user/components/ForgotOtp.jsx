@@ -54,7 +54,7 @@ function ForgotOtp({data,email,setdata}) {
     const currentTime = new Date();
         const backendTime = new Date(data.data.time);
         const timeDifference = currentTime - backendTime;
-        const otpExpirationTime = 30 * 1000;
+        const otpExpirationTime = 60 * 1000;
     console.log(data);
     const otpValue = inputRefs.map(ref => ref.current.value).join('');
     console.log(otpValue,"otpValueotpValue");

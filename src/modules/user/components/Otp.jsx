@@ -51,7 +51,7 @@ function Otp({data,setdata}) {
     const currentTime = new Date();
     const backendTime = new Date(data.otp.data.time);
     const timeDifference = currentTime - backendTime;
-    const otpExpirationTime = 30 * 1000;
+    const otpExpirationTime = 60 * 1000;
     const otpValue = inputRefs.map(ref => ref.current.value).join('');
     console.log(data);
     console.log(backendTime);
