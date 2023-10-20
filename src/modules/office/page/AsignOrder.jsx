@@ -61,8 +61,8 @@ function Asignorder() {
             }
             // You can perform actions with the response data here
         } catch (error) {
+            console.error(error)
             toast.error(error?.data?.message)
-            console.error("An error occurred:", error);
         }
     }
     const debouncedSendPostRequest = debounce(sendPostRequest, 1000);
