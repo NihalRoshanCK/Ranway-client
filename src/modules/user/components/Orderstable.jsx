@@ -173,7 +173,7 @@ console.log(orderData,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 {order?.status ==="return"   ? (
                   <Chip
                     className="bg-red-300 hover:bg-red-600 text-white font-medium py-1 px-2 rounded"
-                    value={"Returnd"}
+                    value={"Returned"}
                     />
                     
                     //   </Chip>

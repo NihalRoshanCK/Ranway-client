@@ -12,6 +12,7 @@ import {
 import api from '../officeaxiosInterceptor';
 import debounce from 'lodash/debounce';
 import card from '@material-tailwind/react/theme/components/card';
+import { toast } from 'react-toastify';
 function Asignorder() {
     const [orderId, setOrderId] = useState("");
     const [orders,setOrders]=useState([])
@@ -60,6 +61,7 @@ function Asignorder() {
             }
             // You can perform actions with the response data here
         } catch (error) {
+            toast.error(error?.data?.message)
             console.error("An error occurred:", error);
         }
     }
