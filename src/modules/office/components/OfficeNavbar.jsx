@@ -22,7 +22,7 @@ function OfficeNavbar() {
       localStorage.removeItem('refresh');
       localStorage.removeItem('access');
       localStorage.removeItem('role');
-      navigate('/office/')
+      navigate('/officelogin')
     }
    
     const navList = (

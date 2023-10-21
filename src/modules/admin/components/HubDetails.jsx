@@ -52,7 +52,7 @@ function HubDetails() {
     phone: '',
     address: '',
     is_officeStaff: false,
-    is_deliveryStaff: false,
+    is_deleverystaff: false,
     is_active: false,
   });
 
@@ -85,7 +85,6 @@ const handleChange = (e) => {
   const handleupdate = async (e,staffId) => {
     e.preventDefault();
     
-    
     if (!formData.name){
       return toast.warning(' Staff name  is required')
     }else if (!formData.email) {
@@ -112,7 +111,12 @@ const handleChange = (e) => {
       api.patch(`hub/staff/${staffId}/`,formData)
           .then((response) => {
           console.log("yessssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
-          setOpen(!open)
+          toast.success('updated')
+          fetchdata()
+          setTimeout(function() {
+            setOpen(!open);
+          }, 2000);
+          
           })
           .catch((error) => {
             console.error(error);
@@ -504,7 +508,7 @@ const handleChange = (e) => {
                       <div className="flex items-center gap-3 ">
                          <div className="h-9 rounded-md border border-blue-gray-50 p-1">
                        
-                        {staff.is_hubadmin? "Hub admin" : staff.is_deleverystaff ? "Delevery Staff" : "Office Staff"}
+                        {staff.is_hubadmin? "Hub admin" : staff.is_deleverystaff ? "Delevery Staff" :staff.is_officeStaff ? "Office Staff":"No Role"}
                         </div> 
                         <div className="flex flex-col">
                           <Typography
@@ -570,6 +574,7 @@ const handleChange = (e) => {
           Next
         </Button>
       </CardFooter>
+  {/* <ToastContainer className="z-50" /> */}
       
     </Card>
 

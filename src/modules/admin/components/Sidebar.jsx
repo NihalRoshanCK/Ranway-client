@@ -31,6 +31,7 @@ import {SiHomeassistantcommunitystore} from "react-icons/si";
 import { open,close } from '../../../Redux/StateReducer';
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
+import { BiCategoryAlt } from 'react-icons/bi';
 function Sidebar() {
   const isOpen=useSelector((state) => state.counter.value)
   const dispatch = useDispatch()
@@ -171,6 +172,15 @@ function Sidebar() {
                 <SiHomeassistantcommunitystore/>
               </ListItemPrefix>
               Hub
+            </ListItem>
+            </Link>
+            <Link to="/admin/catogory" >
+            <ListItem style={text}>
+              <ListItemPrefix>
+                {/* <SiHomeassistantcommunitystore/> */}
+                <BiCategoryAlt className='w-5 h-5' />
+              </ListItemPrefix>
+              Catogory
             </ListItem>
             </Link>
             <ListItem onClick={handleLogout} className="text-red-500">

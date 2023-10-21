@@ -31,7 +31,7 @@ function AdminProfile() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [data, setData] = useState({
     name: '',
-    email: '',
+    email: '',  
     age: '',
     phone: '',
   });
@@ -96,6 +96,7 @@ function AdminProfile() {
     api.patch(`auths/user/${userId}/`,formData)
           .then((response) => {
           console.log("SingleStaffffffffffffffffffffff",response.data);
+          toast.success('updated')
           setOpenDialog(false)
           })
           .catch((error) => {

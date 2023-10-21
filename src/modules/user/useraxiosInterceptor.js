@@ -34,7 +34,7 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     // If the response status is 401 (Unauthorized) and there's a refresh token
-    if (error.response && error.response.status === 401 && localStorage.getItem('refresh')) {
+    if (error.response && error.response.status === 401 ||(error.response.status === 403) && localStorage.getItem('refresh')) {
       try {
         // Send a request to the refresh token endpoint to get a new access token
         const refreshResponse = await axios.post(+import.meta.env.VITE_BASE_URL+'auths/token/refresh/', {
@@ -52,6 +52,8 @@ api.interceptors.response.use(
         localStorage.removeItem('access');
         localStorage.removeItem('refresh');
         localStorage.removeItem('role');
+      window.location.href = '/'; // Redirect to home page
+
         // dispatch(()=>open()) // Redirect to login page
       }
     }
@@ -61,7 +63,7 @@ api.interceptors.response.use(
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
       localStorage.removeItem('role');
-    //   window.location.href = '/login'; // Redirect to login page
+      window.location.href = '/'; // Redirect to home page
     // dispatch(()=>open())
 
 

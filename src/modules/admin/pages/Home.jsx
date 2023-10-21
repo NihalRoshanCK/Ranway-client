@@ -13,7 +13,7 @@ import HubDetailview  from  '../components/HubAdminDetailview'
 import HubDetails from '../components/HubDetails';
 import AdminDash from '../components/AdminDash';
 import UserManagement from '../components/UserManagement';
-
+import AddCategory from '../components/AddCategory';
 
 function Home() {
   
@@ -41,6 +41,8 @@ if(role &&  refresh && access){
               <Route path='hubadmin/:id'  element={<HubDetailview/>} />
               <Route path='hubdetail/:id' element={<HubDetails/>} />
               <Route path='profile' element={<AdminProfile/>}/>
+              <Route path='catogory' element={<AddCategory/>}/>
+
           </Routes>
           {/* <Outlet/> */}
           <div>

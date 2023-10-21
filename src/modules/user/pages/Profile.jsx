@@ -125,9 +125,11 @@ function Profile() {
     api.patch(`auths/user/${userId}/`,formData)
           .then((response) => {
           console.log("SingleStaffffffffffffffffffffff",response.data);
+          toast.success('updated')
           })
           .catch((error) => {
             console.error(error);
+            toast.error(error)
 
           });
 
