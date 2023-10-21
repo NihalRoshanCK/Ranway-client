@@ -107,6 +107,7 @@ function ForgotOtp({data,email,setdata}) {
     // inputObject["email"]=email;
     const response = await axios.post(import.meta.env.VITE_BASE_URL+'user/forget/', {'email':email});
     setdata(response.data)
+    toast.success('new otp sent to your email')
     console.log(response.data);
   }
   return (

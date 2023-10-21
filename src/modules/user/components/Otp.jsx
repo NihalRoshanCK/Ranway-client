@@ -105,6 +105,7 @@ function Otp({data,setdata}) {
       ...data,
       otp: response.data
     })
+    toast.success('new otp sent to your email')
     // console.log(response.data);
     console.log(response.data);
   }
