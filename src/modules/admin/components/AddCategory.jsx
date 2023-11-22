@@ -1,20 +1,33 @@
-import { Card, CardBody, CardHeader, Typography,Button,CardFooter,IconButton ,Tooltip,
+import { 
+    Card, 
+    CardBody, 
+    Typography,
+    Button,
+    CardFooter,
+    IconButton ,
+    Tooltip,
     Dialog,
     DialogHeader,
     DialogBody,
     DialogFooter,
     Input,
-    Radio,
-    Textarea
+    Chip,
+    Textarea,
+    CardHeader
   
   } from '@material-tailwind/react';
+  import {
+    ChevronUpDownIcon,
+    PlusCircleIcon
+  } from "@heroicons/react/24/outline";
   import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
-  import React, { useState ,useEffect} from 'react';
+  import React, { useState } from 'react';
   import api from '../../../axiosInterceptor';
-  import { useQuery } from 'react-query';
+  import { useQuery  } from 'react-query';
   import { PencilIcon } from "@heroicons/react/24/solid";
   import { FiUserPlus } from 'react-icons/fi';
+  // import { queryClient } from 'react-query';
   const fetchCategory = async () => {
     const response = await api.get(`product/categories/`);
     console.log(response.data);
@@ -23,7 +36,9 @@ import { Card, CardBody, CardHeader, Typography,Button,CardFooter,IconButton ,To
   };
   
   function  AddCategory() {
-    const { data: category, isLoading, isError } = useQuery(['category', fetchCategory], () => fetchCategory());
+    const { data: category, isLoading, isError, refetch } = useQuery(['category', fetchCategory], () => fetchCategory(), {
+      refetchInterval: 120000, // 2 minutes in milliseconds
+    });
     const [item,setitem]=useState([])
     const [add,setAdd]=useState(false)
     const [data, setData] = useState({
@@ -31,7 +46,7 @@ import { Card, CardBody, CardHeader, Typography,Button,CardFooter,IconButton ,To
       description: '',
       price: '',
     });
-    const TABLE_HEAD = ["Name", "Price", "Description",'Edit'];
+    const TABLE_HEAD = ["Name", "Price", "Description","Status",'Edit'];
     const [edit,setEdit]=useState(false)
     
     const handleChange = (e) => {
@@ -71,6 +86,7 @@ import { Card, CardBody, CardHeader, Typography,Button,CardFooter,IconButton ,To
         // Send the POST request to create the Hub, Staff, and CustomUser
         const response = await api.patch(`product/categories/${data.id}/`, data);
         toast.success("updated")
+        queryClient.invalidateQueries(['category', fetchCategory]);
         setEdit(!edit)
         
         // e.target.reset();
@@ -80,14 +96,8 @@ import { Card, CardBody, CardHeader, Typography,Button,CardFooter,IconButton ,To
       } catch (error) {
         console.error(error);
         toast.error(error?.response.data?.message)
-        toast.error(error?.response.data?.hub_name[0])
-        toast.error(error?.response.data?.address[0])
-        toast.error(error?.response.data?.location[0])
-        toast.error(error?.response.data?.hub_head[0])
-        toast.error(error?.response.data?.is_hotspot[0])
-        toast.error(error?.response.data?.is_active[0])
-        toast.error(error?.response.data?.number[0])
-  
+        toast.error(error?.response.data?.name[0])
+ 
   
         // Handle error: Display an error message to the user or perform other actions.
       }
@@ -110,6 +120,7 @@ import { Card, CardBody, CardHeader, Typography,Button,CardFooter,IconButton ,To
         // Send the POST request to create the Hub, Staff, and CustomUser
         const response = await api.post('product/categories/', inputObject);
         toast.success("Added")
+        queryClient.invalidateQueries(['category', fetchCategory]);
         setAdd(!add)
         
         // e.target.reset();
@@ -118,127 +129,147 @@ import { Card, CardBody, CardHeader, Typography,Button,CardFooter,IconButton ,To
         // alert(`${response.data} Hub has been created successfully`);
       } catch (error) {
         console.error(error);
+        console.log("herereeeeeeeeeeeeeeeeee");
+        toast.error(error?.response.data?.name[0])
         toast.error(error?.response.data?.message)
-        toast.error(error?.response.data?.hub_name[0])
-        toast.error(error?.response.data?.address[0])
-        toast.error(error?.response.data?.location[0])
-        toast.error(error?.response.data?.hub_head[0])
-        toast.error(error?.response.data?.is_hotspot[0])
-        toast.error(error?.response.data?.is_active[0])
-        toast.error(error?.response.data?.number[0])
   
   
-        // Handle error: Display an error message to the user or perform other actions.
+        // Handle error: Display an error message to the admins or perform other actions.
       }
     }
     return (
   <>
       <div className='mt-10'>
-        <Card>
-          <CardHeader variant="gradient" color="blue" className="mb-8 p-6">
+      <Card className="h-full w-full">
+      <CardHeader variant="gradient" color="blue" className="mb-2 p-6">
             <Typography variant="h6" color="white">
               Category
             </Typography>
           </CardHeader>
-          <CardBody>
-          <Button onClick={()=>setAdd(!add)} className='float-right m-5'>Add</Button>
-          <table className="w-full min-w-max table-auto text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head,index) => (
-                  <th key={index} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      {head}
-                    </Typography>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {category && category.map(
+          <div className='float-right mr-8'>
+            <PlusCircleIcon onClick={()=>setAdd(!add)}   color='rgb(50,152,238)' className=' w-9 rounded h-9 float-right '/>
+          </div>
+      <CardBody className="overflow-scroll px-0">
+      {/* <Button onClick={()=>setAdd(!add)} className='float-right m-5'>Add</Button> */}
+
+        <table className="mt-4 w-full min-w-max table-auto text-left">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head, index) => (
+                <th key={head}
+                  className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                >
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                  >
+                    {head}
+                    {index !== TABLE_HEAD.length - 1 && (
+                      <ChevronUpDownIcon strokeWidth={2} className="h-4 w-4" />
+                    )}
+                  </Typography>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {category && category.map(
                 (item, index) => {
                   const isLast = index === category.length - 1;
                   const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-   
-                  return (
-                    <tr key={item.id}>
-                      <td className={classes}>
-                        <div className="flex items-center gap-3">
-                          {/* // <Avatar
-                          //   src={staff.user.profile_picture}
-                          //   alt={staff.user.name}
-                          //   size="md"
-                          //   className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
-                          // /> */}
-                          <Typography variant="small" color="blue-gray" className="font-bold">
-                          {item.name}
+ 
+                return (
+                  <tr 
+                  // key={name}
+                  >
+                    <td className={classes}>
+                      <div className="flex items-center gap-3">
+                        <div className="flex flex-col">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {item.name}
                           </Typography>
                         </div>
-                      </td>
-                      <td className={classes}>
-                        <Typography variant="small" color="blue-gray" className="font-normal">
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="flex flex-col">
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {/* {job} */}
+                        </Typography>
+                        <Typography
+                          variant="small"
+                          color="blue"
+                          className="font-normal opacity-70 max-w-sm break-words"
+                        >
                           {item.price}
                         </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography variant="small" color="blue-gray" className="font-normal">
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="flex flex-col">
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                          >
+                          {/* {job} */}
+                        </Typography>
+                        <Typography
+                          variant="small"
+                          color="blue"
+                          className="font-normal opacity-70 max-w-sm break-words"
+                        >
                           {item.description}
                         </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Tooltip content="Edit">
-                          <IconButton onClick={()=>handleOpen(item.id)} variant="text" color="blue-gray">
-                            <PencilIcon className="h-4 w-4" />
-                          </IconButton>
-                        </Tooltip>
-                      </td>
-                      
-                    </tr>
-                  );
-                },
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="w-max">
+                        <Chip
+                          variant="ghost"
+                          size="sm"
+                          // value={online ? "online" : "offline"}
+                          // color={online ? "green" : "blue-gray"}
+                        />
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <Tooltip content="Edit">
+                        <IconButton onClick={()=>handleOpen(item.id)} variant="text">
+                          <PencilIcon className="h-4 w-4" />
+                        </IconButton>
+                      </Tooltip>
+                    </td>
+                  </tr>
+                );
+              },
               )}
-            </tbody>
-          </table>
-        </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <div className=''>
-            
-          <Button variant="outlined" color="blue-gray" className='' size="sm">
+          </tbody>
+        </table>
+      </CardBody>
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <Typography variant="small" color="blue-gray" className="font-normal">
+          Page 1 of 10
+        </Typography>
+        <div className="flex gap-2">
+          <Button variant="outlined" size="sm">
             Previous
           </Button>
-          </div>
-          <div className="sm:flex items-center gap-2">
-            <IconButton variant="outlined" color="blue-gray" size="sm">
-              1
-            </IconButton>
-            <IconButton variant="text" color="blue-gray" size="sm">
-              2
-            </IconButton>
-            <IconButton variant="text" color="blue-gray" size="sm">
-              3
-            </IconButton>
-            <IconButton variant="text" color="blue-gray" size="sm">
-              ...
-            </IconButton>
-            <IconButton variant="text" color="blue-gray" size="sm">
-              8
-            </IconButton>
-            <IconButton variant="text" color="blue-gray" size="sm">
-              9
-            </IconButton>
-            <IconButton variant="text" color="blue-gray" size="sm">
-              10
-            </IconButton>
-          </div>
-          <Button variant="outlined" color="blue-gray" size="sm">
+          <Button variant="outlined" size="sm">
             Next
           </Button>
-        </CardFooter> 
-        </Card>
+        </div>
+      </CardFooter>
+    </Card>
       </div>
   
     <Dialog open={edit} className='max-h-screen overflow-y-auto pb-10' handler={setEdit}>

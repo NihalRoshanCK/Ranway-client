@@ -41,7 +41,7 @@ export default function App() {
       <Route path='office/*' element={<OfficeStaffProtuctedRoute><Homeoffice/></OfficeStaffProtuctedRoute>} />
 
       <Route path='loader/' element={<Loader/>}></Route>
-
+      
     </Routes>
     
     </>

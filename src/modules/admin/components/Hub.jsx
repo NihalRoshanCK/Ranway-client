@@ -1,45 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react';
+import { useQuery } from 'react-query';
 import {
-    Card,
-    CardHeader,
-    Typography,
-    Button,
-    CardBody,
-    Chip, 
-    CardFooter,
-    Avatar,
-    IconButton,
-    Tooltip,
-  } from "@material-tailwind/react";
-
-
-
-  const TABLE_HEAD = ["Head", "HubName",  "is Hotspot","Number", ""];
- 
-
-
-import {
-  //  MagnifyingGlassIcon, 
-   ChevronUpDownIcon } from "@heroicons/react/24/outline";
+  Card,
+  CardHeader,
+  Typography,
+  Button,
+  CardBody,
+  Chip,
+  CardFooter,
+  Avatar,
+  IconButton,
+  Tooltip,
+} from "@material-tailwind/react";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import { Link } from 'react-router-dom';
 import api from '../../../axiosInterceptor';
-function Hub() {
-    const[TABLE_ROWS,setTABLE_ROWS]=useState([])
-    useEffect(() => {
-      // Example API request using the api instance
-      api.get('admins/hub/')
-        .then((response) => {
-          
-        setTABLE_ROWS(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }, []);
 
-  console.log(TABLE_ROWS)
-  return (
+const TABLE_HEAD = ["Head", "HubName", "is Hotspot", "Number", ""];
+
+const Hub = () => {
+  const { data: TABLE_ROWS = [], isLoading, isError } = useQuery('hubData', () =>
+    api.get('admins/hub/').then(response => response.data)
+  );
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error loading data</p>;
+  }
+    return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>
       <CardHeader variant="gradient" color="blue" className="mb-8 p-6">

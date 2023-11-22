@@ -7,6 +7,7 @@ import {
   Button,
   Input,
   Textarea,
+  Checkbox 
 } from "@material-tailwind/react";
 // import { Point } from 'django.contrib.gis.geos';
 import { ToastContainer, toast } from 'react-toastify';
@@ -90,6 +91,8 @@ function AddHub() {
       delete inputObject.longitude;
 
       inputObject.location = location;
+      console.log(formData.get('is_hotspot'));
+      inputObject.is_hotspot = formData.get('is_hotspot') === 'on' ? true : false;
       console.log(inputObject);
   // Update the inputObject to include the Point data
       // inputObject.location = point;
@@ -170,7 +173,15 @@ function AddHub() {
           <div className="space-y-4  items-center justify-center  ">
               <Input type="text" color='indigo' id="name_hub" name="hub_name" label="Hub Name" size="xl" />
               <Textarea color='indigo' label="Hub Address" name='address' id="address"/>
-              <Input color='indigo' id="number" name="number" label="Hub number" size="xl"  />
+              <Input color='indigo' id="number" type='number' name="number" label="Hub number" size="xl"  />
+              <Checkbox
+               label={
+                <Typography color="blue-gray" className="flex font-medium">
+                
+                  Hotsport Hub
+                </Typography>
+              }
+              name='is_hotspot' ripple={false} className="h-8 w-8 rounded-full border-gray-900/20 bg-gray-900/10 transition-all hover:scale-105 hover:before:opacity-0"/>
               < LocationPicker/>
               <h1 className='text-center'>Assaingn Hub Head</h1>
               <Input color='indigo' type="name"id="name" className='w-full' name="name" label="Head Name" size="xl" />
