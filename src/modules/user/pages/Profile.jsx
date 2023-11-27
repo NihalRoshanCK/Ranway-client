@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardBody,
   Avatar,
   Typography,
-  Tabs,
-  TabsHeader,
-  Tab,
   Button,
   Dialog,
   DialogHeader,
@@ -16,41 +13,23 @@ import {
 } from "@material-tailwind/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useQuery } from "react-query";
-import {
-  HomeIcon,
-  ChatBubbleLeftEllipsisIcon,
-  Cog6ToothIcon,
-} from "@heroicons/react/24/solid";
 import api from "../useraxiosInterceptor";
 import NavbarUser from "../components/NavbarUser";
 import jwt_decode from "jwt-decode";
-// const TABLE_HEAD = ["Product Name", "Order_id",  "from_address","to_address", "status"];
-
 import Orderstable from "../components/Orderstable";
-const fetchUserData = async (userId) => {
-  const response = await api.get(`auths/user/${userId}/`);
-  return response.data;
-};
+import { useUserData } from "../../../hooks/useUserData";
+
 function Profile() {
-  // const [user,setUser]=useState([])
   const [open, setOpen] = useState(false);
   const [order, setorder] = useState([]);
   var token = localStorage.getItem("access");
   var decoded = jwt_decode(token);
   const userId = decoded.user_id;
-  const {
-    data: user,
-    isLoading,
-    isError,
-  } = useQuery(["user", userId], () => fetchUserData(userId));
+  const { data: user, isLoading, isError, refetch } = useUserData(api, userId);
 
-  console.log(user);
 
   const orderDetail = async (id) => {
-    console.log(id, "ggggggggggggggggggggggggggggggggggggggggggg");
     const response = await api.get(`product/order/${id}/`);
-    console.log(response.data, "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
     setorder(response.data);
     setOpen(!open);
   };
@@ -140,6 +119,10 @@ function Profile() {
       .then((response) => {
         console.log("SingleStaffffffffffffffffffffff", response.data);
         toast.success("updated");
+        setTimeout(function() {
+          setOpenDialog(false);
+        }, 2000);
+        refetch()
       })
       .catch((error) => {
         console.error(error);
@@ -189,361 +172,7 @@ function Profile() {
       >
         <DialogHeader>Product Name:{order?.booking?.product_name}</DialogHeader>
         <DialogBody divider className="">
-          {/* <ol class="items-center  sm:flex w-full">
-            <li
-              class={`relative mb-5  w-2/12 ${
-                order?.created_at ? "sm:mb-0" : "sm:mb-5"
-              }`}
-            >
-              <h3
-                color=""
-                className={`text-sm mb-1 font-semibold ${
-                  order?.out_for_delivery
-                    ? "text-green-300"
-                    : order?.returned_at
-                    ? "text-red-300"
-                    : "text-gray dark:text-white "
-                }`}
-              >
-                Order conformed
-              </h3>
-              <div class="flex items-center ">
-                <div
-                  class={` flex  items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${
-                    order?.returned_at
-                      ? "bg-red-300"
-                      : order?.created_at
-                      ? "bg-green-300"
-                      : order?.returned_at
-                      ? "bg-red-300"
-                      : "bg-gray-200 dark:bg-gray-700"
-                  }   `}
-                ></div>
-
-                <div
-                  class={`hidden sm:flex w-full bg-gray-200 h-0.5 ${
-                    order?.returned_at
-                      ? "bg-red-300"
-                      : order?.created_at
-                      ? "bg-green-300"
-                      : order?.returned_at
-                      ? "bg-red-300"
-                      : "bg-gray-500 dark:bg-gray-700"
-                  }`}
-                ></div>
-              </div>
-              <div class="mt-3 sm:pr-8">
-                <time class="block ml-4 mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                  {order?.created_at}
-                </time>
-              </div>
-            </li>
-
-            <li
-              class={`relative mb-5  w-2/12 ${
-                order?.collected_at ? "sm:mb-0" : "sm:mb-5"
-              }`}
-            >
-              <h3
-                color=""
-                className={`text-sm mb-1 font-semibold ${
-                  order?.out_for_delivery
-                    ? "text-green-300"
-                    : order?.returned_at
-                    ? "text-red-300"
-                    : "text-gray dark:text-white "
-                }`}
-              >
-                Order Collected
-              </h3>
-              <div class="flex items-center">
-                <div
-                  class={` flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${
-                    order?.returned_at
-                      ? "bg-red-300"
-                      : order?.nearest_hub_at
-                      ? "bg-green-300"
-                      : order?.returned_at
-                      ? "bg-red-300"
-                      : "bg-gray-200 dark:bg-gray-700"
-                  }   `}
-                ></div>
-
-                <div
-                  class={`hidden sm:flex w-full bg-gray-200 h-0.5 ${
-                    order?.returned_at
-                      ? "bg-red-300"
-                      : order?.collected_at
-                      ? "bg-green-300"
-                      : order?.returned_at
-                      ? "bg-red-300"
-                      : "bg-gray-500 dark:bg-gray-700"
-                  }`}
-                ></div>
-              </div>
-              <div class="mt-3 sm:pr-8">
-                <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                  {order?.collected_at}
-                </time>
-              </div>
-            </li>
-
-
-
-
-
-            <li
-              class={`relative mb-5  w-2/12 ${
-                order?.nearest_hub_at ? "sm:mb-0" : "sm:mb-5"
-              }`}
-            >
-              <h3
-                color=""
-                className={`text-sm mb-1 font-semibold ${
-                  order?.out_for_delivery
-                    ? "text-green-300"
-                    : order?.returned_at
-                    ? "text-red-300"
-                    : "text-gray dark:text-white "
-                }`}
-              >
-                Reached nearest hub
-              </h3>
-              <div class="flex items-center">
-                <div
-                  class={` flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${
-                    order?.returned_at
-                      ? "bg-red-300"
-                      : order?.nearest_hub_at
-                      ? "bg-green-300"
-                      : order?.returned_at
-                      ? "bg-red-300"
-                      : "bg-gray-200 dark:bg-gray-700"
-                  }   `}
-                ></div>
-
-                <div
-                  class={`hidden sm:flex w-full bg-gray-200 h-0.5 ${
-                    order?.returned_at
-                      ? "bg-red-300"
-                      : order?.nearest_hub_at
-                      ? "bg-green-300"
-                      : order?.returned_at
-                      ? "bg-red-300"
-                      : "bg-gray-500 dark:bg-gray-700"
-                  }`}
-                ></div>
-              </div>
-              <div class="mt-3 sm:pr-8">
-                <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                  {order?.nearest_hub_at}
-                </time>
-              </div>
-            </li>
-
-            <li
-              class={`relative mb-5  w-2/12 ${
-                order?.out_for_delivery ? "sm:mb-0" : "sm:mb-5"
-              }`}
-            >
-              <h3
-                color=""
-                className={`text-sm mb-1 font-semibold ${
-                  order?.out_for_delivery
-                    ? "text-green-300"
-                    : order?.returned_at
-                    ? "text-red-300"
-                    : "text-gray dark:text-white "
-                }`}
-              >
-                Out for Delivery
-              </h3>
-              <div class="flex items-center">
-                <div
-                  class={` flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${
-                    order?.returned_at
-                      ? "bg-red-300"
-                      : order?.out_for_delivery
-                      ? "bg-green-300"
-                      : order?.returned_at
-                      ? "bg-red-300"
-                      : "bg-gray-200 dark:bg-gray-700"
-                  }   `}
-                ></div>
-
-                <div
-                  class={`hidden sm:flex w-full bg-gray-200 h-0.5 ${
-                    order?.returned_at
-                      ? "bg-red-300"
-                      : order?.out_for_delivery
-                      ? "bg-green-300"
-                      : order?.returned_at
-                      ? "bg-red-300"
-                      : "bg-gray-500 dark:bg-gray-700"
-                  }`}
-                ></div>
-              </div>
-              <div class="mt-3 sm:pr-8">
-                <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                  {order?.out_for_delivery}
-                </time>
-              </div>
-            </li>
-
-
-
-
-
-
-
-            {order?.delivered_at ? (
-              <li
-                class={`relative mb-5  w-2/12 ${
-                  order?.delivered_at ? "sm:mb-0" : "sm:mb-5"
-                }`}
-              >
-                <h3
-                  color=""
-                  className={`text-sm mb-1 font-semibold ${
-                    order?.delivered_at
-                      ? "text-green-300"
-                      : "text-gray dark:text-white "
-                  }`}
-                >
-                  Delivery
-                </h3>
-                <div class="flex items-center">
-                  <div
-                    class={` flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${
-                      order?.returned_at
-                        ? "bg-red-300"
-                        : order?.delivered_at
-                        ? "bg-green-300"
-                        : order?.returned_at
-                        ? "bg-red-300"
-                        : "bg-gray-200 dark:bg-gray-700"
-                    }   `}
-                  ></div>
-                </div>
-                <div class="mt-3 sm:pr-8">
-                  <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                    {order?.delivered_at}
-                  </time>
-                </div>
-              </li>
-            ) : order?.returned_at ? (
-              <li
-                class={`relative mb-0  w-2/12 ${
-                  order?.returned_at ? "sm:mb-0" : "sm:mb-5"
-                }`}
-              >
-                <h3
-                  color=""
-                  className={`text-sm mb-1 font-semibold ${
-                    order?.returned_at
-                      ? "text-red-300"
-                      : "text-gray dark:text-white "
-                  }`}
-                >
-                  Returnd
-                </h3>
-                <div class="flex items-center">
-                  <div class=" flex items-center justify-center w-4 h-4 bg-red-200 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0"></div>
-                </div>
-                <div class="mt-3 sm:pr-8">
-                  <time class="block mb-2 text-sm font-normal leading-none text-red-200 dark:text-gray-500">
-                    {order?.returned_at}
-                  </time>
-                </div>
-              </li>
-            ) : (
-              <li class="relative mb-0 sm:mb-0 w-2/12 ">
-                <h3
-                  color=""
-                  className={`text-sm mb-1 font-semibold ${
-                    order?.delivered_at
-                      ? "text-green-300"
-                      : "text-gray dark:text-white "
-                  }`}
-                >
-                  Delivery
-                </h3>
-                <div class="flex items-center">
-                  <div
-                    class={` flex items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${
-                      order?.returned_at
-                        ? "bg-red-300"
-                        : order?.delivered_at
-                        ? "bg-green-300"
-                        : order?.returned_at
-                        ? "bg-red-300"
-                        : "bg-gray-200 dark:bg-gray-700"
-                    }   `}
-                  ></div>
-                </div>
-                <div class="mt-3 sm:pr-8">
-                  <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                    Expected {order?.booking?.cpd}
-                  </time>
-                </div>
-              </li>
-            )}
-          </ol> */}
-
-          {/* <ol class="items-center  sm:flex w-full">
-            <li
-              class={`relative mb-5  w-2/12 ${
-                order?.created_at ? "sm:mb-0" : "sm:mb-5"
-              }`}
-            >
-              <h3
-                color=""
-                className={`text-sm mb-1 font-semibold ${
-                  order?.out_for_delivery
-                    ? "text-green-300"
-                    : order?.returned_at
-                    ? "text-red-300"
-                    : "text-gray dark:text-white "
-                }`}
-              >
-                Order conformed
-              </h3>
-              <div class="flex items-center ">
-                
-              <div
-                  class={` flex  items-center justify-center w-4 h-4 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0  ${
-                    order?.returned_at
-                      ? "bg-red-300"
-                      : order?.created_at
-                      ? "bg-green-300"
-                      : order?.returned_at
-                      ? "bg-red-300"
-                      : "bg-gray-200 dark:bg-gray-700"
-                  }   `}
-                ></div>
-
-
-                <div
-                  class={`hidden sm:flex w-full bg-gray-200 h-0.5 ${
-                    order?.returned_at
-                      ? "bg-red-300"
-                      : order?.created_at
-                      ? "bg-green-300"
-                      : order?.returned_at
-                      ? "bg-red-300"
-                      : "bg-gray-500 dark:bg-gray-700"
-                  }`}
-                ></div>
-
-
-              </div>
-              <div class="mt-3 sm:pr-8">
-                <time class="block ml-4 mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                  {order?.created_at}
-                </time>
-              </div>
-            </li>
-          </ol> */}
+    
           <ol class="md:flex md:w-full md:mb-10 ">
             <li
               className="flex md:block"

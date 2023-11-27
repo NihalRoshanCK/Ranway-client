@@ -16,7 +16,7 @@ import jwt_decode from 'jwt-decode';
 import api from '../officeaxiosInterceptor';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useUserData } from '../../../hooks/useUserData';
 const fetchUserData = async (userId) => {
     const response = await api.get(`auths/user/${userId}/`);
     return response.data;
@@ -25,7 +25,8 @@ function Profile() {
     var token=localStorage.getItem('access')
   var decoded = jwt_decode(token);
   const userId = decoded.user_id;
-  const { data: user, isLoading, isError } = useQuery(['user', userId], () => fetchUserData(userId));
+  const { data: user, isLoading, isError, refetch } = useUserData(api, userId);
+
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [data, setData] = useState({
@@ -95,8 +96,12 @@ function Profile() {
     api.patch(`auths/user/${userId}/`,formData)
           .then((response) => {
           console.log("SingleStaffffffffffffffffffffff",response.data);
-          setOpenDialog(false)
           toast.success('profile updated')
+          setTimeout(function() {
+            setOpenDialog(false);
+          }, 2000);
+          refetch()
+
           })
           .catch((error) => {
             console.error(error);
